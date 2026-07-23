@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volt & Watt Elektrotechnik – Smart Home · Wallbox · E-Check (Demo)</title>
+<style>
+  :root{--dark:#191d24; --dark2:#242a35; --amber:#f5b31d; --ink:#e9ecf1; --ink2:#a6adba; --line:#333b48;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Segoe UI",system-ui,sans-serif; background:var(--dark); color:var(--ink); line-height:1.6;}
+  .wrap{max-width:1020px; margin:0 auto; padding:0 22px;}
+  nav{background:rgba(25,29,36,.95); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;}
+  .nav-inner{display:flex; align-items:center; height:64px; gap:20px;}
+  .logo{font-weight:800; font-size:1.2rem; color:#fff; text-decoration:none;}
+  .logo span{color:var(--amber);}
+  .cta-nav{margin-left:auto; background:var(--amber); color:#191d24; font-weight:800; padding:10px 18px; border-radius:8px; text-decoration:none; font-size:.9rem;}
+  .hero{padding:88px 0; background:radial-gradient(ellipse at 70% 20%, #2c3547 0%, var(--dark) 60%);}
+  .hero .tag{color:var(--amber); font-weight:700; letter-spacing:.1em; font-size:.8rem; text-transform:uppercase;}
+  .hero h1{font-size:clamp(1.9rem,4.5vw,2.8rem); margin:12px 0 16px; color:#fff;}
+  .hero p{max-width:560px; color:var(--ink2); font-size:1.08rem; margin-bottom:28px;}
+  .btn{display:inline-block; background:var(--amber); color:#191d24; font-weight:800; padding:13px 26px; border-radius:8px; text-decoration:none;}
+  .btn:hover{filter:brightness(1.1);}
+  .btn.ghost{background:transparent; color:#fff; border:2px solid var(--line); margin-left:10px;}
+  .btn.ghost:hover{border-color:var(--amber); color:var(--amber);}
+  section{padding:64px 0;}
+  h2{font-size:1.7rem; color:#fff; margin-bottom:8px;}
+  .sub{color:var(--ink2); margin-bottom:32px;}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:800px){.grid{grid-template-columns:1fr;}}
+  .tile{background:var(--dark2); border:1px solid var(--line); border-radius:12px; padding:24px; transition:border-color .2s, transform .2s;}
+  .tile:hover{border-color:var(--amber); transform:translateY(-3px);}
+  .tile .ico{font-size:1.9rem;}
+  .tile h3{margin:10px 0 6px; font-size:1.05rem; color:#fff;}
+  .tile p{color:var(--ink2); font-size:.93rem;}
+  .stripe{background:var(--amber); color:#191d24; padding:40px 0;}
+  .stripe .wrap{display:flex; gap:30px; flex-wrap:wrap; justify-content:space-between; align-items:center;}
+  .stripe b{font-size:1.25rem;}
+  .stripe .item{font-size:.95rem; font-weight:600;}
+  .cta{text-align:center; background:var(--dark2);}
+  .cta p{color:var(--ink2); margin-bottom:24px;}
+  footer{border-top:1px solid var(--line); color:#7a8290; font-size:.85rem; padding:28px 0; text-align:center;}
+  footer a{color:var(--amber);}
+  .demo-banner{background:#3b3419; color:#f5d98a; text-align:center; font-size:.85rem; padding:8px 14px;}
+</style>
+</head>
+<body>
+<div class="demo-banner">🔍 Demo-Website – erstellt von <b>LokalSuite</b>. So könnte Ihre Firmenseite aussehen.</div>
+<nav><div class="wrap nav-inner">
+  <a class="logo" href="#">VOLT<span>&amp;WATT</span></a>
+  <a class="cta-nav" href="#kontakt">⚡ Angebot anfragen</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="tag">Elektromeisterbetrieb · Musterstadt</div>
+  <h1>Strom ist unser Handwerk.<br>Von der Steckdose bis zum Smart Home.</h1>
+  <p>Volt &amp; Watt plant und installiert Ihre komplette Elektrik – modern, sicher und nach allen Normen. Spezialisiert auf Wallboxen, Photovoltaik-Anschluss und intelligente Haustechnik.</p>
+  <a class="btn" href="#kontakt">Kostenloses Angebot</a>
+  <a class="btn ghost" href="#leistungen">Leistungen ansehen</a>
+</div></header>
+
+<section id="leistungen"><div class="wrap">
+  <h2>Was wir für Sie tun</h2>
+  <p class="sub">Alles rund um moderne Elektrotechnik – aus einer Hand.</p>
+  <div class="grid">
+    <div class="tile"><div class="ico">🔌</div><h3>Wallbox &amp; E-Mobilität</h3><p>Beratung, Installation und Anmeldung Ihrer Ladestation – inklusive Lastmanagement.</p></div>
+    <div class="tile"><div class="ico">🏠</div><h3>Smart Home</h3><p>Licht, Heizung, Rollläden und Sicherheit – zentral gesteuert, einfach bedienbar.</p></div>
+    <div class="tile"><div class="ico">✅</div><h3>E-Check &amp; Modernisierung</h3><p>Sicherheitsprüfung für Altbau und Gewerbe – mit Prüfprotokoll für Ihre Versicherung.</p></div>
+  </div>
+</div></section>
+
+<div class="stripe"><div class="wrap">
+  <div class="item"><b>500+</b> Wallboxen installiert</div>
+  <div class="item"><b>48h</b> Angebot nach Ortstermin</div>
+  <div class="item"><b>4,8 ★</b> bei Google</div>
+  <div class="item"><b>Festpreis</b>-Garantie</div>
+</div></div>
+
+<section class="cta" id="kontakt"><div class="wrap">
+  <h2>Projekt besprechen?</h2>
+  <p>Schicken Sie uns ein Foto Ihres Sicherungskastens – wir kalkulieren vorab. Antwort noch am selben Werktag.</p>
+  <a class="btn" href="tel:+490000000000">📞 0000 / 000 00 00</a>
+  <a class="btn ghost" href="#">💬 WhatsApp mit Foto</a>
+</div></section>
+
+<footer><div class="wrap">
+  Volt &amp; Watt Elektrotechnik (Musterfirma) · Beispielweg 8 · 00000 Musterstadt · Impressum · Datenschutz<br>
+  Demo-Website von <a href="index.html">LokalSuite</a> – Websites für Handwerksbetriebe
+</div></footer>
+</body>
+</html>

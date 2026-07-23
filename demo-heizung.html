@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berger Haustechnik – Heizung · Sanitär · Bad (Demo)</title>
+<style>
+  :root{--blue:#1b4a63; --blue2:#2c6e91; --red:#d64541; --ink:#1f2933; --ink2:#52606d; --bg:#f5f7f9; --line:#dde3e8;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Segoe UI",system-ui,sans-serif; color:var(--ink); line-height:1.6;}
+  .wrap{max-width:1020px; margin:0 auto; padding:0 22px;}
+  nav{background:#fff; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;}
+  .nav-inner{display:flex; align-items:center; height:64px; gap:20px;}
+  .logo{font-weight:800; font-size:1.2rem; color:var(--blue); text-decoration:none;}
+  .logo span{color:var(--red);}
+  .notruf{margin-left:auto; background:var(--red); color:#fff; font-weight:700; padding:10px 18px; border-radius:999px; text-decoration:none; font-size:.9rem;}
+  .notruf:hover{background:#b93835;}
+  .hero{background:linear-gradient(135deg,var(--blue) 0%,var(--blue2) 100%); color:#fff; padding:80px 0;}
+  .hero h1{font-size:clamp(1.8rem,4.5vw,2.6rem); margin-bottom:14px;}
+  .hero p{max-width:560px; color:#d5e3ec; font-size:1.1rem; margin-bottom:26px;}
+  .btn{display:inline-block; background:var(--red); color:#fff; font-weight:700; padding:13px 26px; border-radius:999px; text-decoration:none;}
+  .btn:hover{filter:brightness(1.1);}
+  .btn.light{background:#fff; color:var(--blue); margin-left:10px;}
+  .badges{display:flex; gap:22px; margin-top:30px; flex-wrap:wrap; font-size:.9rem; color:#bcd2de;}
+  .badges b{display:block; color:#fff; font-size:1.15rem;}
+  section{padding:64px 0;}
+  h2{font-size:1.7rem; color:var(--blue); margin-bottom:8px;}
+  .sub{color:var(--ink2); margin-bottom:32px;}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  @media(max-width:800px){.grid{grid-template-columns:1fr;}}
+  .tile{background:#fff; border:1px solid var(--line); border-radius:12px; padding:24px; box-shadow:0 4px 16px rgba(27,74,99,.06);}
+  .tile .ico{font-size:1.9rem;}
+  .tile h3{margin:10px 0 6px; font-size:1.05rem;}
+  .tile p{color:var(--ink2); font-size:.93rem;}
+  .alt{background:var(--bg);}
+  .why{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; text-align:center;}
+  @media(max-width:800px){.why{grid-template-columns:repeat(2,1fr);}}
+  .why div{background:#fff; border-radius:12px; padding:22px 12px; border:1px solid var(--line);}
+  .why b{display:block; font-size:1.5rem; color:var(--blue);}
+  .why span{font-size:.85rem; color:var(--ink2);}
+  .cta{background:var(--blue); color:#fff; text-align:center;}
+  .cta h2{color:#fff;}
+  .cta p{color:#c9dae4; margin-bottom:24px;}
+  footer{background:#12303f; color:#9fb8c6; font-size:.85rem; padding:28px 0; text-align:center;}
+  footer a{color:#fff;}
+  .demo-banner{background:#ffedd5; color:#7c3f0f; text-align:center; font-size:.85rem; padding:8px 14px;}
+</style>
+</head>
+<body>
+<div class="demo-banner">🔍 Demo-Website – erstellt von <b>LokalSuite</b>. So könnte Ihre Firmenseite aussehen.</div>
+<nav><div class="wrap nav-inner">
+  <a class="logo" href="#">Berger <span>Haustechnik</span></a>
+  <a class="notruf" href="tel:+490000000000">🚨 24h-Notdienst: 0000 / 000 00 00</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <h1>Heizung ausgefallen? Bad-Traum geplant?<br>Wir sind Ihr Meisterbetrieb vor Ort.</h1>
+  <p>Seit über 20 Jahren kümmert sich Berger Haustechnik um Heizung, Sanitär und Badsanierung – schnell, sauber und zum fairen Preis.</p>
+  <a class="btn" href="#kontakt">Termin anfragen</a>
+  <a class="btn light" href="#leistungen">Unsere Leistungen</a>
+  <div class="badges">
+    <div><b>20+ Jahre</b>Meisterbetrieb</div>
+    <div><b>24h</b>Notdienst</div>
+    <div><b>4,9 ★</b>Google-Bewertungen</div>
+  </div>
+</div></header>
+
+<section id="leistungen"><div class="wrap">
+  <h2>Unsere Leistungen</h2>
+  <p class="sub">Vom tropfenden Hahn bis zur kompletten Heizungsmodernisierung.</p>
+  <div class="grid">
+    <div class="tile"><div class="ico">🔥</div><h3>Heizung &amp; Wärmepumpe</h3><p>Beratung, Einbau und Wartung – inklusive Förder-Check für Ihre neue Wärmepumpe.</p></div>
+    <div class="tile"><div class="ico">🛁</div><h3>Badsanierung</h3><p>Ihr Traumbad aus einer Hand: Planung, Fliesen, Installation – alles koordiniert von uns.</p></div>
+    <div class="tile"><div class="ico">🚿</div><h3>Sanitär &amp; Notdienst</h3><p>Rohrbruch, Verstopfung, undichte Leitung? Wir sind schnell da – auch nachts und am Wochenende.</p></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Warum Berger?</h2>
+  <p class="sub">Zahlen, die für sich sprechen.</p>
+  <div class="why">
+    <div><b>1.200+</b><span>zufriedene Kunden</span></div>
+    <div><b>45 Min.</b><span>Ø Reaktionszeit im Notfall</span></div>
+    <div><b>Festpreis</b><span>vor Arbeitsbeginn</span></div>
+    <div><b>5 Profis</b><span>im eingespielten Team</span></div>
+  </div>
+</div></section>
+
+<section class="cta" id="kontakt"><div class="wrap">
+  <h2>Jetzt unverbindlich anfragen</h2>
+  <p>Rufen Sie an oder schreiben Sie uns per WhatsApp – wir melden uns noch am selben Tag.</p>
+  <a class="btn" href="tel:+490000000000">📞 0000 / 000 00 00</a>
+  <a class="btn light" href="#">💬 WhatsApp schreiben</a>
+</div></section>
+
+<footer><div class="wrap">
+  Berger Haustechnik GmbH (Musterfirma) · Musterstraße 12 · 00000 Musterstadt · Impressum · Datenschutz<br>
+  Demo-Website von <a href="index.html">LokalSuite</a> – Websites für Handwerksbetriebe
+</div></footer>
+</body>
+</html>

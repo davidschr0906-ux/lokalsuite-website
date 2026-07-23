@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dachbau Weber – Dachdeckerei & Zimmerei (Demo)</title>
+<style>
+  :root{--brown:#5f3226; --brown2:#8a4d3a; --cream:#faf6f1; --ink:#2d221d; --ink2:#6b5a50; --line:#e7ddd3; --green:#3f7d5c;}
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:Georgia,"Times New Roman",serif; background:var(--cream); color:var(--ink); line-height:1.65;}
+  .sans{font-family:"Segoe UI",system-ui,sans-serif;}
+  .wrap{max-width:1020px; margin:0 auto; padding:0 22px;}
+  nav{background:var(--cream); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;}
+  .nav-inner{display:flex; align-items:center; height:64px; gap:20px;}
+  .logo{font-weight:700; font-size:1.25rem; color:var(--brown); text-decoration:none;}
+  .cta-nav{margin-left:auto; background:var(--brown); color:#fff; font-weight:700; padding:10px 20px; border-radius:4px; text-decoration:none; font-size:.9rem;}
+  .hero{padding:90px 0; background:linear-gradient(135deg,var(--brown) 0%,var(--brown2) 100%); color:#fff;}
+  .hero .tag{font-size:.85rem; letter-spacing:.15em; text-transform:uppercase; color:#e8c9ba;}
+  .hero h1{font-size:clamp(1.9rem,4.5vw,2.8rem); margin:14px 0 18px; font-weight:700;}
+  .hero p{max-width:560px; color:#f0ded4; font-size:1.1rem; margin-bottom:28px;}
+  .btn{display:inline-block; background:#fff; color:var(--brown); font-weight:700; padding:13px 28px; border-radius:4px; text-decoration:none;}
+  .btn:hover{background:#f2e7de;}
+  .btn.solid{background:var(--green); color:#fff; margin-left:10px;}
+  section{padding:66px 0;}
+  h2{font-size:1.8rem; color:var(--brown); margin-bottom:8px; font-weight:700;}
+  .sub{color:var(--ink2); margin-bottom:34px;}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:800px){.grid{grid-template-columns:1fr;}}
+  .tile{background:#fff; border:1px solid var(--line); border-radius:6px; padding:26px; box-shadow:0 4px 18px rgba(95,50,38,.07);}
+  .tile .ico{font-size:1.9rem;}
+  .tile h3{margin:10px 0 6px; font-size:1.1rem; color:var(--brown);}
+  .tile p{color:var(--ink2); font-size:.95rem;}
+  .refs{background:#fff; border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .ref-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:800px){.ref-grid{grid-template-columns:1fr;}}
+  .ref{border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+  .ref .img{height:140px; display:flex; align-items:center; justify-content:center; font-size:2.4rem; color:#fff; background:linear-gradient(135deg,#8a4d3a,#5f3226);}
+  .ref:nth-child(2) .img{background:linear-gradient(135deg,#3f7d5c,#28553d);}
+  .ref:nth-child(3) .img{background:linear-gradient(135deg,#7d6b3f,#554928);}
+  .ref .body{padding:16px 18px;}
+  .ref h3{font-size:1rem; color:var(--brown);}
+  .ref p{font-size:.88rem; color:var(--ink2);}
+  .quote{text-align:center; max-width:640px; margin:0 auto; font-style:italic; font-size:1.2rem; color:var(--ink2);}
+  .quote b{display:block; margin-top:14px; font-style:normal; font-size:.95rem; color:var(--brown);}
+  .stars{color:#d9a441; font-size:1.1rem; letter-spacing:2px;}
+  .cta{background:var(--brown); color:#fff; text-align:center;}
+  .cta h2{color:#fff;}
+  .cta p{color:#e8cfc2; margin-bottom:26px;}
+  footer{padding:28px 0; font-size:.85rem; color:var(--ink2); text-align:center;}
+  footer a{color:var(--brown);}
+  .demo-banner{background:#f4e3c8; color:#6d4a1e; text-align:center; font-size:.85rem; padding:8px 14px; font-family:"Segoe UI",sans-serif;}
+</style>
+</head>
+<body>
+<div class="demo-banner">🔍 Demo-Website – erstellt von <b>LokalSuite</b>. So könnte Ihre Firmenseite aussehen.</div>
+<nav><div class="wrap nav-inner">
+  <a class="logo" href="#">🏠 Dachbau Weber</a>
+  <a class="cta-nav sans" href="#kontakt">Dach-Check anfragen</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="tag sans">Dachdeckerei &amp; Zimmerei · seit 1987</div>
+  <h1>Ein gutes Dach hält Generationen.<br>Wir bauen es.</h1>
+  <p>Ob Neueindeckung, Dämmung oder Sturmschaden – Dachbau Weber steht für ehrliches Handwerk, saubere Baustellen und Termine, die halten.</p>
+  <a class="btn sans" href="#referenzen">Unsere Projekte</a>
+  <a class="btn solid sans" href="#kontakt">Kostenloser Dach-Check</a>
+</div></header>
+
+<section><div class="wrap">
+  <h2>Unsere Leistungen</h2>
+  <p class="sub">Drei Generationen Erfahrung – auf jedem Dach.</p>
+  <div class="grid">
+    <div class="tile"><div class="ico">🏠</div><h3>Neueindeckung</h3><p>Ziegel, Schiefer oder Metall – langlebig eingedeckt und förderfähig gedämmt.</p></div>
+    <div class="tile"><div class="ico">🌡️</div><h3>Dämmung &amp; Energie</h3><p>Bis zu 30 % Heizkosten sparen – wir beraten auch zu Förderprogrammen.</p></div>
+    <div class="tile"><div class="ico">⛈️</div><h3>Reparatur &amp; Sturmschaden</h3><p>Schnelle Hilfe bei Undichtigkeit und Unwetterschäden – inklusive Doku für die Versicherung.</p></div>
+  </div>
+</div></section>
+
+<section class="refs" id="referenzen"><div class="wrap">
+  <h2>Vorher / Nachher</h2>
+  <p class="sub">Echte Projekte aus der Region (in Ihrer Website: mit echten Fotos).</p>
+  <div class="ref-grid">
+    <div class="ref"><div class="img">🏚️→🏡</div><div class="body"><h3>Altbau Musterstraße</h3><p>Komplette Neueindeckung mit Aufsparrendämmung – in 9 Arbeitstagen.</p></div></div>
+    <div class="ref"><div class="img">🌿</div><div class="body"><h3>Gründach Stadthaus</h3><p>Extensive Begrünung auf Flachdach-Garage inklusive Abdichtung.</p></div></div>
+    <div class="ref"><div class="img">☀️</div><div class="body"><h3>Solar-Vorbereitung</h3><p>Dachsanierung mit Unterkonstruktion für die spätere PV-Anlage.</p></div></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="quote">
+    <div class="stars">★★★★★</div>
+    „Sturmschaden am Freitagabend gemeldet – Samstagmorgen war das Dach dicht. Sowas findet man heute selten."
+    <b>— Familie K., Musterstadt (Google-Bewertung)</b>
+  </div>
+</div></section>
+
+<section class="cta" id="kontakt"><div class="wrap">
+  <h2>Kostenloser Dach-Check</h2>
+  <p>Wir schauen uns Ihr Dach an und sagen Ihnen ehrlich, was nötig ist – und was nicht.</p>
+  <a class="btn sans" href="tel:+490000000000">📞 0000 / 000 00 00</a>
+</div></section>
+
+<footer><div class="wrap">
+  Dachbau Weber (Musterfirma) · Handwerkerring 3 · 00000 Musterstadt · Impressum · Datenschutz<br>
+  Demo-Website von <a href="index.html">LokalSuite</a> – Websites für Handwerksbetriebe
+</div></footer>
+</body>
+</html>
