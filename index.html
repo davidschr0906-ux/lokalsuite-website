@@ -3,540 +3,990 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LokalSuite – Websites & digitale Assistenten für Handwerksbetriebe in [DEINE STADT]</title>
-<meta name="description" content="Moderne Websites für Handwerksbetriebe in [DEINE STADT] – zum fairen Festpreis, in 2 Wochen online. Inklusive WhatsApp-Assistent, der Anfragen annimmt, während Sie arbeiten.">
+<title>LokalSuite – Moderne Websites für Handwerksbetriebe in Ansbach</title>
+<meta name="description" content="LokalSuite baut moderne Websites für Handwerksbetriebe in Ansbach – zum fairen Festpreis, online in 2 Wochen. Auf Wunsch mit WhatsApp-Assistent, der Anfragen annimmt, während Sie arbeiten.">
 <style>
   :root{
-    --ink:#22272e; --ink2:#4b5563; --muted:#6b7280; --line:#e5e7eb;
-    --bg:#ffffff; --bg2:#f7f8fa; --accent:#e8622c; --accent-dark:#c94f1f;
-    --accent-soft:#fdeee6; --green:#1a936f; --radius:14px;
-    --shadow:0 8px 30px rgba(34,39,46,.08);
+    --navy-950:#0b1526;
+    --navy-900:#101d33;
+    --navy-800:#16263f;
+    --navy-700:#1f3355;
+    --ink:#1a2537;
+    --slate-600:#4a5a72;
+    --muted:#5b6b82;
+    --line:#e3e9f1;
+    --bg:#ffffff;
+    --bg-soft:#f4f7fb;
+    --bg-softer:#eef2f8;
+    --amber-600:#d97706;
+    --amber-500:#f59e0b;
+    --amber-100:#fef3d8;
+    --amber-50:#fff9ec;
+    --green-600:#16a34a;
+    --green-100:#dcfce7;
+    --wa:#25d366;
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:10px;
+    --shadow-sm:0 1px 3px rgba(16,29,51,.07),0 1px 2px rgba(16,29,51,.05);
+    --shadow-md:0 6px 24px rgba(16,29,51,.09);
+    --shadow-lg:0 18px 50px rgba(16,29,51,.16);
+    --font:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{
-    font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", sans-serif;
-    color:var(--ink); background:var(--bg); line-height:1.6; font-size:17px;
+    font-family:var(--font);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
-  h1,h2,h3{line-height:1.2; font-weight:700;}
-  h2{font-size:clamp(1.6rem,3.5vw,2.2rem); margin-bottom:12px;}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  section{scroll-margin-top:84px}
+  .container{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* ---------- Typo ---------- */
+  h1,h2,h3{line-height:1.2;font-weight:750;letter-spacing:-.015em}
+  h1{font-size:clamp(2rem,4.4vw,3.1rem)}
+  h2{font-size:clamp(1.6rem,3vw,2.25rem)}
+  h3{font-size:1.22rem}
   .kicker{
-    display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--accent); margin-bottom:10px;
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--amber-600);margin-bottom:14px;
   }
-  section{padding:72px 0;}
-  .sub{color:var(--ink2); max-width:640px;}
+  .kicker::before{content:"";width:26px;height:2px;background:var(--amber-500);border-radius:2px}
+  .section-head{max-width:720px;margin-bottom:48px}
+  .section-head p{color:var(--muted);font-size:1.08rem;margin-top:14px}
 
-  nav{
-    position:sticky; top:0; z-index:50; background:rgba(255,255,255,.92);
-    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
-  }
-  .nav-inner{display:flex; align-items:center; gap:28px; height:66px;}
-  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:1.25rem; text-decoration:none; color:var(--ink);}
-  .logo-mark{
-    width:34px; height:34px; border-radius:9px; background:var(--accent);
-    display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.05rem; font-weight:800;
-    transition:transform .3s;
-  }
-  .logo:hover .logo-mark{transform:rotate(-8deg) scale(1.06);}
-  .logo span{color:var(--accent);}
-  .nav-links{display:flex; gap:22px; margin-left:auto;}
-  .nav-links a{color:var(--ink2); text-decoration:none; font-size:.95rem; font-weight:600; position:relative;}
-  .nav-links a::after{content:""; position:absolute; left:0; bottom:-4px; width:0; height:2px; background:var(--accent); transition:width .2s;}
-  .nav-links a:hover{color:var(--accent);}
-  .nav-links a:hover::after{width:100%;}
+  /* ---------- Buttons ---------- */
   .btn{
-    display:inline-block; background:var(--accent); color:#fff; font-weight:700;
-    padding:13px 26px; border-radius:999px; text-decoration:none; font-size:1rem;
-    box-shadow:0 4px 14px rgba(232,98,44,.35); transition:background .15s, transform .15s, box-shadow .15s;
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-family:inherit;font-size:1rem;font-weight:650;
+    padding:14px 26px;border-radius:999px;border:0;cursor:pointer;
+    text-decoration:none;transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+    white-space:nowrap;
   }
-  .btn:hover{background:var(--accent-dark); transform:translateY(-2px); box-shadow:0 8px 20px rgba(232,98,44,.4);}
-  .btn.ghost{background:transparent; color:var(--ink); border:2px solid var(--line); box-shadow:none;}
-  .btn.ghost:hover{border-color:var(--accent); color:var(--accent); background:transparent;}
-  .nav-cta{margin-left:8px; padding:10px 20px; font-size:.9rem;}
-  @media (max-width:760px){ .nav-links{display:none;} }
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{
+    background:linear-gradient(135deg,var(--amber-500),var(--amber-600));
+    color:#fff;box-shadow:0 6px 18px rgba(217,119,6,.35);
+  }
+  .btn-primary:hover{box-shadow:0 8px 26px rgba(217,119,6,.45);transform:translateY(-1px)}
+  .btn-ghost{
+    background:transparent;color:var(--navy-900);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--navy-700);background:var(--bg-soft)}
+  .btn-ghost.on-dark{color:#fff;border-color:rgba(255,255,255,.35)}
+  .btn-ghost.on-dark:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.6)}
+  .btn-dark{background:var(--navy-900);color:#fff}
+  .btn-dark:hover{background:var(--navy-700)}
+  .btn-sm{padding:10px 20px;font-size:.92rem}
 
-  .hero{padding:84px 0 76px; background:linear-gradient(180deg,#fff 0%,var(--bg2) 100%); overflow:hidden;}
-  .hero-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:center;}
-  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
-  .pill{
-    display:inline-flex; align-items:center; gap:8px; background:var(--accent-soft);
-    color:var(--accent-dark); font-weight:700; font-size:.85rem;
-    padding:7px 14px; border-radius:999px; margin-bottom:18px;
+  /* ---------- Header ---------- */
+  .site-header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(1.4) blur(14px);
+    -webkit-backdrop-filter:saturate(1.4) blur(14px);
+    border-bottom:1px solid var(--line);
   }
-  .pill .dot{width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 1.6s infinite;}
-  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
-  .hero h1{font-size:clamp(2rem,5vw,3rem); margin-bottom:18px;}
-  .hero h1 em{font-style:normal; color:var(--accent);}
-  .hero p.lead{font-size:1.15rem; color:var(--ink2); margin-bottom:28px; max-width:540px;}
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:26px;}
-  .hero-facts{display:flex; gap:26px; flex-wrap:wrap; color:var(--ink2); font-size:.92rem;}
-  .hero-facts b{color:var(--ink); display:block; font-size:1.25rem;}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:800;font-size:1.24rem;letter-spacing:-.02em}
+  .logo-mark{
+    width:38px;height:38px;border-radius:11px;flex:none;
+    background:linear-gradient(135deg,var(--navy-800),var(--navy-950));
+    color:#fff;display:grid;place-items:center;
+    font-size:1.05rem;font-weight:800;
+    box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.14);
+  }
+  .logo-mark span{background:linear-gradient(135deg,#fbbf24,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .logo em{font-style:normal;color:var(--amber-600)}
+  .main-nav{display:flex;align-items:center;gap:30px}
+  .main-nav a{
+    text-decoration:none;font-size:.96rem;font-weight:550;color:var(--slate-600);
+    transition:color .15s;
+  }
+  .main-nav a:hover{color:var(--navy-900)}
+  .header-cta{display:flex;align-items:center;gap:12px}
+  .nav-toggle{
+    display:none;background:none;border:0;cursor:pointer;padding:8px;
+    width:44px;height:44px;border-radius:10px;
+  }
+  .nav-toggle:hover{background:var(--bg-soft)}
+  .nav-toggle span{
+    display:block;width:22px;height:2px;background:var(--navy-900);margin:5px auto;
+    border-radius:2px;transition:transform .25s,opacity .25s;
+  }
+  .nav-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-open .nav-toggle span:nth-child(2){opacity:0}
+  .nav-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-  .phone{
-    width:290px; margin:0 auto; background:#fff; border:1px solid var(--line);
-    border-radius:28px; box-shadow:var(--shadow); overflow:hidden;
-    transition:transform .35s ease;
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 460px at 88% -10%,rgba(245,158,11,.16),transparent 60%),
+      radial-gradient(700px 500px at -10% 110%,rgba(31,51,85,.5),transparent 55%),
+      linear-gradient(165deg,var(--navy-900) 0%,var(--navy-950) 70%);
+    color:#fff;
   }
-  .phone:hover{transform:translateY(-4px) rotate(-.5deg);}
-  .phone-head{background:#0f6952; color:#fff; padding:14px 16px; font-weight:700; font-size:.95rem; display:flex; align-items:center; gap:10px;}
-  .phone-head .avatar{width:30px; height:30px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:.85rem; flex:none;}
-  .phone-head small{display:block; font-weight:400; font-size:.72rem; opacity:.85;}
-  .chat{padding:16px 14px; background:#eae6df; display:flex; flex-direction:column; gap:10px; min-height:300px;}
-  .msg{max-width:86%; padding:9px 12px; border-radius:12px; font-size:.85rem; box-shadow:0 1px 2px rgba(0,0,0,.08); animation:pop .3s ease;}
-  @keyframes pop{from{opacity:0; transform:translateY(8px) scale(.97);} to{opacity:1; transform:none;}}
-  .msg.in{background:#fff; border-top-left-radius:3px; align-self:flex-start;}
-  .msg.out{background:#d7f5cd; border-top-right-radius:3px; align-self:flex-end;}
-  .msg .time{display:block; font-size:.68rem; color:#8a8f96; text-align:right; margin-top:3px;}
-  .typing{display:inline-flex; gap:4px; padding:11px 14px;}
-  .typing i{width:7px; height:7px; border-radius:50%; background:#9aa3af; animation:bob 1s infinite;}
-  .typing i:nth-child(2){animation-delay:.15s;} .typing i:nth-child(3){animation-delay:.3s;}
-  @keyframes bob{0%,100%{transform:none; opacity:.5;} 40%{transform:translateY(-4px); opacity:1;}}
-  .chips{display:flex; flex-wrap:wrap; gap:8px; padding:12px 14px; background:#f4f1ea; border-top:1px solid #ddd8ce;}
-  .chip{
-    background:#fff; border:1.5px solid var(--accent); color:var(--accent-dark);
-    font-size:.8rem; font-weight:700; padding:7px 13px; border-radius:999px; cursor:pointer;
-    transition:all .15s; font-family:inherit;
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);
+    background-size:26px 26px;
+    mask-image:linear-gradient(to bottom,transparent,black 30%,black 70%,transparent);
+    -webkit-mask-image:linear-gradient(to bottom,transparent,black 30%,black 70%,transparent);
   }
-  .chip:hover{background:var(--accent); color:#fff; transform:translateY(-1px);}
-  .demo-tag{
-    text-align:center; font-size:.78rem; color:var(--muted); padding:8px; background:#fff;
+  .hero-inner{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;
+    padding:88px 0 96px;
+  }
+  .hero-badge{
+    display:inline-flex;align-items:center;gap:9px;
+    background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.4);
+    color:#fcd34d;font-size:.88rem;font-weight:600;
+    padding:7px 16px;border-radius:999px;margin-bottom:26px;
+  }
+  .hero-badge .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--amber-500);flex:none;
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,.5)}
+    50%{box-shadow:0 0 0 6px rgba(245,158,11,0)}
+  }
+  .hero h1{margin-bottom:22px}
+  .hero h1 .accent{color:var(--amber-500)}
+  .hero-sub{
+    font-size:1.14rem;color:#c6d2e4;max-width:560px;margin-bottom:34px;
+  }
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:46px}
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(3,auto);gap:0;
+    border-top:1px solid rgba(255,255,255,.14);padding-top:28px;
+    max-width:560px;
+  }
+  .hero-stat{padding-right:34px}
+  .hero-stat + .hero-stat{padding-left:34px;border-left:1px solid rgba(255,255,255,.14)}
+  .hero-stat strong{display:block;font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+  .hero-stat span{font-size:.86rem;color:#9fb0c9}
+
+  /* Chat mockup */
+  .phone-card{
+    background:#fff;border-radius:26px;box-shadow:var(--shadow-lg);
+    overflow:hidden;max-width:390px;margin-left:auto;color:var(--ink);
+    border:1px solid rgba(255,255,255,.5);
+  }
+  .phone-head{
+    display:flex;align-items:center;gap:12px;
+    background:linear-gradient(135deg,#0f6848,#0b8a5c);
+    color:#fff;padding:15px 18px;
+  }
+  .phone-avatar{
+    width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);
+    display:grid;place-items:center;font-size:1.15rem;flex:none;
+  }
+  .phone-head strong{display:block;font-size:.98rem;line-height:1.25}
+  .phone-head small{font-size:.78rem;opacity:.85;display:flex;align-items:center;gap:5px}
+  .phone-head small::before{content:"";width:7px;height:7px;border-radius:50%;background:#7CFC9E}
+  .phone-body{
+    background:#eae3d8;
+    background-image:radial-gradient(rgba(0,0,0,.025) 1.4px,transparent 1.4px);
+    background-size:18px 18px;
+    padding:20px 16px 22px;display:flex;flex-direction:column;gap:11px;min-height:280px;
+  }
+  .bubble{
+    max-width:82%;padding:10px 14px;border-radius:14px;font-size:.92rem;line-height:1.5;
+    box-shadow:0 1px 1px rgba(0,0,0,.08);position:relative;
+    opacity:0;transform:translateY(8px);
+    animation:bubbleIn .45s ease forwards;
+  }
+  .bubble time{display:block;font-size:.68rem;color:rgba(0,0,0,.4);text-align:right;margin-top:3px}
+  .bubble.in{background:#fff;border-top-left-radius:4px;align-self:flex-start}
+  .bubble.out{background:#d7f7c8;border-top-right-radius:4px;align-self:flex-end}
+  .bubble:nth-child(1){animation-delay:.5s}
+  .bubble:nth-child(2){animation-delay:1.6s}
+  .bubble:nth-child(3){animation-delay:2.9s}
+  @keyframes bubbleIn{to{opacity:1;transform:translateY(0)}}
+  .phone-foot{
+    background:#f6f3ee;border-top:1px solid rgba(0,0,0,.06);
+    padding:11px 16px;font-size:.8rem;color:var(--muted);text-align:center;
   }
 
-  .pain-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:36px;}
-  @media (max-width:820px){ .pain-grid{grid-template-columns:1fr;} }
-  .pain{
-    background:var(--bg2); border:1px solid var(--line); border-radius:var(--radius); padding:24px;
-    transition:transform .25s, box-shadow .25s;
+  /* ---------- Problem section ---------- */
+  .problems{padding:96px 0;background:var(--bg)}
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .p-card{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:32px 28px;transition:transform .2s ease,box-shadow .2s ease;
   }
-  .pain:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
-  .pain .emoji{font-size:1.6rem; display:inline-block; transition:transform .3s;}
-  .pain:hover .emoji{transform:scale(1.2) rotate(-6deg);}
-  .pain h3{margin:10px 0 6px; font-size:1.05rem;}
-  .pain p{color:var(--ink2); font-size:.95rem;}
+  .p-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+  .p-icon{
+    width:52px;height:52px;border-radius:14px;display:grid;place-items:center;
+    font-size:1.5rem;margin-bottom:20px;
+    background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);
+  }
+  .p-card h3{margin-bottom:10px;font-size:1.12rem}
+  .p-card p{color:var(--muted);font-size:.98rem}
 
-  .offer{background:var(--bg2);}
-  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px; align-items:stretch;}
-  @media (max-width:900px){ .cards{grid-template-columns:1fr;} }
-  .card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-    padding:30px 26px; display:flex; flex-direction:column; box-shadow:var(--shadow); position:relative;
-    transition:transform .25s, box-shadow .25s;
+  /* ---------- Pricing ---------- */
+  .pricing{padding:96px 0;background:var(--bg-soft)}
+  .pricing .section-head{margin-left:auto;margin-right:auto;text-align:center}
+  .pricing .kicker{justify-content:center}
+  .pricing .kicker::before{display:none}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+  .price-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:36px 32px;display:flex;flex-direction:column;position:relative;
+    box-shadow:var(--shadow-sm);
   }
-  .card:hover{transform:translateY(-5px); box-shadow:0 14px 40px rgba(34,39,46,.12);}
-  .card.hot{border:2px solid var(--accent);}
+  .price-card.featured{
+    border:2px solid var(--amber-500);
+    box-shadow:var(--shadow-lg);
+  }
   .flag{
-    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
-    background:var(--accent); color:#fff; font-size:.75rem; font-weight:700;
-    padding:4px 14px; border-radius:999px; white-space:nowrap;
+    position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--amber-500),var(--amber-600));color:#fff;
+    font-size:.78rem;font-weight:700;letter-spacing:.04em;
+    padding:6px 18px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 4px 12px rgba(217,119,6,.35);
   }
-  .card h3{font-size:1.15rem; margin-bottom:6px;}
-  .card .tagline{color:var(--muted); font-size:.9rem; margin-bottom:16px;}
-  .price{font-size:2rem; font-weight:800; margin-bottom:2px;}
-  .price small{font-size:.95rem; font-weight:600; color:var(--muted);}
-  .price .old{font-size:1.05rem; color:var(--muted); text-decoration:line-through; font-weight:600; margin-right:8px;}
-  .per{color:var(--muted); font-size:.85rem; margin-bottom:18px;}
-  .card ul{list-style:none; margin:0 0 22px; flex:1;}
-  .card li{padding:7px 0 7px 28px; position:relative; font-size:.95rem; color:var(--ink2); border-bottom:1px dashed var(--line);}
-  .card li:last-child{border-bottom:none;}
-  .card li::before{content:"✓"; position:absolute; left:2px; color:var(--green); font-weight:800;}
-  .card li.no::before{content:"→"; color:var(--accent);}
-  .card .btn{text-align:center;}
-  .finePrint{font-size:.85rem; color:var(--muted); margin-top:18px; text-align:center;}
-
-  .steps{display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:40px;}
-  @media (max-width:900px){ .steps{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:560px){ .steps{grid-template-columns:1fr;} }
-  .stepc{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:24px; transition:transform .25s, box-shadow .25s;}
-  .stepc:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
-  .num{
-    width:38px; height:38px; border-radius:50%; background:var(--accent); color:#fff;
-    font-weight:800; display:flex; align-items:center; justify-content:center; margin-bottom:12px;
+  .price-card h3{font-size:1.28rem;margin-bottom:6px}
+  .price-tagline{color:var(--muted);font-size:.95rem;margin-bottom:24px}
+  .price-line{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .price-old{color:#9aa8bb;text-decoration:line-through;font-size:1.15rem;font-weight:600}
+  .price-now{font-size:2.35rem;font-weight:800;letter-spacing:-.03em}
+  .price-now small{font-size:1.05rem;font-weight:650;color:var(--muted)}
+  .price-note{font-size:.86rem;color:var(--muted);margin:6px 0 26px}
+  .feat{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:30px}
+  .feat li{display:flex;gap:11px;font-size:.96rem;align-items:flex-start}
+  .feat li::before{
+    content:"✓";flex:none;width:21px;height:21px;border-radius:50%;
+    background:var(--green-100);color:var(--green-600);
+    font-size:.78rem;font-weight:800;display:grid;place-items:center;margin-top:2px;
   }
-  .stepc h3{font-size:1rem; margin-bottom:6px;}
-  .stepc p{font-size:.9rem; color:var(--ink2);}
-
-  .demo-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px;}
-  @media (max-width:860px){ .demo-grid{grid-template-columns:1fr;} }
-  .demo{
-    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:#fff;
-    box-shadow:var(--shadow); transition:transform .25s, box-shadow .25s;
+  .price-card .btn{margin-top:auto}
+  .badge-soft{
+    display:inline-block;font-size:.8rem;font-weight:650;
+    background:var(--bg-softer);color:var(--slate-600);
+    border:1px solid var(--line);
+    padding:5px 13px;border-radius:999px;margin-bottom:18px;align-self:flex-start;
   }
-  .demo:hover{transform:translateY(-5px); box-shadow:0 14px 40px rgba(34,39,46,.14);}
-  .demo .thumb{
-    height:150px; display:flex; align-items:center; justify-content:center;
-    font-size:2.6rem; color:#fff; transition:font-size .25s;
-  }
-  .demo:hover .thumb{font-size:3rem;}
-  .demo:nth-child(1) .thumb{background:linear-gradient(135deg,#2c6e91,#1b4a63);}
-  .demo:nth-child(2) .thumb{background:linear-gradient(135deg,#e8a13a,#c97b1f);}
-  .demo:nth-child(3) .thumb{background:linear-gradient(135deg,#8a4d3a,#5f3226);}
-  .demo .body{padding:20px;}
-  .demo h3{font-size:1.05rem;}
-  .demo p{font-size:.9rem; color:var(--ink2); margin:6px 0 14px;}
-  .demo a{color:var(--accent); font-weight:700; text-decoration:none; font-size:.95rem;}
-  .demo a:hover{text-decoration:underline;}
-
-  .bot{background:linear-gradient(135deg,#22272e 0%,#343d49 100%); color:#fff;}
-  .bot-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;}
-  @media (max-width:860px){ .bot-grid{grid-template-columns:1fr;} }
-  .bot h2{color:#fff;}
-  .bot p{color:#c3cad4;}
-  .bot .kicker{color:var(--accent);}
-  .bot ul{list-style:none; margin:20px 0 28px;}
-  .bot li{padding:8px 0 8px 30px; position:relative; color:#e6eaef;}
-  .bot li::before{content:"✓"; position:absolute; left:0; color:#f0a05c; font-weight:800;}
-  .waitpill{
-    display:inline-block; background:rgba(232,98,44,.18); border:1px solid rgba(232,98,44,.5);
-    color:#f0a05c; font-weight:700; font-size:.85rem; padding:6px 14px; border-radius:999px; margin-bottom:16px;
+  .badge-soft.warm{background:var(--amber-50);border-color:#fbd88a;color:var(--amber-600)}
+  .price-legal{
+    text-align:center;color:var(--muted);font-size:.88rem;max-width:640px;margin:38px auto 0;
   }
 
-  .about-grid{display:grid; grid-template-columns:auto 1fr; gap:36px; align-items:center;}
-  @media (max-width:700px){ .about-grid{grid-template-columns:1fr;} }
-  .portrait{
-    width:150px; height:150px; border-radius:50%; background:var(--accent-soft);
-    display:flex; align-items:center; justify-content:center; font-size:3rem; border:3px solid var(--accent);
-    transition:transform .3s;
+  /* ---------- Ablauf ---------- */
+  .process{padding:96px 0;background:var(--bg)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;counter-reset:step}
+  .step{position:relative;padding-top:8px}
+  .step-num{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(135deg,var(--navy-800),var(--navy-950));color:#fff;
+    display:grid;place-items:center;font-size:1.2rem;font-weight:800;
+    margin-bottom:20px;box-shadow:var(--shadow-md);
   }
-  .portrait:hover{transform:rotate(8deg) scale(1.05);}
+  .step h3{font-size:1.1rem;margin-bottom:9px}
+  .step p{color:var(--muted);font-size:.95rem}
+  .step::after{
+    content:"";position:absolute;top:33px;left:66px;right:-12px;height:2px;
+    background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 16px);
+  }
+  .step:last-child::after{display:none}
 
-  .contact{background:var(--bg2);}
-  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:36px;}
-  @media (max-width:820px){ .contact-grid{grid-template-columns:1fr;} }
-  .contact-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:30px; box-shadow:var(--shadow);}
-  .contact-card h3{margin-bottom:14px;}
-  .contact-line{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px dashed var(--line); font-size:1rem;}
-  .contact-line:last-child{border-bottom:none;}
-  .contact-line .ico{font-size:1.3rem;}
-  .contact-line a{color:var(--ink); text-decoration:none; font-weight:600;}
-  .contact-line a:hover{color:var(--accent);}
-  .hours{font-size:.9rem; color:var(--muted); margin-top:14px;}
+  /* ---------- Beispiele ---------- */
+  .examples{padding:96px 0;background:var(--bg-soft)}
+  .demo-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    overflow:hidden;text-decoration:none;display:flex;flex-direction:column;
+    transition:transform .2s ease,box-shadow .2s ease;box-shadow:var(--shadow-sm);
+  }
+  .demo-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+  .demo-visual{
+    height:150px;display:grid;place-items:center;font-size:3rem;position:relative;overflow:hidden;
+  }
+  .demo-visual.heat{background:linear-gradient(135deg,#7c2d12,#dc2626)}
+  .demo-visual.elec{background:linear-gradient(135deg,#1e3a8a,#3b82f6)}
+  .demo-visual.roof{background:linear-gradient(135deg,#334155,#64748b)}
+  .demo-visual::after{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(255,255,255,.14) 1px,transparent 1px);
+    background-size:20px 20px;
+  }
+  .demo-body{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
+  .demo-body h3{margin-bottom:8px}
+  .demo-body p{color:var(--muted);font-size:.96rem;margin-bottom:20px}
+  .demo-link{
+    margin-top:auto;font-weight:700;color:var(--amber-600);font-size:.97rem;
+    display:inline-flex;align-items:center;gap:7px;
+  }
+  .demo-card:hover .demo-link{gap:11px}
+  .demo-link{transition:gap .2s ease}
 
-  footer{border-top:1px solid var(--line); padding:36px 0 60px; font-size:.9rem; color:var(--muted);}
-  .foot-grid{display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;}
-  footer a{color:var(--ink2); text-decoration:none; margin-left:18px;}
-  footer a:hover{color:var(--accent);}
-  .legal-block{margin-top:34px; padding-top:24px; border-top:1px dashed var(--line);}
-  .legal-block h4{color:var(--ink2); margin-bottom:6px; font-size:.95rem;}
-  .legal-block p{margin-bottom:14px; line-height:1.7;}
-  .ph{background:#fff3cd; padding:1px 6px; border-radius:4px; color:#8a6d1a; font-weight:600;}
+  /* ---------- Assistent ---------- */
+  .assistant{
+    padding:96px 0;color:#fff;position:relative;overflow:hidden;
+    background:
+      radial-gradient(800px 500px at 110% 0%,rgba(37,211,102,.14),transparent 55%),
+      linear-gradient(160deg,var(--navy-900),var(--navy-950));
+  }
+  .assistant-inner{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .assistant .kicker{color:#4ade80}
+  .assistant .kicker::before{background:#4ade80}
+  .assistant h2{margin-bottom:18px}
+  .assistant .lead{color:#c6d2e4;font-size:1.06rem;margin-bottom:28px}
+  .assistant .feat li::before{background:rgba(74,222,128,.16);color:#4ade80}
+  .assistant .feat{margin-bottom:34px}
+  .assistant .feat li{color:#e6edf6}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.35);color:#86efac;
+    font-size:.85rem;font-weight:650;padding:6px 15px;border-radius:999px;margin-bottom:22px;
+  }
+  /* interactive demo */
+  .demo-chat .phone-body{min-height:300px}
+  .quick-replies{display:flex;flex-direction:column;gap:9px;padding:4px 2px 0}
+  .quick-replies button{
+    font-family:inherit;font-size:.9rem;font-weight:600;text-align:left;
+    background:#fff;border:1.5px solid #0b8a5c;color:#0b6848;
+    padding:9px 15px;border-radius:999px;cursor:pointer;transition:background .15s;
+  }
+  .quick-replies button:hover{background:#e9f9f0}
+  .quick-replies button:disabled{opacity:.45;cursor:default}
 
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease;}
-  .reveal.on{opacity:1; transform:none;}
+  /* ---------- Über mich ---------- */
+  .about{padding:96px 0;background:var(--bg)}
+  .about-inner{display:grid;grid-template-columns:340px 1fr;gap:64px;align-items:center}
+  .about-visual{
+    background:linear-gradient(160deg,var(--bg-soft),var(--bg-softer));
+    border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:42px 32px;text-align:center;box-shadow:var(--shadow-sm);
+  }
+  .about-avatar{
+    width:120px;height:120px;border-radius:50%;margin:0 auto 20px;
+    background:linear-gradient(135deg,var(--navy-800),var(--navy-950));color:#fff;
+    display:grid;place-items:center;font-size:2.4rem;font-weight:800;letter-spacing:.02em;
+    box-shadow:var(--shadow-md);
+  }
+  .about-visual strong{display:block;font-size:1.15rem}
+  .about-visual span{color:var(--muted);font-size:.92rem}
+  .about-points{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:26px;text-align:left}
+  .about-points li{display:flex;gap:10px;font-size:.93rem;color:var(--slate-600)}
+  .about-points li::before{content:"✓";color:var(--green-600);font-weight:800}
+  .about-copy p{color:var(--slate-600);font-size:1.06rem;margin-bottom:18px}
+  .about-copy p strong{color:var(--ink)}
+
+  /* ---------- Kontakt ---------- */
+  .contact{padding:96px 0;background:var(--bg-soft)}
+  .contact .section-head{text-align:center;margin-left:auto;margin-right:auto}
+  .contact .kicker{justify-content:center}
+  .contact .kicker::before{display:none}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:960px;margin:0 auto}
+  .contact-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:36px 34px;box-shadow:var(--shadow-sm);
+  }
+  .contact-card h3{margin-bottom:22px}
+  .contact-rows{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
+  .contact-row{
+    display:flex;align-items:center;gap:15px;text-decoration:none;
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:14px 18px;transition:border-color .15s,transform .15s;
+  }
+  .contact-row:hover{border-color:var(--amber-500);transform:translateY(-1px)}
+  .contact-ico{
+    width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+    font-size:1.2rem;flex:none;color:#fff;
+  }
+  .contact-ico.tel{background:linear-gradient(135deg,var(--navy-700),var(--navy-950))}
+  .contact-ico.wa{background:linear-gradient(135deg,#1eb356,#128c46)}
+  .contact-ico.mail{background:linear-gradient(135deg,var(--amber-500),var(--amber-600))}
+  .contact-row strong{display:block;font-size:.98rem;line-height:1.3}
+  .contact-row small{color:var(--muted);font-size:.82rem}
+  .avail{
+    display:flex;align-items:center;gap:9px;color:var(--slate-600);font-size:.92rem;
+  }
+  .avail::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green-600);flex:none;animation:pulse 2s infinite}
+  .msg-template{
+    background:var(--bg-soft);border:1px dashed #c3cede;border-radius:var(--radius-md);
+    padding:18px 20px;font-size:.97rem;color:var(--slate-600);font-style:italic;
+    margin:6px 0 20px;line-height:1.6;
+  }
+  .contact-card > p{color:var(--muted);font-size:.97rem}
+
+  /* ---------- Footer ---------- */
+  .site-footer{background:var(--navy-950);color:#9fb0c9;padding:56px 0 40px;font-size:.93rem}
+  .footer-top{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:32px;
+    padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:32px;
+    flex-wrap:wrap;
+  }
+  .site-footer .logo{color:#fff}
+  .footer-links{display:flex;gap:26px}
+  .footer-links a{color:#c6d2e4;text-decoration:none}
+  .footer-links a:hover{color:#fff;text-decoration:underline}
+  .legal-block{max-width:820px;margin-bottom:26px}
+  .legal-block h3{color:#e6edf6;font-size:1rem;margin-bottom:10px}
+  .legal-block p{margin-bottom:8px}
+  .footer-note{font-size:.85rem;color:#66788f}
+  .legal-details{margin-top:14px}
+  .legal-details summary{
+    cursor:pointer;color:#c6d2e4;font-weight:600;
+    padding:10px 16px;border:1px solid rgba(255,255,255,.18);border-radius:999px;
+    display:inline-block;font-size:.9rem;transition:background .15s,border-color .15s;
+    list-style:none;
+  }
+  .legal-details summary::-webkit-details-marker{display:none}
+  .legal-details summary::before{content:"▸ ";color:var(--amber-500)}
+  .legal-details[open] summary::before{content:"▾ "}
+  .legal-details summary:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.35)}
+  .legal-details-body{
+    margin-top:20px;padding:26px 28px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+    border-radius:var(--radius-md);
+  }
+  .legal-details-body h4{color:#e6edf6;font-size:.95rem;margin:20px 0 8px}
+  .legal-details-body h4:first-child{margin-top:0}
+  .legal-details-body p{margin-bottom:10px;font-size:.9rem;line-height:1.7}
+
+  /* ---------- Sticky mobile CTA ---------- */
+  .mobile-cta{
+    display:none;position:fixed;left:0;right:0;bottom:0;z-index:110;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    gap:10px;box-shadow:0 -6px 24px rgba(16,29,51,.12);
+  }
+  .mobile-cta .btn{flex:1;padding:12px 10px;font-size:.92rem}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:1000px){
+    .hero-inner{grid-template-columns:1fr;gap:52px;padding:64px 0 72px}
+    .phone-card{margin:0 auto}
+    .card-grid,.price-grid{grid-template-columns:1fr;max-width:520px;margin:0 auto}
+    .steps{grid-template-columns:1fr 1fr;row-gap:44px}
+    .step::after{display:none}
+    .assistant-inner,.about-inner{grid-template-columns:1fr;gap:48px}
+    .about-visual{max-width:380px;margin:0 auto}
+    .contact-grid{grid-template-columns:1fr;max-width:560px}
+  }
+  @media (max-width:820px){
+    .main-nav{
+      position:fixed;inset:70px 0 auto 0;z-index:99;
+      background:#fff;border-bottom:1px solid var(--line);
+      flex-direction:column;align-items:stretch;gap:0;
+      padding:10px 24px 18px;box-shadow:var(--shadow-lg);
+      transform:translateY(-130%);transition:transform .28s ease;
+    }
+    .nav-open .main-nav{transform:translateY(0)}
+    .main-nav a{padding:13px 4px;font-size:1.05rem;border-bottom:1px solid var(--bg-softer)}
+    .main-nav a:last-child{border-bottom:0}
+    .nav-toggle{display:block}
+    .header-cta .btn{display:none}
+    .mobile-cta{display:flex}
+    body{padding-bottom:74px}
+    section{scroll-margin-top:78px}
+  }
+  @media (max-width:640px){
+    .container{padding:0 18px}
+    .problems,.pricing,.process,.examples,.assistant,.about,.contact{padding:68px 0}
+    .hero-stats{grid-template-columns:1fr;gap:16px;padding-top:22px}
+    .hero-stat{padding:0 !important;border:0 !important}
+    .hero-stat strong{display:inline;margin-right:8px;font-size:1.25rem}
+    .steps{grid-template-columns:1fr}
+    .price-card,.contact-card{padding:30px 24px}
+    .hero-actions .btn{flex:1 1 100%;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+    .bubble{opacity:1;transform:none}
+  }
 </style>
 </head>
-<body>
+<body id="top">
 
-<nav>
-  <div class="wrap nav-inner">
-    <a class="logo" href="#top"><span class="logo-mark">L</span>Lokal<span>Suite</span></a>
-    <div class="nav-links">
+<!-- ======================= HEADER ======================= -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="logo" href="#top" aria-label="LokalSuite – zur Startseite">
+      <span class="logo-mark">L<span>S</span></span>
+      Lokal<em>Suite</em>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="Hauptnavigation">
       <a href="#angebot">Leistungen &amp; Preise</a>
-      <a href="#ablauf">So läuft's</a>
+      <a href="#ablauf">So läuft's ab</a>
       <a href="#beispiele">Beispiele</a>
       <a href="#assistent">WhatsApp-Assistent</a>
       <a href="#ueber">Über mich</a>
-    </div>
-    <a class="btn nav-cta" href="#kontakt">Kostenloses Erstgespräch</a>
-  </div>
-</nav>
-
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="pill"><span class="dot"></span>Startaktion: noch 3 Referenzplätze zum Pilotpreis</div>
-      <h1>Ihre Website bringt Aufträge – <em>auch wenn Sie auf der Baustelle stehen.</em></h1>
-      <p class="lead">LokalSuite baut moderne Websites für Handwerksbetriebe in <span class="ph">[DEINE STADT]</span> und Umgebung – zum fairen Festpreis, fertig in 2 Wochen. Auf Wunsch mit WhatsApp-Assistent, der Kundenanfragen annimmt, während Sie arbeiten.</p>
-      <div class="hero-ctas">
-        <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
-        <a class="btn ghost" href="#angebot">Preise ansehen</a>
-      </div>
-      <div class="hero-facts">
-        <div><b>1.999&nbsp;€</b>Pilotpreis statt 2.999&nbsp;€</div>
-        <div><b>2 Wochen</b>bis Ihre Seite online ist</div>
-        <div><b>1 Ansprechpartner</b>persönlich, aus der Region</div>
-      </div>
-    </div>
-    <div class="phone reveal">
-      <div class="phone-head"><span class="avatar">🔧</span><div>Mustermann Haustechnik<small>Assistent · antwortet sofort</small></div></div>
-      <div class="chat" id="heroChat"></div>
-      <div class="demo-tag">▶ Automatische Demo – so schnell antwortet Ihr Betrieb</div>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-primary btn-sm" href="#kontakt">Kostenloses Erstgespräch</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
 
-<section id="problem">
-  <div class="wrap">
-    <span class="kicker">Kommt Ihnen das bekannt vor?</span>
-    <h2>Gute Arbeit reicht nicht mehr – man muss Sie auch finden.</h2>
-    <div class="pain-grid">
-      <div class="pain reveal"><div class="emoji">🔍</div><h3>Kunden googeln – und finden die Konkurrenz</h3><p>Wer heute einen Handwerker sucht, sucht online. Ohne moderne Website existieren Sie für viele Neukunden schlicht nicht.</p></div>
-      <div class="pain reveal"><div class="emoji">📵</div><h3>Anrufe kommen, wenn Sie nicht rangehen können</h3><p>Auf dem Dach, unter der Hebebühne, beim Kunden – und der Anrufer? Ruft den Nächsten in der Liste an.</p></div>
-      <div class="pain reveal"><div class="emoji">💸</div><h3>Agenturen wollen 5.000 € und mehr</h3><p>Große Agenturen rechnen groß ab. Für einen Betrieb mit 5 Leuten muss es besser und ehrlicher gehen.</p></div>
+<!-- ======================= HERO ======================= -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div>
+      <p class="hero-badge"><span class="dot"></span> Startaktion: noch 3 Referenzplätze zum Pilotpreis</p>
+      <h1>Ihre Website bringt Aufträge – <span class="accent">auch wenn Sie auf der Baustelle stehen.</span></h1>
+      <p class="hero-sub">
+        LokalSuite baut moderne Websites für Handwerksbetriebe in Ansbach und Umgebung –
+        zum fairen Festpreis, online in 2 Wochen. Auf Wunsch mit WhatsApp-Assistent,
+        der Kundenanfragen annimmt, während Sie arbeiten.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#kontakt">Kostenloses Erstgespräch sichern</a>
+        <a class="btn btn-ghost on-dark" href="#angebot">Leistungen &amp; Preise ansehen</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>1.999&nbsp;€</strong><span>Pilotpreis statt 2.999&nbsp;€</span></div>
+        <div class="hero-stat"><strong>2 Wochen</strong><span>bis Ihre Seite online ist</span></div>
+        <div class="hero-stat"><strong>1 Ansprechpartner</strong><span>persönlich, aus der Region</span></div>
+      </div>
+    </div>
+
+    <div class="phone-card" aria-hidden="true">
+      <div class="phone-head">
+        <div class="phone-avatar">🔧</div>
+        <div>
+          <strong>Mustermann Haustechnik</strong>
+          <small>Assistent · antwortet sofort</small>
+        </div>
+      </div>
+      <div class="phone-body">
+        <div class="bubble in">Guten Tag! Unsere Heizung ist ausgefallen 😰 Können Sie diese Woche vorbeikommen?<time>17:42</time></div>
+        <div class="bubble out">Guten Tag! Das tut mir leid – da helfen wir schnell. Können Sie mir ein Foto vom Typenschild der Heizung schicken? 📷<time>17:42</time></div>
+        <div class="bubble out">Ich hätte für Sie schon <strong>morgen um 9:30 Uhr</strong> einen Termin frei. Passt das?<time>17:43</time></div>
+      </div>
+      <div class="phone-foot">▶ Automatische Demo – so schnell antwortet Ihr Betrieb</div>
     </div>
   </div>
 </section>
 
-<section class="offer" id="angebot">
-  <div class="wrap">
-    <span class="kicker">Leistungen &amp; Preise</span>
-    <h2>Ein fairer Festpreis. Keine versteckten Kosten.</h2>
-    <p class="sub">Sie zahlen 50 % bei Auftrag, den Rest erst, wenn Ihre Seite online ist und Ihnen gefällt.</p>
-    <div class="cards">
-      <div class="card hot reveal">
-        <span class="flag">🔥 Startaktion – 3 Referenzplätze</span>
+<!-- ======================= PROBLEM ======================= -->
+<section class="problems">
+  <div class="container">
+    <div class="section-head">
+      <p class="kicker">Kommt Ihnen das bekannt vor?</p>
+      <h2>Gute Arbeit reicht nicht mehr – man muss Sie auch finden.</h2>
+    </div>
+    <div class="card-grid">
+      <div class="p-card">
+        <div class="p-icon">🔍</div>
+        <h3>Kunden googeln – und finden die Konkurrenz</h3>
+        <p>Wer heute einen Handwerker sucht, sucht online. Ohne moderne Website existieren Sie für viele Neukunden schlicht nicht.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-icon">📵</div>
+        <h3>Anrufe kommen, wenn Sie nicht rangehen können</h3>
+        <p>Auf dem Dach, unter der Hebebühne, beim Kunden – und der Anrufer? Ruft den Nächsten in der Liste an.</p>
+      </div>
+      <div class="p-card">
+        <div class="p-icon">💸</div>
+        <h3>Agenturen wollen 5.000&nbsp;€ und mehr</h3>
+        <p>Große Agenturen rechnen groß ab. Für einen Betrieb mit 5 Leuten muss es besser und ehrlicher gehen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= LEISTUNGEN & PREISE ======================= -->
+<section class="pricing" id="angebot">
+  <div class="container">
+    <div class="section-head">
+      <p class="kicker">Leistungen &amp; Preise</p>
+      <h2>Ein fairer Festpreis. Keine versteckten Kosten.</h2>
+      <p>Sie zahlen 50&nbsp;% bei Auftrag – den Rest erst, wenn Ihre Seite online ist und Ihnen gefällt.</p>
+    </div>
+
+    <div class="price-grid">
+      <!-- Website -->
+      <div class="price-card featured">
+        <div class="flag">🔥 Startaktion – 3 Referenzplätze</div>
         <h3>Ihre neue Website</h3>
-        <p class="tagline">Komplett von der Idee bis online</p>
-        <div class="price"><span class="old">2.999&nbsp;€</span>1.999&nbsp;€</div>
-        <div class="per">einmalig · Pilotpreis für die ersten 3 Betriebe</div>
-        <ul>
-          <li>Modernes Design, perfekt auf dem Handy</li>
+        <p class="price-tagline">Komplett von der Idee bis online</p>
+        <div class="price-line">
+          <span class="price-old">2.999&nbsp;€</span>
+          <span class="price-now">1.999&nbsp;€</span>
+        </div>
+        <p class="price-note">einmalig · Pilotpreis für die ersten 3 Betriebe</p>
+        <ul class="feat">
+          <li>Modernes Design – perfekt auf dem Handy</li>
           <li>Ihre Leistungen, Referenzfotos &amp; Bewertungen</li>
           <li>Anfrage-Formular + Notdienst-Button</li>
           <li>Bei Google auffindbar (Grundoptimierung)</li>
           <li>Impressum &amp; Datenschutz rechtssicher eingerichtet</li>
           <li>Online in 2 Wochen</li>
         </ul>
-        <a class="btn" href="#kontakt">Referenzplatz sichern</a>
+        <a class="btn btn-primary" href="#kontakt">Referenzplatz sichern</a>
       </div>
-      <div class="card reveal">
+
+      <!-- Pflege -->
+      <div class="price-card">
+        <span class="badge-soft">Monatlich kündbar</span>
         <h3>Rundum-sorglos-Pflege</h3>
-        <p class="tagline">Ihre Seite läuft – ich kümmere mich</p>
-        <div class="price">79&nbsp;€<small>/Monat</small></div>
-        <div class="per">monatlich kündbar</div>
-        <ul>
+        <p class="price-tagline">Ihre Seite läuft – ich kümmere mich</p>
+        <div class="price-line">
+          <span class="price-now">79&nbsp;€<small>/Monat</small></span>
+        </div>
+        <p class="price-note">keine Mindestlaufzeit</p>
+        <ul class="feat">
           <li>Hosting, Sicherheit &amp; tägliche Backups</li>
-          <li>Bis zu 30 Min. Änderungen pro Monat inklusive</li>
+          <li>Bis zu 30&nbsp;Min. Änderungen pro Monat inklusive</li>
           <li>Antwort spätestens am nächsten Werktag</li>
           <li>Technik immer aktuell – Sie merken nichts davon</li>
-          <li class="no">Größere Umbauten fair nach Aufwand (85&nbsp;€/Std.)</li>
+          <li>Größere Umbauten fair nach Aufwand (85&nbsp;€/Std.)</li>
         </ul>
-        <a class="btn ghost" href="#kontakt">Unverbindlich anfragen</a>
+        <a class="btn btn-dark" href="#kontakt">Unverbindlich anfragen</a>
       </div>
-      <div class="card reveal">
+
+      <!-- Assistent -->
+      <div class="price-card">
+        <span class="badge-soft warm">Start: September 2026 · Pilotkunde läuft</span>
         <h3>WhatsApp-Assistent</h3>
-        <p class="tagline">Nimmt Anfragen an, wenn Sie es nicht können</p>
-        <div class="price">Warteliste</div>
-        <div class="per">Start: September 2026 · Pilotkunde läuft</div>
-        <ul>
+        <p class="price-tagline">Nimmt Anfragen an, wenn Sie es nicht können</p>
+        <div class="price-line">
+          <span class="price-now">Warteliste</span>
+        </div>
+        <p class="price-note">Frühbucher erhalten Vorzugspreis</p>
+        <ul class="feat">
           <li>Antwortet Kunden sofort – rund um die Uhr</li>
           <li>Nimmt Terminwünsche &amp; Fotos vom Schaden an</li>
           <li>Trägt Termine direkt in Ihren Kalender ein</li>
           <li>Funktioniert mit Ihrer eigenen Nummer</li>
-          <li class="no">Frühbucher von der Warteliste erhalten Vorzugspreis</li>
         </ul>
-        <a class="btn ghost" href="#assistent">Live ausprobieren</a>
+        <a class="btn btn-ghost" href="#assistent">Live ausprobieren</a>
       </div>
     </div>
-    <p class="finePrint">Pilotpreis gilt für die ersten 3 Betriebe – im Gegenzug dürfen wir Ihre fertige Website als Referenz zeigen. Alle Preise als Kleinunternehmer gem. § 19 UStG ohne Ausweis von Umsatzsteuer.</p>
+
+    <p class="price-legal">
+      Der Pilotpreis gilt für die ersten 3 Betriebe – im Gegenzug darf ich Ihre fertige Website als Referenz zeigen.
+      Alle Preise als Kleinunternehmer gem. §&nbsp;19&nbsp;UStG ohne Ausweis von Umsatzsteuer.
+    </p>
   </div>
 </section>
 
-<section id="ablauf">
-  <div class="wrap">
-    <span class="kicker">So läuft's ab</span>
-    <h2>Von unserem ersten Gespräch bis online: 4 Schritte, 2 Wochen.</h2>
+<!-- ======================= ABLAUF ======================= -->
+<section class="process" id="ablauf">
+  <div class="container">
+    <div class="section-head">
+      <p class="kicker">So läuft's ab</p>
+      <h2>Vom ersten Gespräch bis online: 4 Schritte, 2 Wochen.</h2>
+    </div>
     <div class="steps">
-      <div class="stepc reveal"><div class="num">1</div><h3>Kostenloses Erstgespräch</h3><p>15 Minuten am Telefon oder bei Ihnen im Betrieb. Ich zeige Ihnen an Beispielen, wie Ihre Seite aussehen könnte.</p></div>
-      <div class="stepc reveal"><div class="num">2</div><h3>Angebot &amp; Startschuss</h3><p>Sie bekommen ein klares Festpreis-Angebot. Mit Ihrer Unterschrift und der Anzahlung von 50 % geht's los.</p></div>
-      <div class="stepc reveal"><div class="num">3</div><h3>Entwurf &amp; Feinschliff</h3><p>Nach wenigen Tagen sehen Sie den ersten Entwurf. Wir passen an, bis es für Sie passt – ohne Fachchinesisch.</p></div>
-      <div class="stepc reveal"><div class="num">4</div><h3>Online in 2 Wochen</h3><p>Ihre Seite geht live, die Restzahlung wird fällig. Auf Wunsch übernehme ich ab da die komplette Pflege.</p></div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Kostenloses Erstgespräch</h3>
+        <p>15 Minuten am Telefon oder direkt bei Ihnen im Betrieb. Ich zeige Ihnen an Beispielen, wie Ihre Seite aussehen könnte.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Angebot &amp; Startschuss</h3>
+        <p>Sie erhalten ein klares Festpreis-Angebot. Mit Ihrer Unterschrift und der Anzahlung von 50&nbsp;% geht's los.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Entwurf &amp; Feinschliff</h3>
+        <p>Nach wenigen Tagen sehen Sie den ersten Entwurf. Wir passen an, bis es für Sie passt – ohne Fachchinesisch.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Online in 2 Wochen</h3>
+        <p>Ihre Seite geht live, die Restzahlung wird fällig. Auf Wunsch übernehme ich ab da die komplette Pflege.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="beispiele" style="background:var(--bg2);">
-  <div class="wrap">
-    <span class="kicker">Beispiele</span>
-    <h2>So kann Ihre Seite aussehen.</h2>
-    <p class="sub">Drei Demo-Websites für typische Gewerke – klicken Sie rein! Ihre Seite wird natürlich individuell für Ihren Betrieb gebaut.</p>
-    <div class="demo-grid">
-      <div class="demo reveal"><div class="thumb">🔥</div><div class="body"><h3>Heizung &amp; Sanitär</h3><p>Notdienst-Button, Leistungen, Terminanfrage – alles, was ein SHK-Betrieb braucht.</p><a href="demo-heizung.html" target="_blank">Demo ansehen →</a></div></div>
-      <div class="demo reveal"><div class="thumb">⚡</div><div class="body"><h3>Elektrotechnik</h3><p>Vom Smart Home bis zur Wallbox – modern präsentiert, seriös und übersichtlich.</p><a href="demo-elektro.html" target="_blank">Demo ansehen →</a></div></div>
-      <div class="demo reveal"><div class="thumb">🏠</div><div class="body"><h3>Dachdeckerei</h3><p>Referenzprojekte mit Vorher/Nachher-Fotos, die für sich sprechen.</p><a href="demo-dach.html" target="_blank">Demo ansehen →</a></div></div>
+<!-- ======================= BEISPIELE ======================= -->
+<section class="examples" id="beispiele">
+  <div class="container">
+    <div class="section-head">
+      <p class="kicker">Beispiele</p>
+      <h2>So kann Ihre Seite aussehen.</h2>
+      <p>Drei Demo-Websites für typische Gewerke – klicken Sie rein! Ihre Seite wird selbstverständlich individuell für Ihren Betrieb gebaut.</p>
+    </div>
+    <div class="card-grid">
+      <a class="demo-card" href="demo-heizung.html">
+        <div class="demo-visual heat">🔥</div>
+        <div class="demo-body">
+          <h3>Heizung &amp; Sanitär</h3>
+          <p>Notdienst-Button, Leistungen, Terminanfrage – alles, was ein SHK-Betrieb braucht.</p>
+          <span class="demo-link">Demo ansehen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="demo-card" href="demo-elektro.html">
+        <div class="demo-visual elec">⚡</div>
+        <div class="demo-body">
+          <h3>Elektrotechnik</h3>
+          <p>Vom Smart Home bis zur Wallbox – modern präsentiert, seriös und übersichtlich.</p>
+          <span class="demo-link">Demo ansehen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+      <a class="demo-card" href="demo-dach.html">
+        <div class="demo-visual roof">🏠</div>
+        <div class="demo-body">
+          <h3>Dachdeckerei</h3>
+          <p>Referenzprojekte mit Vorher-/Nachher-Fotos, die für sich sprechen.</p>
+          <span class="demo-link">Demo ansehen <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<section class="bot" id="assistent">
-  <div class="wrap bot-grid">
+<!-- ======================= ASSISTENT ======================= -->
+<section class="assistant" id="assistent">
+  <div class="container assistant-inner">
     <div>
-      <span class="kicker">Der LokalSuite Assistent</span>
-      <div class="waitpill">🚀 Start September 2026 – Warteliste offen</div>
+      <p class="kicker">Der LokalSuite Assistent</p>
+      <p class="chip">🚀 Start September 2026 – Warteliste offen</p>
       <h2>Ihr Betrieb antwortet ab jetzt immer. Auch um 21 Uhr. Auch samstags.</h2>
-      <p>Der LokalSuite Assistent ist ein digitaler Mitarbeiter auf WhatsApp: Er begrüßt Ihre Kunden, beantwortet die häufigsten Fragen, nimmt Fotos vom Schaden entgegen und schlägt freie Termine aus Ihrem Kalender vor. Sie sehen alles in Ruhe nach Feierabend – und verlieren keinen Auftrag mehr an die schnellere Konkurrenz.</p>
-      <ul>
+      <p class="lead">
+        Der LokalSuite Assistent ist Ihr digitaler Mitarbeiter auf WhatsApp: Er begrüßt Ihre Kunden,
+        beantwortet die häufigsten Fragen, nimmt Fotos vom Schaden entgegen und schlägt freie Termine
+        aus Ihrem Kalender vor. Sie sehen alles in Ruhe nach Feierabend – und verlieren keinen Auftrag
+        mehr an die schnellere Konkurrenz.
+      </p>
+      <ul class="feat">
         <li>Sofortige Antwort auf jede Anfrage – rund um die Uhr</li>
         <li>Terminvorschläge direkt aus Ihrem Kalender</li>
         <li>Kunden schicken Fotos – Sie kalkulieren schon vor dem Ortstermin</li>
         <li>Läuft mit Ihrer eigenen Firmennummer</li>
       </ul>
-      <a class="btn" href="#kontakt">Auf die Warteliste setzen</a>
+      <a class="btn btn-primary" href="#kontakt">Auf die Warteliste setzen</a>
     </div>
-    <div class="phone reveal">
-      <div class="phone-head"><span class="avatar">🤖</span><div>LokalSuite Assistent<small>Probieren Sie es aus – klicken Sie unten!</small></div></div>
-      <div class="chat" id="botChat"></div>
-      <div class="chips" id="botChips"></div>
-      <div class="demo-tag">👆 Interaktive Demo – genau so erleben es Ihre Kunden</div>
+
+    <div class="phone-card demo-chat">
+      <div class="phone-head">
+        <div class="phone-avatar">🤖</div>
+        <div>
+          <strong>LokalSuite Assistent</strong>
+          <small>Probieren Sie es aus – klicken Sie unten!</small>
+        </div>
+      </div>
+      <div class="phone-body" id="chatBody">
+        <div class="bubble in" style="animation-delay:.3s">Guten Tag! 👋 Hier ist der digitale Assistent von Elektro Beispiel. Wie kann ich Ihnen helfen?<time>19:46</time></div>
+        <div class="quick-replies" id="quickReplies">
+          <button type="button" data-reply="termin">📅 Termin anfragen</button>
+          <button type="button" data-reply="wallbox">💶 Was kostet eine Wallbox?</button>
+          <button type="button" data-reply="notfall">🚨 Ich habe einen Notfall!</button>
+        </div>
+      </div>
+      <div class="phone-foot">👆 Interaktive Demo – genau so erleben es Ihre Kunden</div>
     </div>
   </div>
 </section>
 
-<section id="ueber">
-  <div class="wrap about-grid">
-    <div class="portrait reveal">👋</div>
-    <div>
-      <span class="kicker">Über mich</span>
-      <h2>Persönlich. Lokal. Ohne Agentur-Theater.</h2>
-      <p class="sub" style="max-width:100%;">Mein Name ist <b>David Schroeder</b>, ich bin Gründer von LokalSuite aus <span class="ph">[DEINE STADT]</span>. Ich baue Websites und digitale Assistenten für Betriebe, die Besseres zu tun haben, als sich mit Technik herumzuschlagen. Bei mir gibt es keinen Projektmanager und keine Warteschleife – Sie sprechen immer direkt mit dem, der Ihre Seite baut. Kurze Wege, ehrliche Preise, und wenn was ist, bin ich da.</p>
+<!-- ======================= ÜBER MICH ======================= -->
+<section class="about" id="ueber">
+  <div class="container about-inner">
+    <div class="about-visual">
+      <div class="about-avatar">DS</div>
+      <strong>David Schroeder</strong>
+      <span>Gründer von LokalSuite · Ansbach</span>
+      <ul class="about-points">
+        <li>Direkter Draht – kein Projektmanager dazwischen</li>
+        <li>Ehrliche Festpreise statt Agentur-Tarife</li>
+        <li>Aus der Region, für die Region</li>
+      </ul>
+    </div>
+    <div class="about-copy">
+      <p class="kicker">Über mich</p>
+      <h2 style="margin-bottom:20px">Persönlich. Lokal. Ohne Agentur-Theater.</h2>
+      <p>
+        Mein Name ist <strong>David Schroeder</strong>, ich bin Gründer von LokalSuite aus Ansbach.
+        Ich baue Websites und digitale Assistenten für Betriebe, die Besseres zu tun haben,
+        als sich mit Technik herumzuschlagen.
+      </p>
+      <p>
+        Bei mir gibt es keinen Projektmanager und keine Warteschleife – <strong>Sie sprechen immer direkt
+        mit dem, der Ihre Seite baut.</strong> Kurze Wege, ehrliche Preise, und wenn was ist, bin ich da.
+      </p>
+      <a class="btn btn-dark" href="#kontakt" style="margin-top:10px">Lernen wir uns kennen</a>
     </div>
   </div>
 </section>
 
+<!-- ======================= KONTAKT ======================= -->
 <section class="contact" id="kontakt">
-  <div class="wrap">
-    <span class="kicker">Kontakt</span>
-    <h2>Lassen Sie uns 15 Minuten sprechen – kostenlos &amp; unverbindlich.</h2>
-    <p class="sub">Am Ende wissen Sie genau, was Ihre neue Website kostet und wie sie aussehen könnte. Entscheiden können Sie danach in Ruhe.</p>
+  <div class="container">
+    <div class="section-head">
+      <p class="kicker">Kontakt</p>
+      <h2>Lassen Sie uns 15 Minuten sprechen – kostenlos &amp; unverbindlich.</h2>
+      <p>Am Ende wissen Sie genau, was Ihre neue Website kostet und wie sie aussehen könnte. Entscheiden können Sie danach in Ruhe.</p>
+    </div>
+
     <div class="contact-grid">
-      <div class="contact-card reveal">
+      <div class="contact-card">
         <h3>Direkt erreichen</h3>
-        <div class="contact-line"><span class="ico">📞</span><a href="tel:+490000000000"><span class="ph">[DEINE NUMMER]</span></a></div>
-        <div class="contact-line"><span class="ico">💬</span><a href="https://wa.me/490000000000">WhatsApp: <span class="ph">[DEINE NUMMER]</span></a></div>
-        <div class="contact-line"><span class="ico">✉️</span><a href="mailto:info@lokalsuite.de"><span class="ph">[DEINE E-MAIL]</span></a></div>
-        <p class="hours">Erreichbar Mo–Fr 8–18 Uhr · Rückruf garantiert am selben Tag</p>
+        <div class="contact-rows">
+          <a class="contact-row" href="tel:+4915510692206">
+            <span class="contact-ico tel">📞</span>
+            <span><strong>0155 1069 2206</strong><small>Anruf – ich gehe ran oder rufe zurück</small></span>
+          </a>
+          <a class="contact-row" href="https://wa.me/4915510692206">
+            <span class="contact-ico wa">💬</span>
+            <span><strong>WhatsApp: 0155 1069 2206</strong><small>Kurze Nachricht genügt</small></span>
+          </a>
+          <a class="contact-row" href="mailto:david.schr0906@gmail.com">
+            <span class="contact-ico mail">✉️</span>
+            <span><strong>david.schr0906@gmail.com</strong><small>Antwort noch am selben Tag</small></span>
+          </a>
+        </div>
+        <p class="avail">Erreichbar Mo–Fr 8–18 Uhr · Rückruf garantiert am selben Tag</p>
       </div>
-      <div class="contact-card reveal">
+
+      <div class="contact-card">
         <h3>Oder kurz schreiben</h3>
-        <p style="color:var(--ink2); font-size:.95rem; margin-bottom:14px;">Schreiben Sie mir formlos per E-Mail oder WhatsApp:</p>
-        <p style="background:var(--bg2); border-radius:10px; padding:14px 16px; font-size:.95rem; color:var(--ink2);">„Hallo, ich bin <i>[Name]</i> von <i>[Betrieb]</i> und interessiere mich für eine Website. Rufen Sie mich zurück unter <i>[Nummer]</i>."</p>
-        <p style="margin-top:14px; font-size:.9rem; color:var(--muted);">Mehr braucht es nicht – den Rest klären wir im Gespräch.</p>
+        <p>Schreiben Sie mir formlos per E-Mail oder WhatsApp – zum Beispiel so:</p>
+        <div class="msg-template">
+          „Hallo, ich bin [Name] von [Betrieb] und interessiere mich für eine Website.
+          Rufen Sie mich zurück unter [Nummer]."
+        </div>
+        <p>Mehr braucht es nicht – den Rest klären wir im Gespräch.</p>
+        <a class="btn btn-primary" href="mailto:david.schr0906@gmail.com?subject=Anfrage%20Website" style="margin-top:22px;width:100%">Jetzt E-Mail schreiben</a>
       </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-grid">
-      <div><b style="color:var(--ink);">LokalSuite</b> – Websites &amp; digitale Assistenten<br>Inhaber: David Schroeder</div>
-      <div><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a></div>
+<!-- ======================= FOOTER ======================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a class="logo" href="#top" aria-label="LokalSuite – zur Startseite">
+          <span class="logo-mark">L<span>S</span></span>
+          Lokal<em>Suite</em>
+        </a>
+        <p style="margin-top:12px">Websites &amp; digitale Assistenten für Handwerksbetriebe<br>Inhaber: David Schroeder</p>
+      </div>
+      <div class="footer-links">
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
     </div>
+
     <div class="legal-block" id="impressum">
-      <h4>Impressum (Angaben gemäß § 5 DDG)</h4>
-      <p>LokalSuite – Inhaber: David Schroeder · <span class="ph">[STRASSE HAUSNR.]</span> · <span class="ph">[PLZ STADT]</span><br>
-      Telefon: <span class="ph">[DEINE NUMMER]</span> · E-Mail: <span class="ph">[DEINE E-MAIL]</span><br>
-      Kleinunternehmer gemäß § 19 UStG.</p>
+      <h3>Impressum (Angaben gemäß §&nbsp;5 DDG)</h3>
+      <p>LokalSuite – Inhaber: David Schroeder · Karpfenstraße 11 · 91522 Ansbach</p>
+      <p>Telefon: 0155 1069 2206 · E-Mail: david.schr0906@gmail.com</p>
+      <p>Kleinunternehmer gemäß §&nbsp;19 UStG.</p>
     </div>
+
     <div class="legal-block" id="datenschutz">
-      <h4>Datenschutz</h4>
-      <p><span class="ph">Platzhalter:</span> Vor dem Livegang eine vollständige Datenschutzerklärung einfügen (z.&nbsp;B. mit einem Datenschutz-Generator erstellen und hier verlinken oder einbetten). Diese Seite setzt keine Cookies und lädt keine externen Dienste – das macht die Erklärung angenehm kurz.</p>
+      <h3>Datenschutzerklärung</h3>
+      <p>Diese Website setzt keine Cookies, verwendet kein Tracking und lädt keine externen Dienste. Personenbezogene Daten werden nur verarbeitet, soweit dies technisch erforderlich ist oder Sie selbst Kontakt aufnehmen.</p>
+      <details class="legal-details">
+        <summary>Vollständige Datenschutzerklärung anzeigen</summary>
+        <div class="legal-details-body">
+          <h4>1. Verantwortlicher</h4>
+          <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist:<br>
+          David Schroeder · LokalSuite · Karpfenstraße 11 · 91522 Ansbach<br>
+          Telefon: 0155 1069 2206 · E-Mail: david.schr0906@gmail.com</p>
+
+          <h4>2. Hosting und Server-Logfiles</h4>
+          <p>Beim Aufruf dieser Website erhebt der Hosting-Anbieter automatisch Informationen in sogenannten Server-Logfiles, die Ihr Browser übermittelt: IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, verwendeter Browser und Betriebssystem sowie die zuvor besuchte Seite (Referrer). Diese Daten sind technisch erforderlich, um die Website auszuliefern und ihre Stabilität und Sicherheit zu gewährleisten. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an einem sicheren Betrieb). Die Logfiles werden nach kurzer Zeit automatisch gelöscht und nicht mit anderen Datenquellen zusammengeführt. Mit dem Hosting-Anbieter besteht ein Vertrag über Auftragsverarbeitung gemäß Art.&nbsp;28 DSGVO.</p>
+
+          <h4>3. Kontaktaufnahme per Telefon, E-Mail oder WhatsApp</h4>
+          <p>Wenn Sie mich per Telefon, E-Mail oder WhatsApp kontaktieren, verarbeite ich die von Ihnen mitgeteilten Daten (z.&nbsp;B. Name, Telefonnummer, E-Mail-Adresse, Inhalt Ihrer Anfrage) ausschließlich zur Bearbeitung Ihrer Anfrage und für mögliche Anschlussfragen. Rechtsgrundlage ist Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO (Anbahnung bzw. Durchführung eines Vertrags) bzw. Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO (berechtigtes Interesse an der Beantwortung Ihrer Anfrage). Ihre Daten werden gelöscht, sobald sie für diese Zwecke nicht mehr benötigt werden und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+          <p>Bei Kontaktaufnahme über WhatsApp gilt zusätzlich: Anbieter ist WhatsApp Ireland Limited, 4 Grand Canal Square, Dublin 2, Irland (Teil der Meta-Unternehmensgruppe). WhatsApp erhält dabei Metadaten Ihrer Kommunikation (z.&nbsp;B. Telefonnummer, Zeitpunkt); dabei kann eine Datenübermittlung in Drittländer (u.&nbsp;a. USA) stattfinden, die auf Grundlage der EU-Standardvertragsklauseln bzw. des EU-US Data Privacy Framework abgesichert ist. Details entnehmen Sie der Datenschutzrichtlinie von WhatsApp. Wenn Sie das nicht möchten, nutzen Sie bitte Telefon oder E-Mail.</p>
+
+          <h4>4. Keine Cookies, kein Tracking</h4>
+          <p>Diese Website setzt keine Cookies, verwendet keine Analyse- oder Tracking-Dienste und bindet keine Inhalte von Drittanbietern (z.&nbsp;B. Schriften, Karten oder Videos) ein.</p>
+
+          <h4>5. Ihre Rechte</h4>
+          <p>Sie haben gegenüber mir das Recht auf Auskunft über Ihre gespeicherten personenbezogenen Daten (Art.&nbsp;15 DSGVO), Berichtigung (Art.&nbsp;16 DSGVO), Löschung (Art.&nbsp;17 DSGVO), Einschränkung der Verarbeitung (Art.&nbsp;18 DSGVO), Datenübertragbarkeit (Art.&nbsp;20 DSGVO) sowie Widerspruch gegen die Verarbeitung (Art.&nbsp;21 DSGVO). Wenden Sie sich dazu formlos an die oben genannten Kontaktdaten.</p>
+          <p>Außerdem haben Sie das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art.&nbsp;77 DSGVO). Zuständig ist das Bayerische Landesamt für Datenschutzaufsicht (BayLDA), Promenade&nbsp;18, 91522 Ansbach.</p>
+
+          <h4>6. Stand</h4>
+          <p>Diese Datenschutzerklärung hat den Stand Juli 2026 und wird bei Bedarf angepasst.</p>
+        </div>
+      </details>
     </div>
+
+    <p class="footer-note">© <span id="year">2026</span> LokalSuite · Alle Rechte vorbehalten</p>
   </div>
 </footer>
 
+<!-- ======================= MOBILE STICKY CTA ======================= -->
+<div class="mobile-cta">
+  <a class="btn btn-dark" href="tel:+4915510692206">📞 Anrufen</a>
+  <a class="btn btn-primary" href="#kontakt">Kostenloses Erstgespräch</a>
+</div>
+
 <script>
-  // ===== Scroll-Reveal =====
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
-  }, {threshold:.15});
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // Jahr im Footer
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ===== Helpers =====
-  function el(tag, cls, html){ const n = document.createElement(tag); if(cls) n.className = cls; if(html !== undefined) n.innerHTML = html; return n; }
-  function addMsg(box, dir, text, time){
-    const m = el('div','msg '+dir, text + '<span class="time">'+(time||'')+'</span>');
-    box.appendChild(m); box.scrollTop = box.scrollHeight; return m;
-  }
-  function addTyping(box){
-    const t = el('div','msg in typing','<i></i><i></i><i></i>');
-    box.appendChild(t); box.scrollTop = box.scrollHeight; return t;
-  }
+  // Mobile Navigation
+  var toggle = document.getElementById('navToggle');
+  var header = document.getElementById('siteHeader');
+  toggle.addEventListener('click', function () {
+    var open = header.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  });
+  document.querySelectorAll('.main-nav a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      header.classList.remove('nav-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
-  // ===== Hero: automatische Chat-Demo (Endlosschleife) =====
-  const heroChat = document.getElementById('heroChat');
-  const heroScript = [
-    {dir:'in',  text:'Guten Tag! Unsere Heizung ist ausgefallen 😰 Können Sie diese Woche vorbeikommen?', time:'17:42'},
-    {dir:'out', text:'Guten Tag! Das tut mir leid – da helfen wir schnell. Ich habe <b>Donnerstag 9:00</b> oder <b>Freitag 14:00 Uhr</b> frei. Was passt Ihnen?', time:'17:42'},
-    {dir:'in',  text:'Donnerstag 9 Uhr wäre super!', time:'17:43'},
-    {dir:'out', text:'✅ Termin eingetragen: <b>Do, 9:00 Uhr</b>. Sie bekommen vorab eine Erinnerung. Bis dahin!', time:'17:43'}
-  ];
-  function playHero(i){
-    if(i >= heroScript.length){ setTimeout(() => { heroChat.innerHTML=''; playHero(0); }, 6000); return; }
-    const line = heroScript[i];
-    const t = addTyping(heroChat);
-    setTimeout(() => {
-      t.remove();
-      addMsg(heroChat, line.dir, line.text, line.time);
-      setTimeout(() => playHero(i+1), 1400);
-    }, line.dir === 'out' ? 1100 : 800);
-  }
-  playHero(0);
-
-  // ===== Assistent: interaktive Demo =====
-  const botChat = document.getElementById('botChat');
-  const botChips = document.getElementById('botChips');
-  const now = () => new Date().toLocaleTimeString('de-DE',{hour:'2-digit',minute:'2-digit'});
-
-  const flow = {
-    start: {
-      bot: 'Guten Tag! 👋 Hier ist der digitale Assistent von <b>Elektro Beispiel</b>. Wie kann ich Ihnen helfen?',
-      chips: [
-        {label:'📅 Termin anfragen', next:'termin'},
-        {label:'💶 Was kostet eine Wallbox?', next:'wallbox'},
-        {label:'🚨 Ich habe einen Notfall!', next:'notfall'}
-      ]
-    },
+  // Interaktive Chat-Demo
+  var replies = {
     termin: {
-      user:'Ich hätte gern einen Termin.',
-      bot:'Sehr gern! Ich sehe im Kalender zwei freie Termine: <b>Donnerstag 9:00</b> oder <b>Freitag 14:00 Uhr</b>. Welcher passt Ihnen?',
-      chips:[ {label:'Do, 9:00 Uhr', next:'bestaetigt'}, {label:'Fr, 14:00 Uhr', next:'bestaetigt'} ]
-    },
-    bestaetigt: {
-      user:'Der Termin passt mir gut!',
-      bot:'✅ Wunderbar, der Termin ist eingetragen! Sie bekommen einen Tag vorher automatisch eine Erinnerung. Kann ich sonst noch etwas tun?',
-      chips:[ {label:'🔄 Demo neu starten', next:'restart'} ]
+      user: '📅 Ich hätte gern einen Termin.',
+      bot: 'Sehr gern! Ich sehe im Kalender: <strong>Donnerstag 10:00 Uhr</strong> oder <strong>Freitag 14:30 Uhr</strong> wäre frei. Was passt Ihnen besser?'
     },
     wallbox: {
-      user:'Was kostet ungefähr eine Wallbox mit Montage?',
-      bot:'Gute Frage! Das hängt von Ihrem Hausanschluss ab. Mögen Sie mir ein Foto von Ihrem Sicherungskasten schicken? 📷 Dann kalkuliert der Chef schon vor dem Ortstermin.',
-      chips:[ {label:'📷 Foto senden', next:'foto'} ]
-    },
-    foto: {
-      user:'📷 [Foto vom Sicherungskasten]',
-      bot:'Perfekt, danke! Ich habe alles weitergegeben – Sie erhalten <b>morgen bis 10 Uhr</b> eine grobe Einschätzung. Einen schönen Abend! ✅',
-      chips:[ {label:'🔄 Demo neu starten', next:'restart'} ]
+      user: '💶 Was kostet eine Wallbox?',
+      bot: 'Eine 11-kW-Wallbox inklusive Montage liegt je nach Gegebenheiten meist zwischen <strong>1.500 und 2.500 €</strong>. Schicken Sie mir ein Foto Ihres Zählerschranks – dann kann der Chef vorab genauer kalkulieren. 📷'
     },
     notfall: {
-      user:'Ich habe einen Notfall – Stromausfall im ganzen Haus!',
-      bot:'⚡ Bei Notfällen sind wir sofort für Sie da: Rufen Sie bitte direkt unsere <b>Notdienst-Nummer</b> an – ich habe den Chef parallel schon informiert!',
-      chips:[ {label:'🔄 Demo neu starten', next:'restart'} ]
+      user: '🚨 Ich habe einen Notfall!',
+      bot: 'Verstanden – Notfälle haben Vorrang! Ich habe den Chef gerade benachrichtigt. 🚨 Bitte schildern Sie kurz, was passiert ist, und nennen Sie mir Ihre Adresse.'
     }
   };
+  var chatBody = document.getElementById('chatBody');
+  var quick = document.getElementById('quickReplies');
 
-  function showChips(chips){
-    botChips.innerHTML = '';
-    chips.forEach(c => {
-      const b = el('button','chip', c.label);
-      b.onclick = () => pick(c);
-      botChips.appendChild(b);
-    });
+  function now() {
+    var d = new Date();
+    return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2);
   }
-  function pick(c){
-    botChips.innerHTML = '';
-    if(c.next === 'restart'){ botChat.innerHTML=''; run('start'); return; }
-    run(c.next);
+  function addBubble(html, dir, delay) {
+    var b = document.createElement('div');
+    b.className = 'bubble ' + dir;
+    b.innerHTML = html + '<time>' + now() + '</time>';
+    b.style.animationDelay = (delay || 0) + 's';
+    chatBody.insertBefore(b, quick);
+    chatBody.scrollTop = chatBody.scrollHeight;
   }
-  function run(key){
-    const node = flow[key];
-    const go = () => {
-      const t = addTyping(botChat);
-      setTimeout(() => { t.remove(); addMsg(botChat,'in',node.bot,now()); showChips(node.chips); }, 1000);
-    };
-    if(node.user){ addMsg(botChat,'out',node.user,now()); setTimeout(go, 500); } else { go(); }
-  }
-  run('start');
+  quick.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-reply]');
+    if (!btn) return;
+    var r = replies[btn.dataset.reply];
+    btn.disabled = true;
+    addBubble(r.user, 'out', 0);
+    addBubble(r.bot, 'in', 0.9);
+  });
 </script>
 </body>
 </html>
