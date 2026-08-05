@@ -494,6 +494,15 @@ ul,ol{margin:0;padding:0;list-style:none}
 @media (max-width:900px){ .contact__grid{grid-template-columns:1fr} }
 
 /* ---------- Fusszeile ---------- */
+/* ---- Live-Vorschau der Demo-Seiten (statt Screenshots) ---- */
+.shot{position:relative;width:100%;overflow:hidden;background:#101724}
+.shot iframe{position:absolute;top:0;left:0;width:1280px;height:1000px;border:0;
+  transform-origin:top left;pointer-events:none;color-scheme:normal}
+.frame .shot{aspect-ratio:16/11}
+.demo--lead .shot{aspect-ratio:4/3}
+.demo--side .shot{aspect-ratio:16/10}
+.demo .shot iframe{transition:transform .6s var(--ease)}
+
 /* ---- FAQ ---- */
 .faq{display:grid;gap:.9rem;max-width:70ch}
 .faq details{
@@ -646,8 +655,9 @@ ul,ol{margin:0;padding:0;list-style:none}
             <span class="frame__dots"><i></i><i></i><i></i></span>
             <span class="frame__url">lokalsuite.de/demo-elektro.html</span>
           </div>
-          <img src="hero-demo-elektro.jpg" width="1280" height="880"
-               alt="Bildschirmfoto der Demo-Website für den Elektrobetrieb Volt &amp; Watt" fetchpriority="high">
+          <div class="shot">
+            <iframe src="demo-elektro.html" title="Vorschau der Demo-Website für den Elektrobetrieb Volt &amp; Watt" loading="eager" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+          </div>
         </div>
         <span class="hero__badge">In 2 Wochen online</span>
       </div>
@@ -802,8 +812,9 @@ ul,ol{margin:0;padding:0;list-style:none}
       <div class="demos">
         <a class="glass demo demo--lead rise" href="demo-elektro.html" target="_blank" rel="noopener">
           <figure>
-            <img src="demo-elektro.jpg" width="1280" height="960"
-                 alt="Demo-Website für einen Elektrobetrieb" loading="lazy">
+            <div class="shot">
+              <iframe src="demo-elektro.html" title="Demo-Website für einen Elektrobetrieb" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
           </figure>
           <div class="demo__body">
             <div>
@@ -816,8 +827,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
         <a class="glass demo demo--side rise" style="--d:80ms" href="demo-heizung.html" target="_blank" rel="noopener">
           <figure>
-            <img src="demo-heizung.jpg" width="1280" height="800"
-                 alt="Demo-Website für einen Heizungs- und Sanitärbetrieb" loading="lazy">
+            <div class="shot">
+              <iframe src="demo-heizung.html" title="Demo-Website für einen Heizungs- und Sanitärbetrieb" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
           </figure>
           <div class="demo__body">
             <div>
@@ -830,8 +842,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
         <a class="glass demo demo--side rise" style="--d:130ms" href="demo-dach.html" target="_blank" rel="noopener">
           <figure>
-            <img src="demo-dach.jpg" width="1280" height="800"
-                 alt="Demo-Website für eine Dachdeckerei" loading="lazy">
+            <div class="shot">
+              <iframe src="demo-dach.html" title="Demo-Website für eine Dachdeckerei" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
           </figure>
           <div class="demo__body">
             <div>
@@ -844,8 +857,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
         <a class="glass demo demo--side rise" style="--d:180ms" href="demo-praxis.html" target="_blank" rel="noopener">
           <figure>
-            <img src="demo-praxis.jpg" width="1280" height="800"
-                 alt="Demo-Website für eine Arztpraxis" loading="lazy">
+            <div class="shot">
+              <iframe src="demo-praxis.html" title="Demo-Website für eine Arztpraxis" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
           </figure>
           <div class="demo__body">
             <div>
@@ -858,8 +872,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
         <a class="glass demo demo--side rise" style="--d:230ms" href="demo-restaurant.html" target="_blank" rel="noopener">
           <figure>
-            <img src="demo-restaurant.jpg" width="1280" height="800"
-                 alt="Demo-Website für ein Restaurant" loading="lazy">
+            <div class="shot">
+              <iframe src="demo-restaurant.html" title="Demo-Website für ein Restaurant" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
           </figure>
           <div class="demo__body">
             <div>
@@ -1341,6 +1356,31 @@ ul,ol{margin:0;padding:0;list-style:none}
     var input = field.querySelector("input, textarea");
     if (input) input.setAttribute("aria-invalid", String(bad));
   }
+
+
+  /* Live-Vorschauen auf Kachelgroesse skalieren */
+  (function () {
+    var shots = Array.prototype.slice.call(document.querySelectorAll('.shot'));
+    if (!shots.length) return;
+
+    function fit() {
+      shots.forEach(function (box) {
+        var frame = box.querySelector('iframe');
+        if (!frame || !box.clientWidth) return;
+        var k = box.clientWidth / 1280;
+        frame.style.transform = 'scale(' + k + ')';
+        frame.style.height = (box.clientHeight / k) + 'px';
+      });
+    }
+
+    fit();
+    window.addEventListener('load', fit);
+    window.addEventListener('resize', fit);
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(fit);
+      shots.forEach(function (box) { ro.observe(box); });
+    }
+  })();
 
   /* ---------- Versand ueber Web3Forms ----------
      Den Access Key bekommst du kostenlos auf web3forms.com.
