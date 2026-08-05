@@ -15,11 +15,80 @@
 <meta property="og:description" content="Festpreis 1.999 Euro, in zwei Wochen online, persönlicher Ansprechpartner aus Ansbach.">
 <meta property="og:url" content="https://lokalsuite.de/">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link rel="preload" href="schriften/plus-jakarta-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/plus-jakarta-sans-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+/* ---------------------------------------------------------------
+   Schriften liegen selbst auf dem Server, es wird nichts von Google
+   nachgeladen. Plus Jakarta Sans, SIL Open Font License, siehe
+   schriften/LICENSE.txt
+   --------------------------------------------------------------- */
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-400-normal.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-ext-400-normal.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-500-normal.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-ext-500-normal.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-600-normal.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-ext-600-normal.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:800;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-800-normal.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face{
+  font-family:'Plus Jakarta Sans';
+  font-style:normal;
+  font-weight:800;
+  font-display:swap;
+  src:url('schriften/plus-jakarta-sans-latin-ext-800-normal.woff2') format('woff2');
+  unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
 /* =========================================================================
    LokalSuite
 
@@ -425,6 +494,31 @@ ul,ol{margin:0;padding:0;list-style:none}
 @media (max-width:900px){ .contact__grid{grid-template-columns:1fr} }
 
 /* ---------- Fusszeile ---------- */
+/* ---- FAQ ---- */
+.faq{display:grid;gap:.9rem;max-width:70ch}
+.faq details{
+  background:var(--glass);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--glass-edge);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  overflow:hidden;transition:border-color .2s ease
+}
+.faq details[open]{border-color:var(--line-2)}
+.faq summary{
+  display:flex;align-items:flex-start;gap:1rem;justify-content:space-between;
+  padding:1.15rem 1.35rem;cursor:pointer;font-weight:600;font-size:1.02rem;
+  list-style:none;color:var(--ink)
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{background:rgba(255,255,255,.05)}
+.faq summary::after{
+  content:"";flex:0 0 12px;width:12px;height:12px;margin-top:.35rem;
+  border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);
+  transform:rotate(45deg);transition:transform .22s ease
+}
+.faq details[open] summary::after{transform:rotate(225deg)}
+.faq .faq__a{padding:0 1.35rem 1.3rem;color:var(--ink-2);line-height:1.65}
+.faq .faq__a p + p{margin-top:.8rem}
+@media (prefers-reduced-motion:reduce){.faq summary::after{transition:none}}
+
 .foot{border-top:1px solid var(--line);padding-block:clamp(2.5rem,5vw,3.5rem);background:rgba(0,0,0,.16)}
 .foot__grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2rem}
 .foot h4{font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:var(--ink-3);margin:0 0 .95rem;font-weight:600}
@@ -496,6 +590,7 @@ ul,ol{margin:0;padding:0;list-style:none}
       <a href="#ablauf">So läuft's ab</a>
       <a href="#beispiele">Beispiele</a>
       <a href="#assistent">WhatsApp-Assistent</a>
+      <a href="#fragen">Fragen</a>
       <a href="#ueber-mich">Über mich</a>
     </nav>
 
@@ -513,6 +608,7 @@ ul,ol{margin:0;padding:0;list-style:none}
       <li><a href="#ablauf">So läuft's ab</a></li>
       <li><a href="#beispiele">Beispiele</a></li>
       <li><a href="#assistent">WhatsApp-Assistent</a></li>
+      <li><a href="#fragen">Fragen</a></li>
       <li><a href="#ueber-mich">Über mich</a></li>
       <li><a href="tel:+4915510692206">0155 1069 2206</a></li>
     </ul>
@@ -568,7 +664,7 @@ ul,ol{margin:0;padding:0;list-style:none}
         </li>
         <li class="rise" style="--d:70ms">
           <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
-          <span><b>Rückruf am selben Tag</b><span>Sie reden immer mit mir, nicht mit einem Team</span></span>
+          <span><b>Rückruf innerhalb von 24 Stunden</b><span>Sie reden immer mit mir, nicht mit einem Team</span></span>
         </li>
         <li class="rise" style="--d:140ms">
           <svg class="ico" aria-hidden="true"><use href="#i-tag"/></svg>
@@ -596,11 +692,10 @@ ul,ol{margin:0;padding:0;list-style:none}
           <div class="tier__head">
             <h3>Ihre neue Website</h3>
             <div class="tier__price">
-              <span class="tier__old">2.999 €</span>
               <span class="tier__num">1.999 €</span>
               <span class="tier__unit">einmalig</span>
             </div>
-            <p class="tier__note">Pilotpreis für die ersten 3 Betriebe</p>
+            <p class="tier__note">Pilotpreis für die ersten 3 Betriebe · danach 2.999 €</p>
             <p class="tier__desc">Alles, was ein Handwerksbetrieb online braucht. Fertig aufgesetzt und übergeben.</p>
           </div>
           <div class="tier__rule"></div>
@@ -610,6 +705,7 @@ ul,ol{margin:0;padding:0;list-style:none}
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Anfrage-Formular und Notdienst-Button</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Grundoptimierung für Google</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Rechtssicheres Impressum und Datenschutz</li>
+            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Domain und Hosting im ersten Jahr inklusive</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>50 % Anzahlung, 50 % bei Go-live</li>
           </ul>
           <a class="btn btn--glass" href="#kontakt">Kostenloses Erstgespräch</a>
@@ -624,15 +720,15 @@ ul,ol{margin:0;padding:0;list-style:none}
               <span class="tier__num">79 €</span>
               <span class="tier__unit">pro Monat</span>
             </div>
-            <p class="tier__note">Monatlich kündbar</p>
-            <p class="tier__desc">Damit die Seite läuft, aktuell bleibt und Sie sich um nichts kümmern müssen.</p>
+            <p class="tier__note">Monatlich kündbar, jederzeit buchbar</p>
+            <p class="tier__desc">Damit die Seite aktuell bleibt und Sie sich um nichts kümmern müssen. Ab Tag eins oder später, ganz wie Sie möchten.</p>
           </div>
           <div class="tier__rule"></div>
           <ul class="tier__feats">
-            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Hosting und Sicherheit</li>
-            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Tägliche Backups</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Bis 30 Minuten Änderungen im Monat</li>
-            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Technische Updates</li>
+            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Tägliche Backups und Sicherheitsupdates</li>
+            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Laufende Überwachung der Seite</li>
+            <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Ab dem 13. Monat Domain und Hosting inklusive</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Support direkt bei mir</li>
             <li><span class="tick"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></span>Größere Umbauten 85 € pro Stunde</li>
           </ul>
@@ -797,6 +893,7 @@ ul,ol{margin:0;padding:0;list-style:none}
               <input id="w-mail" name="email" type="email" placeholder="Ihre E-Mail-Adresse" autocomplete="email" required>
               <button class="btn btn--primary" type="submit" id="waitSubmit">Platz reservieren</button>
             </div>
+            <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none">
             <p class="assist__note" id="waitNote">Sie bekommen eine Nachricht, sobald es losgeht. Sonst nichts.</p>
           </form>
         </div>
@@ -821,7 +918,7 @@ ul,ol{margin:0;padding:0;list-style:none}
     <div class="wrap about">
       <figure class="rise">
         <!-- TODO: durch ein echtes Portraitfoto ersetzen, Hochformat 4:5 -->
-        <img src="https://picsum.photos/seed/lokalsuite-david-portrait/720/900" width="720" height="900"
+        <img src="bilder/david-portrait.jpg" width="720" height="900"
              alt="David Schroeder, Gründer von LokalSuite" loading="lazy">
       </figure>
       <div class="rise" style="--d:100ms">
@@ -831,8 +928,89 @@ ul,ol{margin:0;padding:0;list-style:none}
         <div class="about__meta">
           <span class="pill">Aus Ansbach</span>
           <span class="pill">Festpreise</span>
-          <span class="pill">Rückruf am selben Tag</span>
+          <span class="pill">Rückruf innerhalb von 24 Stunden</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== Haeufige Fragen ===================== -->
+  <section class="sect" id="fragen" style="padding-top:0">
+    <div class="wrap">
+      <div class="sect__head rise">
+        <h2>Fragen, die mir alle stellen</h2>
+        <p>Wenn etwas fehlt, rufen Sie einfach an. Ich sage Ihnen auch, wenn ich nicht der Richtige bin.</p>
+      </div>
+
+      <div class="faq rise" style="--d:80ms">
+        <details>
+          <summary>Wem gehört die Website am Ende?</summary>
+          <div class="faq__a">
+            <p>Ihnen. Die Domain wird auf Ihren Namen angemeldet, und beim Go-live bekommen Sie alle Zugangsdaten. Wenn Sie die Pflege später kündigen oder zu jemand anderem wechseln, nehmen Sie die Seite mit. Ich halte niemanden über Zugänge fest.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Sind Domain und Hosting im Festpreis enthalten?</summary>
+          <div class="faq__a">
+            <p>Im ersten Jahr ja. Die 1.999 Euro decken Domain und Hosting für zwölf Monate ab, Sie zahlen also nach dem Go-live erst einmal nichts weiter.</p>
+            <p>Ab dem 13. Monat läuft der Betrieb über die Rundum-sorglos-Pflege für 79 Euro im Monat. Wenn Sie die nicht möchten, übernehmen Sie Domain und Hosting einfach selbst, ich übergebe Ihnen alles Nötige dafür.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Brauche ich die Pflege überhaupt?</summary>
+          <div class="faq__a">
+            <p>Müssen tun Sie nichts. Sinnvoll ist sie, wenn sich bei Ihnen regelmäßig etwas ändert: neue Leistungen, neue Preise, ein neues Referenzprojekt, ein zusätzlicher Mitarbeiter auf der Teamseite.</p>
+            <p>Die meisten Betriebe buchen sie direkt ab Go-live, weil im ersten halben Jahr erfahrungsgemäß am meisten nachjustiert wird. Kündbar ist sie jeden Monat.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Muss ich die Texte selbst schreiben?</summary>
+          <div class="faq__a">
+            <p>Sie liefern die Rohfassung, ich mache daraus vernünftige Website-Texte. Stichpunkte genügen, gern auch als Sprachnachricht auf WhatsApp. Sie kennen Ihr Handwerk, ich kümmere mich um Formulierung und Aufbau.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Und die Fotos?</summary>
+          <div class="faq__a">
+            <p>Die kommen von Ihnen. Bilder von echten Baustellen und Ihrem Team wirken deutlich besser als gekaufte Stockfotos, und die haben Sie meistens schon auf dem Handy.</p>
+            <p>Falls nicht, sage ich Ihnen genau, welche Motive ich brauche. Ein Nachmittag mit dem Handy reicht dafür völlig.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ich habe schon eine Website. Lohnt sich das trotzdem?</summary>
+          <div class="faq__a">
+            <p>Kommt darauf an. Wenn Ihre Seite auf dem Handy funktioniert und Anfragen bringt, sage ich Ihnen das offen und Sie sparen sich das Geld. Wenn sie zehn Jahre alt ist und niemand darüber anruft, lohnt es sich.</p>
+            <p>Ihre bestehende Domain können Sie behalten, die ziehen wir einfach um.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Was kostet es, wenn ich später etwas ändern möchte?</summary>
+          <div class="faq__a">
+            <p>In der Pflege sind 30 Minuten Änderungen pro Monat enthalten, damit sind neue Leistungen, Preise oder Referenzbilder abgedeckt. Größere Umbauten rechne ich mit 85 Euro pro Stunde ab, immer nach vorheriger Absprache.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Warum sind Sie günstiger als eine Agentur?</summary>
+          <div class="faq__a">
+            <p>Weil hier niemand zwischen uns steht. Kein Vertrieb, kein Projektmanager, kein Büro in der Innenstadt. Sie reden direkt mit dem, der die Seite baut.</p>
+            <p>Die 1.999 Euro sind außerdem ein Pilotpreis für die ersten drei Betriebe. Ab dem vierten Auftrag kostet dieselbe Leistung 2.999 Euro.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Was passiert, wenn ich mit dem Entwurf nicht zufrieden bin?</summary>
+          <div class="faq__a">
+            <p>Wir passen ihn an, bis er sitzt. Deshalb zahlen Sie auch nur die Hälfte im Voraus, die Restzahlung wird erst nach dem Go-live fällig.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -854,19 +1032,22 @@ ul,ol{margin:0;padding:0;list-style:none}
             <svg class="ico" aria-hidden="true"><use href="#i-chat"/></svg>
             <span><b>Per WhatsApp schreiben</b><small>Gleiche Nummer, oft die schnellste Antwort</small></span>
           </a>
-          <a href="mailto:david.schr0906@gmail.com">
+          <a href="mailto:david@lokalsuite.de">
             <svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>
-            <span><b>david.schr0906@gmail.com</b><small>Antwort in der Regel am selben Tag</small></span>
+            <span><b>david@lokalsuite.de</b><small>Antwort in der Regel innerhalb von 24 Stunden</small></span>
           </a>
           <div>
             <svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg>
-            <span><b>Karpfenstraße 11, 91522 Ansbach</b><small>Termine vor Ort nach Absprache</small></span>
+            <span><b>Ansbach und Umgebung</b><small>Termine vor Ort nach Absprache</small></span>
           </div>
         </div>
       </div>
 
       <form class="glass form rise" id="contactForm" novalidate style="--d:110ms">
         <div class="form__body">
+
+          <!-- Spam-Falle: fuer Menschen unsichtbar, Bots fuellen sie aus -->
+          <input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none">
           <h3>Anfrage senden</h3>
 
           <div class="field" data-field>
@@ -905,7 +1086,7 @@ ul,ol{margin:0;padding:0;list-style:none}
         <div class="form__done" role="status">
           <svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>
           <h3>Danke, ist angekommen.</h3>
-          <p style="margin-top:.7rem;color:var(--ink-2)">Ich melde mich am selben Werktag. Falls sich kein E-Mail-Programm geöffnet hat, rufen Sie mich einfach direkt an: 0155 1069 2206.</p>
+          <p style="margin-top:.7rem;color:var(--ink-2)">Ich melde mich innerhalb von 24 Stunden bei Ihnen. Wenn es eilt, rufen Sie mich gern direkt an: 0155 1069 2206.</p>
         </div>
       </form>
     </div>
@@ -924,7 +1105,7 @@ ul,ol{margin:0;padding:0;list-style:none}
           Karpfenstraße 11<br>
           91522 Ansbach<br>
           <a href="tel:+4915510692206">0155 1069 2206</a><br>
-          <a href="mailto:david.schr0906@gmail.com">david.schr0906@gmail.com</a>
+          <a href="mailto:david@lokalsuite.de">david@lokalsuite.de</a>
         </address>
       </div>
       <div>
@@ -933,6 +1114,7 @@ ul,ol{margin:0;padding:0;list-style:none}
           <li><a href="#leistungen">Leistungen &amp; Preise</a></li>
           <li><a href="#ablauf">So läuft's ab</a></li>
           <li><a href="#assistent">WhatsApp-Assistent</a></li>
+          <li><a href="#fragen">Häufige Fragen</a></li>
         </ul>
       </div>
       <div>
@@ -970,7 +1152,7 @@ ul,ol{margin:0;padding:0;list-style:none}
   "description":"Moderne Websites für Handwerksbetriebe aus Ansbach. Festpreis, zwei Wochen bis online, persönlicher Ansprechpartner.",
   "founder":{"@type":"Person","name":"David Schroeder"},
   "telephone":"+49-155-10692206",
-  "email":"david.schr0906@gmail.com",
+  "email":"david@lokalsuite.de",
   "url":"https://lokalsuite.de/",
   "address":{"@type":"PostalAddress","streetAddress":"Karpfenstraße 11","postalCode":"91522","addressLocality":"Ansbach","addressCountry":"DE"},
   "areaServed":"Ansbach und Umgebung",
@@ -1160,12 +1342,32 @@ ul,ol{margin:0;padding:0;list-style:none}
     if (input) input.setAttribute("aria-invalid", String(bad));
   }
 
-  /* Kontaktformular.
-     Ohne Server-Endpunkt oeffnet das Formular eine vorbereitete E-Mail.
-     Fuer echten Versand hier den eigenen Endpunkt eintragen, zum Beispiel:
-       fetch("/kontakt.php", { method: "POST", body: new FormData(form) })
-         .then(function(){ form.classList.add("is-sent"); });
-     und den mailto-Block darunter entfernen. */
+  /* ---------- Versand ueber Web3Forms ----------
+     Den Access Key bekommst du kostenlos auf web3forms.com.
+     Er darf oeffentlich im Quelltext stehen, das ist so vorgesehen. */
+  var W3F_KEY = "738bd002-8ef0-48bc-a5f7-c734f5bc83b3";
+  var W3F_URL = "https://api.web3forms.com/submit";
+
+  function sendToWeb3Forms(formEl, subject, extra) {
+    var fd = new FormData(formEl);
+    fd.append("access_key", W3F_KEY);
+    fd.append("subject", subject);
+    fd.append("from_name", "lokalsuite.de");
+    var reply = fd.get("email");
+    if (reply) fd.append("replyto", reply);
+    if (extra) Object.keys(extra).forEach(function (k) { fd.append(k, extra[k]); });
+
+    return fetch(W3F_URL, {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: fd
+    }).then(function (r) { return r.json(); }).then(function (data) {
+      if (!data.success) throw new Error(data.message || "Versand fehlgeschlagen");
+      return data;
+    });
+  }
+
+  /* Kontaktformular */
   var form = document.getElementById("contactForm");
   var submit = document.getElementById("formSubmit");
 
@@ -1190,24 +1392,21 @@ ul,ol{margin:0;padding:0;list-style:none}
     submit.classList.add("is-busy");
     submit.textContent = "Wird gesendet";
 
-    var d = new FormData(form);
-    var body = [
-      "Name: " + (d.get("name") || ""),
-      "Betrieb: " + (d.get("betrieb") || ""),
-      "Telefon: " + (d.get("telefon") || ""),
-      "E-Mail: " + (d.get("email") || ""),
-      "", (d.get("nachricht") || "")
-    ].join("\n");
-
-    window.location.href = "mailto:david.schr0906@gmail.com"
-      + "?subject=" + encodeURIComponent("Anfrage über lokalsuite.de")
-      + "&body=" + encodeURIComponent(body);
-
-    setTimeout(function () {
-      submit.classList.remove("is-busy");
-      submit.textContent = "Anfrage senden";
-      form.classList.add("is-sent");
-    }, 800);
+    sendToWeb3Forms(form, "Neue Anfrage über lokalsuite.de")
+      .then(function () {
+        form.classList.add("is-sent");
+      })
+      .catch(function () {
+        var note = form.querySelector(".form__note");
+        if (note) {
+          note.textContent = "Das hat leider nicht geklappt. Bitte rufen Sie mich kurz an: 0155 1069 2206 oder schreiben Sie an david@lokalsuite.de.";
+          note.style.color = "#ff6b5a";
+        }
+      })
+      .then(function () {
+        submit.classList.remove("is-busy");
+        submit.textContent = "Anfrage senden";
+      });
   });
 
   form.addEventListener("input", function (e) {
@@ -1235,16 +1434,19 @@ ul,ol{margin:0;padding:0;list-style:none}
     waitMail.setAttribute("aria-invalid", "false");
     waitBtn.classList.add("is-busy");
 
-    window.location.href = "mailto:david.schr0906@gmail.com"
-      + "?subject=" + encodeURIComponent("Warteliste WhatsApp-Assistent")
-      + "&body=" + encodeURIComponent("Bitte auf die Warteliste setzen: " + v);
-
-    setTimeout(function () {
-      waitBtn.classList.remove("is-busy");
-      waitBtn.textContent = "Eingetragen";
-      waitNote.textContent = "Danke. Sie hören von mir, sobald es losgeht.";
-      waitMail.value = "";
-    }, 800);
+    sendToWeb3Forms(wait, "Warteliste WhatsApp-Assistent")
+      .then(function () {
+        waitBtn.textContent = "Eingetragen";
+        waitNote.textContent = "Danke. Sie hören von mir, sobald es losgeht.";
+        waitMail.value = "";
+      })
+      .catch(function () {
+        waitNote.textContent = "Das hat leider nicht geklappt. Schreiben Sie mir kurz an david@lokalsuite.de.";
+        waitBtn.textContent = "Platz reservieren";
+      })
+      .then(function () {
+        waitBtn.classList.remove("is-busy");
+      });
   });
 })();
 </script>
