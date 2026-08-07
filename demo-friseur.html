@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAARWERK — Friseur & Barbier (Demo)</title>
+<meta name="description" content="HAARWERK — Friseursalon und Barbier. Beispielseite von LokalSuite. Schnitt, Farbe, Styling und Pflege für Damen, Herren und Kinder. Termin online buchen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HAARWERK — Demoseite (Single File)
+   Farben, Schriften und Texte lassen sich hier zentral ändern.
+   ============================================================ */
+:root{
+  --black:#0a0a0a;
+  --ink:#141414;
+  --grey-900:#1c1c1c;
+  --grey-600:#6b6b6b;
+  --grey-400:#a0a0a0;
+  --line:#e2e0dc;
+  --paper:#f4f2ee;
+  --paper-2:#eae7e1;
+  --white:#ffffff;
+  --maxw:1240px;
+  --pad:clamp(20px,5vw,64px);
+}
+.ls-demo-bar{background:#0a0a0a;color:#a0a0a0;font-size:13px;text-align:center;padding:9px 16px;font-family:'Inter',system-ui,sans-serif;letter-spacing:.01em}
+.ls-demo-bar b{color:#fff;font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  background:var(--paper);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden;
+}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.ph{background:var(--paper-2)} /* Platzhalterfarbe hinter Bildern */
+
+/* ---------- Typo-Helfer ---------- */
+.eyebrow{
+  font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+  font-weight:600;color:var(--grey-600);
+}
+.display{
+  font-weight:800;letter-spacing:-.035em;line-height:.9;text-transform:uppercase;
+}
+.section-title{
+  font-size:clamp(28px,4.4vw,52px);font-weight:800;letter-spacing:-.03em;
+  text-transform:uppercase;line-height:1;
+}
+.lede{font-size:clamp(15px,1.5vw,17px);color:var(--grey-600);max-width:52ch}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:16px 34px;background:var(--black);color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  border:1px solid var(--black);transition:.25s ease;
+}
+.btn:hover{background:transparent;color:var(--black)}
+.btn--light{background:#fff;color:var(--black);border-color:#fff}
+.btn--light:hover{background:transparent;color:#fff}
+.link-u{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid currentColor;
+  transition:opacity .2s;
+}
+.link-u:hover{opacity:.55}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  background:var(--black);color:#fff;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:500;
+}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;gap:20px}
+.topbar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar nav{display:flex;gap:22px}
+.topbar nav a{opacity:.75;transition:opacity .2s}
+.topbar nav a:hover{opacity:1}
+
+/* ---------- Header ---------- */
+.header{
+  position:sticky;top:0;z-index:60;background:rgba(244,242,238,.92);
+  backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid transparent;
+  transition:border-color .3s,background .3s;
+}
+.header.is-stuck{border-bottom-color:var(--line)}
+.header .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:78px;gap:16px}
+.nav-l,.nav-r{display:flex;align-items:center;gap:26px}
+.nav-r{justify-content:flex-end}
+.nav-l a,.nav-r a{
+  font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  position:relative;padding:6px 0;
+}
+.nav-l a::after,.nav-r a::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:currentColor;transition:width .3s;
+}
+.nav-l a:hover::after,.nav-r a:hover::after{width:100%}
+.brand{
+  font-size:clamp(22px,3vw,30px);font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;white-space:nowrap;
+}
+/* Header-CTA: dezent umrandet, füllt sich beim Hover.
+   Variante "gefüllt": background:var(--black);color:#fff; hier setzen. */
+.nav-r .nav-cta{
+  display:inline-flex;align-items:center;gap:9px;
+  flex:0 0 auto;white-space:nowrap;
+  padding:11px 20px;border:1px solid var(--ink);background:transparent;color:var(--ink);
+  font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  transition:background .25s ease,color .25s ease;
+}
+.nav-cta::before{
+  content:"";width:5px;height:5px;border-radius:50%;background:currentColor;
+  transform:translateY(-.5px);
+}
+.nav-cta:hover{background:var(--black);color:#fff}
+.nav-cta::after{display:none!important}
+.burger{display:none;width:34px;height:34px;position:relative}
+.burger i{
+  position:absolute;left:5px;right:5px;height:1.6px;background:var(--ink);transition:.3s;
+}
+.burger i:nth-child(1){top:11px}
+.burger i:nth-child(2){top:17px}
+.burger i:nth-child(3){top:23px}
+.burger.open i:nth-child(1){top:17px;transform:rotate(45deg)}
+.burger.open i:nth-child(2){opacity:0}
+.burger.open i:nth-child(3){top:17px;transform:rotate(-45deg)}
+
+.mobile-nav{
+  position:fixed;inset:116px 0 0;background:var(--paper);z-index:55;
+  transform:translateY(-12px);opacity:0;pointer-events:none;transition:.3s ease;
+  padding:40px var(--pad);overflow-y:auto;
+}
+.mobile-nav.open{transform:none;opacity:1;pointer-events:auto}
+.mobile-nav a{
+  display:block;padding:18px 0;border-bottom:1px solid var(--line);
+  font-size:22px;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--paper);overflow:hidden;padding:clamp(40px,6vw,70px) 0 0}
+.hero-inner{position:relative;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+.hero-claim{position:relative;z-index:3}
+.hero-claim .eyebrow{line-height:2.1}
+.hero-claim .rule{width:56px;height:2px;background:var(--ink);margin-top:14px}
+.hero-stage{position:relative;margin-top:clamp(18px,3vw,26px);min-height:clamp(300px,48vw,560px)}
+/* Der Schriftzug liegt hinter dem Foto (schwarz) UND als weiße Kopie
+   innerhalb des Fotos — dadurch bleibt "HAARWERK" durchgehend lesbar. */
+.hero-word,.hero-word-over{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:min(15.5vw,250px);font-weight:900;letter-spacing:-.045em;
+  line-height:.78;text-transform:uppercase;white-space:nowrap;
+  user-select:none;pointer-events:none;
+}
+.hero-word{color:var(--black);z-index:1}
+.hero-word-over{color:#fff;z-index:2;mix-blend-mode:normal}
+.hero-photo{
+  position:relative;z-index:2;width:clamp(190px,30vw,380px);height:clamp(300px,50vw,600px);
+  margin:0 auto;overflow:hidden;background:var(--paper-2);
+}
+.hero-photo img{filter:grayscale(100%) contrast(108%) brightness(.88)}
+/* leichte Abdunklung, damit die weiße Schrift auf jedem Foto sitzt */
+.hero-photo::after{content:"";position:absolute;inset:0;background:rgba(10,10,10,.26);z-index:1}
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  flex-wrap:wrap;padding:clamp(16px,3vw,30px) 0 clamp(46px,6vw,74px);position:relative;z-index:3;
+}
+.hero-actions{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.hero-meta{text-align:right}
+.hero-meta .eyebrow{line-height:1.9}
+.hero-meta .rule{width:44px;height:1px;background:var(--grey-400);margin-left:auto;margin-top:10px}
+
+/* ---------- Kategorien (schwarzes Band) ---------- */
+.cats{background:var(--black);color:#fff;padding:clamp(38px,5vw,58px) 0}
+.cats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px)}
+.cat{display:flex;gap:20px;align-items:center}
+.cat-img{flex:0 0 clamp(78px,9vw,108px);height:clamp(104px,12vw,140px);overflow:hidden;background:#242424;filter:grayscale(100%)}
+.cat h3{font-size:clamp(16px,1.8vw,21px);font-weight:800;letter-spacing:.02em;text-transform:uppercase}
+.cat p{font-size:13px;color:#9c9c9c;margin:8px 0 14px;max-width:22ch}
+.cat .link-u{font-size:10px}
+
+/* ---------- Split / Neue Saison ---------- */
+.split{background:var(--paper-2);position:relative;overflow:hidden}
+.split-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(24px,4vw,60px)}
+.split-copy{padding:clamp(46px,6vw,86px) 0}
+.split-copy h2{font-size:clamp(40px,6.6vw,88px);font-weight:900;letter-spacing:-.04em;line-height:.88;text-transform:uppercase;margin:16px 0 18px}
+.split-img{height:clamp(320px,44vw,560px);overflow:hidden;filter:grayscale(100%) contrast(105%)}
+.split .btn{margin-top:26px}
+
+/* ---------- USP Leiste ---------- */
+.usps{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.usps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2.5vw,30px);padding:34px 0}
+.usp{display:flex;gap:14px;align-items:flex-start}
+.usp svg{flex:0 0 24px;width:24px;height:24px;stroke:var(--ink);stroke-width:1.3;fill:none}
+.usp h4{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+.usp p{font-size:12.5px;color:var(--grey-600);margin-top:4px}
+
+/* ---------- Sektionen allgemein ---------- */
+.sec{padding:clamp(56px,8vw,110px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(26px,4vw,46px);flex-wrap:wrap}
+
+/* ---------- Preise ---------- */
+.price-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px}
+.tab{
+  padding:12px 24px;border:1px solid var(--line);background:transparent;
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:.25s;
+}
+.tab:hover{border-color:var(--ink)}
+.tab.active{background:var(--black);color:#fff;border-color:var(--black)}
+.price-panel{display:none;grid-template-columns:1fr 1fr;gap:0 clamp(30px,5vw,70px)}
+.price-panel.active{display:grid}
+.price-row{
+  display:flex;align-items:baseline;gap:14px;padding:17px 0;border-bottom:1px solid var(--line);
+}
+.price-row .name{font-size:14.5px;font-weight:600;letter-spacing:.01em}
+.price-row .desc{display:block;font-size:12.5px;font-weight:400;color:var(--grey-600);margin-top:3px}
+.price-row .dots{flex:1;border-bottom:1px dotted var(--grey-400);transform:translateY(-4px)}
+.price-row .val{font-size:14.5px;font-weight:700;white-space:nowrap}
+.price-note{font-size:12.5px;color:var(--grey-600);margin-top:22px}
+
+/* ---------- Galerie ---------- */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.4vw,18px)}
+.gal-item{position:relative;overflow:hidden;background:var(--paper-2)}
+.gal-item .frame{aspect-ratio:3/4;overflow:hidden}
+.gal-item img{transition:transform .8s cubic-bezier(.2,.7,.3,1);filter:grayscale(100%)}
+.gal-item:hover img{transform:scale(1.06)}
+.gal-item .cap{padding:14px 2px 2px}
+.gal-item .cap b{font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.gal-item .cap span{display:block;font-size:12px;color:var(--grey-600);margin-top:3px}
+.gal-item .tagl{
+  position:absolute;top:12px;left:12px;background:#fff;padding:6px 12px;
+  font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+}
+
+/* ---------- Über uns ---------- */
+.about{background:var(--black);color:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about h2{color:#fff}
+.about p{color:#a8a8a8;margin-top:20px;font-size:15px;max-width:48ch}
+.about-figs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.about-figs div{overflow:hidden;background:#1e1e1e;filter:grayscale(100%)}
+.about-figs div:nth-child(1){aspect-ratio:3/4}
+.about-figs div:nth-child(2){aspect-ratio:3/4;margin-top:36px}
+.stats{display:flex;gap:clamp(24px,4vw,54px);margin-top:38px;flex-wrap:wrap}
+.stat b{display:block;font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.stat span{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8d8d8d;margin-top:8px;display:block}
+
+/* ---------- Team ---------- */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,26px)}
+.member .frame{aspect-ratio:4/5;overflow:hidden;background:var(--paper-2);filter:grayscale(100%);transition:filter .5s}
+.member:hover .frame{filter:grayscale(0%)}
+.member h4{font-size:15px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:16px}
+.member span{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey-600);display:block;margin-top:5px}
+.member p{font-size:13px;color:var(--grey-600);margin-top:10px}
+
+/* ---------- Kundenstimmen ---------- */
+.reviews{background:var(--paper-2)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.4vw,26px)}
+.rev{background:var(--white);padding:clamp(24px,3vw,34px);display:flex;flex-direction:column;justify-content:space-between}
+.stars{letter-spacing:.28em;font-size:12px}
+.rev blockquote{font-size:15.5px;line-height:1.65;margin:16px 0 24px}
+.rev .who{display:flex;align-items:center;gap:12px}
+.rev .who .av{width:42px;height:42px;border-radius:50%;overflow:hidden;background:var(--paper-2);flex:0 0 42px;filter:grayscale(100%)}
+.rev .who b{font-size:13px;font-weight:700;letter-spacing:.04em}
+.rev .who span{display:block;font-size:11px;color:var(--grey-600);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+
+/* ---------- Termin / Formular ---------- */
+.book-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,70px)}
+.book-side p{margin-top:18px}
+.hours{margin-top:30px;border-top:1px solid var(--line)}
+.hours div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.hours div span:first-child{color:var(--grey-600)}
+.hours div b{font-weight:600}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+label{font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-600)}
+input,select,textarea{
+  font-family:inherit;font-size:14.5px;color:var(--ink);background:transparent;
+  border:0;border-bottom:1px solid var(--line);padding:12px 0;transition:border-color .25s;
+  border-radius:0;-webkit-appearance:none;appearance:none;
+}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);
+  background-position:calc(100% - 14px) 20px,calc(100% - 8px) 20px;background-size:6px 6px;background-repeat:no-repeat}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ink)}
+textarea{resize:vertical;min-height:90px}
+.form-note{grid-column:1/-1;font-size:12px;color:var(--grey-600)}
+.form-msg{
+  grid-column:1/-1;display:none;background:var(--black);color:#fff;padding:16px 20px;font-size:13.5px;
+}
+.form-msg.show{display:block}
+
+/* ---------- Kontakt ---------- */
+.contact{background:var(--black);color:#fff}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,4vw,50px)}
+.contact h4{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#8d8d8d;margin-bottom:14px}
+.contact p,.contact a{font-size:15px;line-height:1.9}
+.contact a:hover{text-decoration:underline}
+.map{margin-top:clamp(30px,4vw,48px);height:clamp(200px,26vw,320px);overflow:hidden;background:#1e1e1e;filter:grayscale(100%) invert(6%)}
+.map iframe{width:100%;height:100%;border:0;display:block}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--black);color:#fff;border-top:1px solid #232323;padding:clamp(40px,5vw,60px) 0 30px}
+.foot-word{
+  font-size:clamp(52px,15vw,190px);font-weight:900;letter-spacing:-.045em;line-height:.8;
+  text-transform:uppercase;text-align:center;color:#161616;user-select:none;
+}
+.foot-bar{
+  display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;
+  margin-top:36px;padding-top:24px;border-top:1px solid #232323;
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d8d;
+}
+.foot-bar nav{display:flex;gap:22px;flex-wrap:wrap}
+.foot-bar a:hover{color:#fff}
+
+/* ---------- Reveal-Animation ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1000px){
+  .cats-grid{grid-template-columns:1fr;gap:26px}
+  .split-grid{grid-template-columns:1fr}
+  .split-copy{padding-bottom:0}
+  .usps-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .about-grid{grid-template-columns:1fr}
+  .team{grid-template-columns:repeat(2,1fr)}
+  .rev-grid{grid-template-columns:1fr}
+  .book-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .price-panel.active{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .nav-l,.nav-r a{display:none}
+  .header .wrap{grid-template-columns:1fr auto;height:68px}
+  .brand{text-align:left}
+  .burger{display:block}
+  .topbar .wrap{justify-content:center}
+  .topbar nav{display:none}
+  .hero-meta{text-align:left}
+  .hero-meta .rule{margin-left:0}
+  form{grid-template-columns:1fr}
+  .price-row{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="ls-demo-bar">Demo-Website – erstellt von <b>LokalSuite</b>. So könnte Ihre Website aussehen.</div>
+
+<!-- ===================== TOPBAR ===================== -->
+<div class="topbar">
+  <div class="wrap">
+    <span>Termin online buchen — 7 Tage die Woche</span>
+    <nav>
+      <a href="#termin">Termin</a>
+      <a href="#kontakt">Anfahrt</a>
+      <a href="tel:+490000000000">0000 / 000 00 00</a>
+    </nav>
+  </div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="wrap">
+    <nav class="nav-l">
+      <a href="#leistungen">Damen</a>
+      <a href="#leistungen">Herren</a>
+      <a href="#leistungen">Kinder</a>
+      <a href="#leistungen">Pflege</a>
+    </nav>
+    <a href="#top" class="brand">Haarwerk</a>
+    <nav class="nav-r">
+      <a href="#preise">Preise</a>
+      <a href="#team">Team</a>
+      <a href="#termin" class="nav-cta">Termin buchen</a>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false">
+        <i></i><i></i><i></i>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#leistungen">Leistungen</a>
+  <a href="#preise">Preise</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#ueber-uns">Über uns</a>
+  <a href="#team">Team</a>
+  <a href="#stimmen">Kundenstimmen</a>
+  <a href="#termin">Termin buchen</a>
+  <a href="#kontakt">Kontakt</a>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-claim">
+      <p class="eyebrow">Frisuren,<br>die mitgehen.</p>
+      <div class="rule"></div>
+    </div>
+
+    <div class="hero-stage">
+      <div class="hero-word" aria-hidden="true">Haarwerk</div>
+      <div class="hero-photo ph">
+        <img src="https://images.unsplash.com/photo-1633381521050-26bb467d9d5a?auto=format&fit=crop&w=900&q=80"
+             alt="Porträt einer Frau mit langem, glattem Haar">
+        <div class="hero-word-over" aria-hidden="true">Haarwerk</div>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-actions">
+        <a href="#termin" class="btn">Termin buchen</a>
+        <a href="#preise" class="link-u">Preise ansehen</a>
+      </div>
+      <div class="hero-meta">
+        <p class="eyebrow">Friseur &amp; Barbier<br>Musterstadt<br>Seit 2012</p>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KATEGORIEN ===================== -->
+<section class="cats" id="leistungen">
+  <div class="wrap">
+    <div class="cats-grid">
+      <article class="cat rv">
+        <div class="cat-img">
+          <img src="https://images.unsplash.com/photo-1633382148761-d56d55cee3cd?auto=format&fit=crop&w=400&q=80" alt="Frau mit wehendem Haar">
+        </div>
+        <div>
+          <h3>Damen</h3>
+          <p>Schnitt, Farbe und Styling — individuell auf dich abgestimmt.</p>
+          <a href="#preise" class="link-u">Damen ansehen →</a>
+        </div>
+      </article>
+      <article class="cat rv">
+        <div class="cat-img">
+          <img src="https://images.unsplash.com/photo-1568927198336-e9ae04365910?auto=format&fit=crop&w=400&q=80" alt="Porträt eines Mannes mit kurzem Haarschnitt">
+        </div>
+        <div>
+          <h3>Herren</h3>
+          <p>Klassisch bis modern, inklusive Bartpflege beim Barbier.</p>
+          <a href="#preise" class="link-u">Herren ansehen →</a>
+        </div>
+      </article>
+      <article class="cat rv">
+        <div class="cat-img">
+          <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=400&q=80" alt="Porträt eines Kindes">
+        </div>
+        <div>
+          <h3>Kinder</h3>
+          <p>Entspannt, geduldig und schnell — bis 12 Jahre.</p>
+          <a href="#preise" class="link-u">Kinder ansehen →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEUE SAISON ===================== -->
+<section class="split">
+  <div class="wrap">
+    <div class="split-grid">
+      <div class="split-copy rv">
+        <p class="eyebrow">Saison 2026</p>
+        <h2>Neue<br>Looks</h2>
+        <p class="lede">Softe Layer, warme Naturtöne und Schnitte, die auch am dritten Tag noch sitzen. Unser Team zeigt dir, was zu deiner Haarstruktur passt — ehrlich beraten statt überredet.</p>
+        <a href="#galerie" class="btn">Galerie entdecken</a>
+      </div>
+      <div class="split-img ph">
+        <img src="https://images.unsplash.com/photo-1563170446-9c3c0622d8a9?auto=format&fit=crop&w=1000&q=80" alt="Frau mit modernem Haarschnitt im Porträt">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== USP ===================== -->
+<section class="usps">
+  <div class="wrap">
+    <div class="usps-grid">
+      <div class="usp">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 11h18"/></svg>
+        <div><h4>Online Termin</h4><p>In 60 Sekunden gebucht</p></div>
+      </div>
+      <div class="usp">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+        <div><h4>Meisterbetrieb</h4><p>Geprüftes Team, laufend geschult</p></div>
+      </div>
+      <div class="usp">
+        <svg viewBox="0 0 24 24"><path d="M12 21c5-3 8-6.5 8-11a8 8 0 1 0-16 0c0 4.5 3 8 8 11z"/><path d="M12 12c2-1.5 3-3 3-5"/></svg>
+        <div><h4>Vegane Pflege</h4><p>Nachhaltige Produkte, tierversuchsfrei</p></div>
+      </div>
+      <div class="usp">
+        <svg viewBox="0 0 24 24"><path d="M12 22s7-5.5 7-12a7 7 0 1 0-14 0c0 6.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div><h4>Zentrale Lage</h4><p>2 Minuten vom U-Bahnhof</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PREISE ===================== -->
+<section class="sec" id="preise">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="eyebrow">Leistungen & Preise</p>
+        <h2 class="section-title" style="margin-top:12px">Was wir machen</h2>
+      </div>
+      <p class="lede">Alle Preise inklusive Beratung, Waschen und Finish. Bei langem oder sehr dichtem Haar kann ein Aufpreis anfallen — wir sagen es dir vorher.</p>
+    </div>
+
+    <div class="price-tabs" role="tablist">
+      <button class="tab active" data-tab="damen" role="tab">Damen</button>
+      <button class="tab" data-tab="herren" role="tab">Herren</button>
+      <button class="tab" data-tab="kinder" role="tab">Kinder</button>
+      <button class="tab" data-tab="farbe" role="tab">Farbe & Pflege</button>
+    </div>
+
+    <div class="price-panel active" id="p-damen">
+      <div>
+        <div class="price-row"><span class="name">Waschen, Schneiden, Föhnen<span class="desc">inkl. Beratung & Kopfmassage</span></span><span class="dots"></span><span class="val">58 €</span></div>
+        <div class="price-row"><span class="name">Trockenschnitt<span class="desc">ohne Waschen & Styling</span></span><span class="dots"></span><span class="val">42 €</span></div>
+        <div class="price-row"><span class="name">Pony schneiden<span class="desc">zwischendurch, ohne Termin</span></span><span class="dots"></span><span class="val">12 €</span></div>
+      </div>
+      <div>
+        <div class="price-row"><span class="name">Föhnfrisur<span class="desc">Blowout mit Volumen</span></span><span class="dots"></span><span class="val">32 €</span></div>
+        <div class="price-row"><span class="name">Hochsteckfrisur<span class="desc">Event, Hochzeit, Shooting</span></span><span class="dots"></span><span class="val">ab 75 €</span></div>
+        <div class="price-row"><span class="name">Braut-Styling inkl. Probetermin<span class="desc">nach Absprache</span></span><span class="dots"></span><span class="val">ab 190 €</span></div>
+      </div>
+    </div>
+
+    <div class="price-panel" id="p-herren">
+      <div>
+        <div class="price-row"><span class="name">Herrenschnitt<span class="desc">Waschen, Schneiden, Styling</span></span><span class="dots"></span><span class="val">34 €</span></div>
+        <div class="price-row"><span class="name">Maschinenschnitt<span class="desc">eine Länge, inkl. Konturen</span></span><span class="dots"></span><span class="val">24 €</span></div>
+        <div class="price-row"><span class="name">Skin Fade<span class="desc">präzise ausrasiert</span></span><span class="dots"></span><span class="val">39 €</span></div>
+      </div>
+      <div>
+        <div class="price-row"><span class="name">Bart trimmen & konturieren<span class="desc">inkl. heißem Handtuch</span></span><span class="dots"></span><span class="val">21 €</span></div>
+        <div class="price-row"><span class="name">Rasur mit dem Messer<span class="desc">klassisch, mit Pflege</span></span><span class="dots"></span><span class="val">29 €</span></div>
+        <div class="price-row"><span class="name">Kombi Schnitt + Bart<span class="desc">unser Klassiker</span></span><span class="dots"></span><span class="val">49 €</span></div>
+      </div>
+    </div>
+
+    <div class="price-panel" id="p-kinder">
+      <div>
+        <div class="price-row"><span class="name">Kinder bis 6 Jahre<span class="desc">Schneiden & Styling</span></span><span class="dots"></span><span class="val">19 €</span></div>
+        <div class="price-row"><span class="name">Kinder 7–12 Jahre<span class="desc">Schneiden & Styling</span></span><span class="dots"></span><span class="val">24 €</span></div>
+      </div>
+      <div>
+        <div class="price-row"><span class="name">Erster Haarschnitt<span class="desc">inkl. Foto & Urkunde</span></span><span class="dots"></span><span class="val">22 €</span></div>
+        <div class="price-row"><span class="name">Familientermin<span class="desc">2 Kinder gleichzeitig</span></span><span class="dots"></span><span class="val">39 €</span></div>
+      </div>
+    </div>
+
+    <div class="price-panel" id="p-farbe">
+      <div>
+        <div class="price-row"><span class="name">Ansatzfarbe<span class="desc">bis 2 cm Nachwuchs</span></span><span class="dots"></span><span class="val">ab 52 €</span></div>
+        <div class="price-row"><span class="name">Komplettfarbe<span class="desc">je nach Haarlänge</span></span><span class="dots"></span><span class="val">ab 72 €</span></div>
+        <div class="price-row"><span class="name">Balayage / Airtouch<span class="desc">inkl. Toner & Pflege</span></span><span class="dots"></span><span class="val">ab 155 €</span></div>
+      </div>
+      <div>
+        <div class="price-row"><span class="name">Strähnen (Folie)<span class="desc">Teilkopf / Ganzkopf</span></span><span class="dots"></span><span class="val">65 / 110 €</span></div>
+        <div class="price-row"><span class="name">Intensivpflege<span class="desc">Olaplex oder Keratin</span></span><span class="dots"></span><span class="val">ab 25 €</span></div>
+        <div class="price-row"><span class="name">Kopfhaut-Ritual<span class="desc">Peeling & Massage, 20 Min.</span></span><span class="dots"></span><span class="val">29 €</span></div>
+      </div>
+    </div>
+
+    <p class="price-note">Änderungen und Aufpreise bei Zusatzaufwand vorbehalten.</p>
+  </div>
+</section>
+
+<!-- ===================== GALERIE ===================== -->
+<section class="sec" id="galerie" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <h2 class="section-title">Best of Haarwerk</h2>
+      <a href="#termin" class="link-u">Alle Looks →</a>
+    </div>
+    <div class="gal">
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?auto=format&fit=crop&w=700&q=80" alt="Frau beim Haareschneiden im Salon"></div>
+        <span class="tagl">Damen</span>
+        <div class="cap"><b>Soft Layers</b><span>Schnitt & Finish · ab 58 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1593702275687-f8b402bf1fb5?auto=format&fit=crop&w=700&q=80" alt="Friseur schneidet einem Mann die Haare"></div>
+        <span class="tagl">Herren</span>
+        <div class="cap"><b>Classic Fade</b><span>Schnitt & Konturen · ab 39 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1495914510314-ba3164b1321f?auto=format&fit=crop&w=700&q=80" alt="Porträt einer Frau mit Wellen im Haar"></div>
+        <span class="tagl">Styling</span>
+        <div class="cap"><b>Beach Waves</b><span>Föhnfrisur · ab 32 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1440589473619-3cde28941638?auto=format&fit=crop&w=700&q=80" alt="Frau mit blondem Haar"></div>
+        <span class="tagl">Farbe</span>
+        <div class="cap"><b>Warm Blonde</b><span>Balayage · ab 155 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=80" alt="Mann im Barbierstuhl"></div>
+        <span class="tagl">Barbier</span>
+        <div class="cap"><b>Bart & Rasur</b><span>Messerrasur · ab 29 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=700&q=80" alt="Stylistin föhnt Haare"></div>
+        <span class="tagl">Styling</span>
+        <div class="cap"><b>Glossy Blowout</b><span>Föhnfrisur · ab 32 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1575299899528-a8a3dbcefc29?auto=format&fit=crop&w=700&q=80" alt="Nahaufnahme eines Gesichts mit Haarstyling"></div>
+        <span class="tagl">Damen</span>
+        <div class="cap"><b>Blunt Bob</b><span>Präzisionsschnitt · ab 58 €</span></div>
+      </article>
+      <article class="gal-item rv">
+        <div class="frame ph"><img src="https://images.unsplash.com/photo-1700760934268-8aa0ef52ce0a?auto=format&fit=crop&w=700&q=80" alt="Haarschnitt mit der Schere"></div>
+        <span class="tagl">Pflege</span>
+        <div class="cap"><b>Repair Ritual</b><span>Intensivpflege · ab 25 €</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ÜBER UNS ===================== -->
+<section class="sec about" id="ueber-uns">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv">
+        <p class="eyebrow" style="color:#8d8d8d">Über uns</p>
+        <h2 class="section-title" style="margin-top:14px">Handwerk<br>statt Trendjagd</h2>
+        <p>2012 haben wir mit zwei Stühlen und einer sehr klaren Idee angefangen: Ein Salon, in dem man nicht das Gefühl hat, ein Termin im Kalender zu sein. Wir nehmen uns Zeit für die Beratung, arbeiten mit Schnitten, die zum Alltag passen, und sagen auch mal ehrlich, wenn ein Look nicht funktioniert.</p>
+        <p>Heute stehen sechs Stylistinnen und Stylisten im Team — vom Barbier bis zur Farbspezialistin. Was geblieben ist: gute Musik, guter Kaffee und ein Ergebnis, das du zu Hause selbst hinbekommst.</p>
+        <div class="stats">
+          <div class="stat"><b>14</b><span>Jahre Salon</span></div>
+          <div class="stat"><b>6</b><span>Stylist:innen</span></div>
+          <div class="stat"><b>4,9</b><span>Ø Bewertung</span></div>
+        </div>
+      </div>
+      <div class="about-figs rv">
+        <div><img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=700&q=80" alt="Innenansicht eines Friseursalons"></div>
+        <div><img src="https://images.unsplash.com/photo-1637777269327-c4d5c7944d7b?auto=format&fit=crop&w=700&q=80" alt="Waschbecken im Salon"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TEAM ===================== -->
+<section class="sec" id="team">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="eyebrow">Das Team</p>
+        <h2 class="section-title" style="margin-top:12px">Wer dich schneidet</h2>
+      </div>
+      <a href="#termin" class="link-u">Lieblingsstylist wählen →</a>
+    </div>
+    <div class="team">
+      <article class="member rv">
+        <div class="frame"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=80" alt="Porträt einer Stylistin"></div>
+        <h4>Lena Brandt</h4><span>Inhaberin · Farbe</span>
+        <p>Balayage, Blondierungen und alles, was Geduld braucht.</p>
+      </article>
+      <article class="member rv">
+        <div class="frame"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80" alt="Porträt eines Barbiers"></div>
+        <h4>Mika Cetin</h4><span>Barbier</span>
+        <p>Fades, Konturen und die klassische Messerrasur.</p>
+      </article>
+      <article class="member rv">
+        <div class="frame"><img src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?auto=format&fit=crop&w=600&q=80" alt="Porträt einer Friseurin"></div>
+        <h4>Yara Nolte</h4><span>Schnitt · Curly Hair</span>
+        <p>Lockenschnitte im Trockenhaar und Curly-Beratung.</p>
+      </article>
+      <article class="member rv">
+        <div class="frame"><img src="https://images.unsplash.com/photo-1598524374912-6b0b0bab43dd?auto=format&fit=crop&w=600&q=80" alt="Porträt eines Stylisten"></div>
+        <h4>Jonas Reh</h4><span>Styling · Events</span>
+        <p>Hochsteckfrisuren, Braut-Styling und Shootings.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KUNDENSTIMMEN ===================== -->
+<section class="sec reviews" id="stimmen">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <p class="eyebrow">Kundenstimmen</p>
+        <h2 class="section-title" style="margin-top:12px">4,9 von 5</h2>
+      </div>
+      <p class="lede">Aus 312 Bewertungen der letzten zwölf Monate.</p>
+    </div>
+    <div class="rev-grid">
+      <article class="rev rv">
+        <div>
+          <div class="stars">★★★★★</div>
+          <blockquote>„Endlich jemand, der zuhört. Ich kam mit einem Screenshot rein und ging mit einem Schnitt raus, der tatsächlich zu meinem Haar passt — nicht zum Foto."</blockquote>
+        </div>
+        <div class="who">
+          <div class="av"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80" alt=""></div>
+          <div><b>Sophie M.</b><span>Stammkundin seit 2019</span></div>
+        </div>
+      </article>
+      <article class="rev rv">
+        <div>
+          <div class="stars">★★★★★</div>
+          <blockquote>„Skin Fade sitzt jedes Mal auf den Millimeter. Und die Rasur mit heißem Handtuch ist der Grund, warum ich alle drei Wochen komme."</blockquote>
+        </div>
+        <div class="who">
+          <div class="av"><img src="https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&w=120&q=80" alt=""></div>
+          <div><b>Daniel K.</b><span>Google-Bewertung</span></div>
+        </div>
+      </article>
+      <article class="rev rv">
+        <div>
+          <div class="stars">★★★★★</div>
+          <blockquote>„Unser Sohn hat vorher jeden Friseurbesuch verweigert. Hier hat er nach fünf Minuten gelacht. Termin war pünktlich, Preis fair."</blockquote>
+        </div>
+        <div class="who">
+          <div class="av"><img src="https://images.unsplash.com/photo-1532170579297-281918c8ae72?auto=format&fit=crop&w=120&q=80" alt=""></div>
+          <div><b>Miriam L.</b><span>Familientermin</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TERMIN ===================== -->
+<section class="sec" id="termin">
+  <div class="wrap">
+    <div class="book-grid">
+      <div class="book-side rv">
+        <p class="eyebrow">Termin</p>
+        <h2 class="section-title" style="margin-top:12px">Online<br>buchen</h2>
+        <p class="lede">Schick uns deinen Wunschtermin — wir bestätigen in der Regel innerhalb von zwei Stunden. Kurzfristig? Ruf einfach an, oft geht noch was.</p>
+        <div class="hours">
+          <div><span>Montag</span><b>geschlossen</b></div>
+          <div><span>Dienstag – Freitag</span><b>09:00 – 19:00</b></div>
+          <div><span>Samstag</span><b>09:00 – 16:00</b></div>
+          <div><span>Sonntag</span><b>geschlossen</b></div>
+        </div>
+      </div>
+
+      <form id="bookingForm" novalidate>
+        <div class="field">
+          <label for="f-name">Name *</label>
+          <input type="text" id="f-name" name="name" required placeholder="Vor- und Nachname">
+        </div>
+        <div class="field">
+          <label for="f-phone">Telefon *</label>
+          <input type="tel" id="f-phone" name="telefon" required placeholder="0170 1234567">
+        </div>
+        <div class="field">
+          <label for="f-mail">E-Mail *</label>
+          <input type="email" id="f-mail" name="email" required placeholder="name@beispiel.de">
+        </div>
+        <div class="field">
+          <label for="f-service">Leistung</label>
+          <select id="f-service" name="leistung">
+            <option>Damen — Waschen, Schneiden, Föhnen</option>
+            <option>Damen — Farbe / Balayage</option>
+            <option>Herren — Schnitt</option>
+            <option>Herren — Bart & Rasur</option>
+            <option>Kinder</option>
+            <option>Beratung / Sonstiges</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-date">Wunschdatum</label>
+          <input type="date" id="f-date" name="datum">
+        </div>
+        <div class="field">
+          <label for="f-time">Uhrzeit</label>
+          <select id="f-time" name="uhrzeit">
+            <option>vormittags (09 – 12 Uhr)</option>
+            <option>mittags (12 – 15 Uhr)</option>
+            <option>nachmittags (15 – 19 Uhr)</option>
+            <option>egal</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="f-msg">Nachricht</label>
+          <textarea id="f-msg" name="nachricht" placeholder="Lieblingsstylist, Haarlänge, Wünsche …"></textarea>
+        </div>
+        <div class="full"><button type="submit" class="btn" style="width:100%">Terminanfrage senden</button></div>
+        <p class="form-note">Ihre Angaben nutzen wir ausschließlich für diese Terminanfrage. Kein Newsletter, keine Weitergabe.</p>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== KONTAKT ===================== -->
+<section class="sec contact" id="kontakt">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h4>Adresse</h4>
+        <p>Haarwerk Friseur & Barbier<br>Musterstraße 12<br>00000 Musterstadt</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p>
+          <a href="tel:+490000000000">0000 / 000 00 00</a><br>
+          <a href="mailto:hallo@haarwerk-demo.de">hallo@haarwerk-demo.de</a><br>
+          <a href="#termin">Termin online buchen</a>
+        </p>
+      </div>
+      <div>
+        <h4>Anfahrt</h4>
+        <p>U6 Naturkundemuseum, 2 Min.<br>Tram M8 Torstraße<br>Parkhaus gegenüber</p>
+      </div>
+    </div>
+    <div class="map">
+      <iframe
+        title="Karte — Standort des Salons"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=13.3800%2C52.5250%2C13.4050%2C52.5370&amp;layer=mapnik">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-word" aria-hidden="true">Haarwerk</div>
+    <div class="foot-bar">
+      <span>© <span id="year">2026</span> Haarwerk</span>
+      <nav>
+        <a href="#leistungen">Leistungen</a>
+        <a href="#preise">Preise</a>
+        <a href="#team">Team</a>
+        <a href="#termin">Termin</a>
+        <a href="#kontakt">Impressum</a>
+        <a href="#kontakt">Datenschutz</a>
+      </nav>
+      <span>Fotos: Unsplash</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- Jahr im Footer ---------- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------- Sticky Header Zustand ---------- */
+const header = document.getElementById('header');
+const onScroll = () => header.classList.toggle('is-stuck', window.scrollY > 8);
+onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+/* ---------- Mobile Navigation ---------- */
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobileNav');
+const placeMobileNav = () => { mobileNav.style.top = header.getBoundingClientRect().bottom + 'px'; };
+window.addEventListener('resize', placeMobileNav);
+burger.addEventListener('click', () => {
+  placeMobileNav();
+  const open = mobileNav.classList.toggle('open');
+  burger.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileNav.classList.remove('open');
+  burger.classList.remove('open');
+  burger.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+}));
+
+/* ---------- Preis-Tabs ---------- */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.price-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('p-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ---------- Scroll-Reveal ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.12, rootMargin:'0px 0px -40px'});
+document.querySelectorAll('.rv').forEach((el,i) => {
+  el.style.transitionDelay = (i % 4) * 70 + 'ms';
+  io.observe(el);
+});
+
+/* ---------- Formular (Demo, ohne Versand) ---------- */
+const form = document.getElementById('bookingForm');
+const msg  = document.getElementById('formMsg');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = form.name.value.trim();
+  const tel  = form.telefon.value.trim();
+  const mail = form.email.value.trim();
+  const mailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail);
+
+  if (!name || !tel || !mailOk) {
+    msg.textContent = 'Bitte Name, Telefon und eine gültige E-Mail-Adresse angeben.';
+    msg.classList.add('show');
+    return;
+  }
+  msg.textContent = 'Danke, ' + name.split(' ')[0] + '! Deine Anfrage wäre jetzt raus — in dieser Demo wird nichts gesendet.';
+  msg.classList.add('show');
+  form.reset();
+  msg.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+/* ---------- Mindestdatum = heute ---------- */
+const dateInput = document.getElementById('f-date');
+dateInput.min = new Date().toISOString().split('T')[0];
+</script>
+</body>
+</html>
