@@ -68,7 +68,7 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
   box-shadow:0 9px 20px #0000004a,0 37px 37px #00000042,0 84px 50px #00000026,0 149px 60px #0000000a;
 }
 .card3d-in{
-  position:relative;height:clamp(330px,54vw,560px);border-radius:22px;overflow:hidden;
+  position:relative;height:clamp(360px,58vw,600px);border-radius:22px;overflow:hidden;
   background:radial-gradient(70% 70% at 50% 45%,#1b1613,var(--night));
   display:grid;place-items:center;
 }
@@ -98,19 +98,22 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
 /* Burger – Bild-Layer, oeffnen sich beim Scrollen */
 .stage{position:relative;display:grid;place-items:center;width:100%;height:100%}
 .glow{position:absolute;width:74%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(242,169,59,.34),transparent 63%);filter:blur(28px)}
-.burger{position:relative;height:88%;aspect-ratio:900/985;filter:drop-shadow(0 26px 34px rgba(0,0,0,.6))}
+.burger{position:relative;height:94%;aspect-ratio:760/1140;transform-origin:center center;filter:drop-shadow(0 26px 34px rgba(0,0,0,.6))}
 .layer{
   position:absolute;inset:0;will-change:transform;
   background-image:url("burger.png");
   background-image:image-set(url("burger.webp") type("image/webp"),url("burger.png") type("image/png"));
   background-size:100% 100%;background-position:center;background-repeat:no-repeat;
 }
-.l1{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 25%,transparent 27.5%);mask-image:linear-gradient(to bottom,#000 0,#000 25%,transparent 27.5%)}
-.l2{-webkit-mask-image:linear-gradient(to bottom,transparent 22.5%,#000 25%,#000 46%,transparent 48.5%);mask-image:linear-gradient(to bottom,transparent 22.5%,#000 25%,#000 46%,transparent 48.5%)}
-.l3{-webkit-mask-image:linear-gradient(to bottom,transparent 43.5%,#000 46%,#000 60%,transparent 62.5%);mask-image:linear-gradient(to bottom,transparent 43.5%,#000 46%,#000 60%,transparent 62.5%)}
-.l4{-webkit-mask-image:linear-gradient(to bottom,transparent 57.5%,#000 60%,#000 72.5%,transparent 75%);mask-image:linear-gradient(to bottom,transparent 57.5%,#000 60%,#000 72.5%,transparent 75%)}
-.l5{-webkit-mask-image:linear-gradient(to bottom,transparent 70%,#000 72.5%,#000 100%);mask-image:linear-gradient(to bottom,transparent 70%,#000 72.5%,#000 100%)}
-.badge-round{position:absolute;right:4%;bottom:7%;width:104px;height:104px;border-radius:50%;background:var(--card);border:1px solid rgba(242,169,59,.5);display:grid;place-content:center;text-align:center;box-shadow:0 16px 34px rgba(0,0,0,.5);z-index:5}
+.l1{-webkit-mask-image:linear-gradient(to bottom,#000 0,#000 21.5%,transparent 22.7%);mask-image:linear-gradient(to bottom,#000 0,#000 21.5%,transparent 22.7%)}
+.l2{-webkit-mask-image:linear-gradient(to bottom,transparent 20.3%,#000 21.5%,#000 34.0%,transparent 35.2%);mask-image:linear-gradient(to bottom,transparent 20.3%,#000 21.5%,#000 34.0%,transparent 35.2%)}
+.l3{-webkit-mask-image:linear-gradient(to bottom,transparent 32.8%,#000 34.0%,#000 46.5%,transparent 47.7%);mask-image:linear-gradient(to bottom,transparent 32.8%,#000 34.0%,#000 46.5%,transparent 47.7%)}
+.l4{-webkit-mask-image:linear-gradient(to bottom,transparent 45.3%,#000 46.5%,#000 54.5%,transparent 55.7%);mask-image:linear-gradient(to bottom,transparent 45.3%,#000 46.5%,#000 54.5%,transparent 55.7%)}
+.l5{-webkit-mask-image:linear-gradient(to bottom,transparent 53.3%,#000 54.5%,#000 61.0%,transparent 62.2%);mask-image:linear-gradient(to bottom,transparent 53.3%,#000 54.5%,#000 61.0%,transparent 62.2%)}
+.l6{-webkit-mask-image:linear-gradient(to bottom,transparent 59.8%,#000 61.0%,#000 69.5%,transparent 70.7%);mask-image:linear-gradient(to bottom,transparent 59.8%,#000 61.0%,#000 69.5%,transparent 70.7%)}
+.l7{-webkit-mask-image:linear-gradient(to bottom,transparent 68.3%,#000 69.5%,#000 80.5%,transparent 81.7%);mask-image:linear-gradient(to bottom,transparent 68.3%,#000 69.5%,#000 80.5%,transparent 81.7%)}
+.l8{-webkit-mask-image:linear-gradient(to bottom,transparent 79.3%,#000 80.5%,#000 100%);mask-image:linear-gradient(to bottom,transparent 79.3%,#000 80.5%,#000 100%)}
+.badge-round{position:absolute;right:5%;bottom:8%;width:104px;height:104px;border-radius:50%;background:var(--card);border:1px solid rgba(242,169,59,.5);display:grid;place-content:center;text-align:center;box-shadow:0 16px 34px rgba(0,0,0,.5);z-index:5}
 .badge-round b{font-family:'Anton',sans-serif;font-size:1.55rem;color:var(--gold);display:block;line-height:1}
 .badge-round span{font-family:'Courier Prime',monospace;font-size:.55rem;letter-spacing:.16em;color:var(--mute);display:block;margin-top:.3rem}
 
@@ -293,11 +296,14 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
         <div class="stage">
           <div class="glow"></div>
           <div class="burger" id="burger" role="img" aria-label="Burger mit Cheddar, Bacon, Salat und Tomate">
-            <div class="layer l1" data-y="-5.4" data-r="-1.4"></div>
-            <div class="layer l2" data-y="-2.6" data-r="0.9"></div>
-            <div class="layer l3" data-y="-0.4" data-r="-0.5"></div>
-            <div class="layer l4" data-y="2.0"  data-r="0.7"></div>
-            <div class="layer l5" data-y="4.8"  data-r="1.2"></div>
+            <div class="layer l1" data-y="23.5"></div>
+            <div class="layer l2" data-y="13.0"></div>
+            <div class="layer l3" data-y="5.0"></div>
+            <div class="layer l4" data-y="-2.25"></div>
+            <div class="layer l5" data-y="-6.5"></div>
+            <div class="layer l6" data-y="-11.25"></div>
+            <div class="layer l7" data-y="-16.5"></div>
+            <div class="layer l8" data-y="-24.0"></div>
           </div>
           <div class="badge-round"><b>100%</b><span>PREMIUM</span></div>
         </div>
@@ -353,7 +359,7 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
     <div class="rev">
       <span class="eyebrow">Tisch sichern</span>
       <h2 class="sec-title">In 20 Sekunden<br>reserviert.</h2>
-      <p class="sec-lead">Datum wählen, Uhrzeit antippen, Name eintragen. Kein Anruf, keine Warteschleife.</p>
+      <p class="sec-lead">Datum wählen, Uhrzeit antippen, Name eintragen. Wir melden uns kurz zurück und bestätigen.</p>
     </div>
     <div class="res-grid rev">
       <div class="card">
@@ -371,11 +377,11 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
           <div class="field"><label for="resName">Name</label><input class="inp" id="resName" placeholder="Ihr Name" autocomplete="name"></div>
           <div class="field"><label for="resTel">Telefon</label><input class="inp" id="resTel" placeholder="Für die Bestätigung" autocomplete="tel" inputmode="tel"></div>
           <p class="res-summary" id="resSummary">Bitte Datum und Uhrzeit wählen.</p>
-          <button class="btn btn-gold" id="resSubmit" style="width:100%;margin-top:1.2rem">Reservierung abschicken</button>
+          <button class="btn btn-gold" id="resSubmit" style="width:100%;margin-top:1.2rem">Tisch anfragen</button>
         </div>
         <div class="res-ok" id="resOk">
           <div class="mark">✓</div>
-          <h3 style="font-size:1.3rem;margin-bottom:.8rem">Tisch steht!</h3>
+          <h3 style="font-size:1.3rem;margin-bottom:.8rem">Anfrage ist raus!</h3>
           <p class="res-summary" style="border:0;padding:0;margin:0" id="resOkText"></p>
           <button class="btn btn-ghost" id="resReset" style="margin-top:1.6rem">Nochmal ausprobieren</button>
         </div>
@@ -570,7 +576,7 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
     if(!picked||!pickedTime){toast('Bitte Datum und Uhrzeit wählen');return;}
     const name=$('#resName').value.trim();
     if(!name){toast('Bitte Namen eintragen');$('#resName').focus();return;}
-    $('#resOkText').innerHTML=name+', wir halten <b>'+dateStr(picked)+'</b> um <b>'+pickedTime+'</b> Uhr einen Tisch für '+pickedGuests+' Personen frei.';
+    $('#resOkText').innerHTML=name+', wir haben Ihre Anfrage für <b>'+dateStr(picked)+'</b> um <b>'+pickedTime+'</b> Uhr, '+pickedGuests+' Personen. Wir bestätigen innerhalb einer Stunde telefonisch.';
     $('#resForm').style.display='none'; $('#resOk').classList.add('show');
   };
   $('#resReset').onclick=()=>{$('#resOk').classList.remove('show');$('#resForm').style.display='';};
@@ -588,7 +594,7 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
      1. Die Karte kippt aus 20 Grad in die Senkrechte und wird etwas kleiner.
      2. Der Burger faechert sich in seine Ebenen auf (leicht versetzt).
      Der Fortschritt entspricht dem Weg der Hero-Sektion durchs Fenster. */
-  const layers=$$('#burger .layer'), sec=$('#heroScroll'),
+  const layers=$$('#burger .layer'), burger=$('#burger'), sec=$('#heroScroll'),
         card=$('#card3d'), head=$('#heroHead'), hint=$('#scrollHint');
   const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
   const smooth=t=>t*t*(3-2*t);
@@ -610,10 +616,11 @@ section{padding:clamp(3.6rem,9vw,6.5rem) 0;position:relative}
     card.style.transform = 'rotateX('+rot.toFixed(2)+'deg) scale('+scale.toFixed(3)+')';
     head.style.transform = 'translateY('+(-70*c).toFixed(1)+'px)';
 
-    /* Burger: faechert etwas spaeter auf */
-    const b = smooth(between(p,.3,1));
+    /* Burger: aus dem gestapelten Zustand in acht Zutaten auseinander */
+    const b = smooth(between(p,.22,1));
+    burger.style.transform='scale('+(1.5-.5*b).toFixed(3)+')';
     layers.forEach(l=>{
-      l.style.transform='translate3d(0,'+(+l.dataset.y*b)+'%,0) rotate('+(+l.dataset.r*b)+'deg)';
+      l.style.transform='translate3d(0,'+(+l.dataset.y*(1-b)).toFixed(2)+'%,0)';
     });
     if(hint) hint.style.opacity = p>.25 ? 0 : 1;
   }
