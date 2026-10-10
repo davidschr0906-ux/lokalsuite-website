@@ -1,869 +1,1014 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Volt &amp; Watt Elektrotechnik – Elektromeisterbetrieb in Musterstadt. Wallbox, Photovoltaik, Smart Home und E-Check. Festpreis-Garantie, Angebot in 48h. Jetzt anfragen!">
-<meta name="theme-color" content="#f7f6f3">
+<meta name="theme-color" content="#0a0d12">
 <title>Volt &amp; Watt Elektrotechnik – Wallbox · Photovoltaik · Smart Home · E-Check</title>
+<script>document.documentElement.className='js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#f7f6f3;      /* warmer Papierton als Grundfläche   */
-    --paper-2:#eef0f4;    /* leicht kühlere Bänder              */
-    --surface:#ffffff;    /* Karten                             */
-    --ink:#1a1f26;        /* Graphit                            */
-    --ink-2:#5b6470;      /* Fließtext gedämpft                 */
-    --ink-3:#646d7a;      /* Labels – dunkel genug für WCAG AA  */
-    --cobalt:#1d4ed8;     /* Akzent – Neutralleiter-Blau        */
-    --cobalt-dark:#1739a8;
-    --cobalt-soft:#eaeefb;
-    --cobalt-line:#c9d5f7;
-    --green:#15803d;      /* geprüft / freigegeben              */
-    --green-soft:#e7f4ec;
-    --line:#e3e1db;       /* Kanten auf Papier                  */
-    --line-2:#d3d0c8;
-    --radius:14px;
-    --shadow:0 1px 2px rgba(26,31,38,.05), 0 12px 28px -12px rgba(26,31,38,.18);
-    --shadow-lg:0 2px 4px rgba(26,31,38,.06), 0 22px 46px -18px rgba(26,31,38,.26);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-    background:var(--paper);color:var(--ink);line-height:1.65;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
-  img,svg{display:block;max-width:100%;}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 22px;}
-  ::selection{background:var(--cobalt);color:#fff;}
-  a:focus-visible,button:focus-visible,summary:focus-visible{
-    outline:2px solid var(--cobalt);outline-offset:3px;border-radius:4px;
-  }
+:root{
+  --bg:#0a0d12; --bg2:#0f141b; --bg3:#151b24; --bg4:#1c2430;
+  --fg:#eef2f7; --fg2:#a3aebd; --fg3:#7f8a9a;
+  --ln:rgba(255,255,255,.09); --ln2:rgba(255,255,255,.16);
+  --volt:#ffd23f; --volt-2:#ffe27a; --volt-ink:#14120a; --volt-soft:rgba(255,210,63,.16);
+  --ok:#3dd68c;
+  --paper:#f2f3ef; --card:#fff; --ink:#0e1319; --ink2:#4c5664; --ink3:#666f7d; --line:#dfe1db; --line2:#cdd0c8;
+  --r:16px; --r-lg:24px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --font:"Geist",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font);font-size:16.5px;line-height:1.6;color:var(--fg);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+svg{display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+.mono{font-family:var(--mono)}
+::selection{background:var(--volt);color:var(--volt-ink)}
+:focus-visible{outline:2px solid var(--volt);outline-offset:3px;border-radius:6px}
+.light :focus-visible,.white :focus-visible{outline-color:var(--ink)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.ico{width:20px;height:20px;flex:none}
+@media(max-width:640px){.wrap{padding:0 20px}body{font-size:16px}}
 
-  /* ---------- Demo-Banner ---------- */
-  .demo-banner{background:var(--cobalt-soft);color:#1e3a8a;text-align:center;font-size:.85rem;padding:8px 14px;border-bottom:1px solid var(--cobalt-line);}
-  .demo-banner b{color:#152d6e;}
+/* ---------- Demo-Banner & Header ---------- */
+.demo{background:#06080b;color:var(--fg3);font-size:13px;text-align:center;padding:8px 16px;border-bottom:1px solid var(--ln)}
+.demo a{color:var(--volt);text-decoration:none;font-weight:600}
+.demo a:hover{text-decoration:underline}
+.hdr{position:sticky;top:0;z-index:50;background:rgba(10,13,18,.72);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s}
+.hdr.scrolled{background:rgba(10,13,18,.9);border-bottom-color:var(--ln)}
+.hdr-in{display:flex;align-items:center;gap:32px;height:72px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg);font-weight:700;font-size:17px;letter-spacing:.02em;line-height:1.1;flex:none}
+.logo-mark{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:var(--volt);color:var(--volt-ink);box-shadow:0 0 0 1px rgba(255,210,63,.4),0 8px 24px -8px rgba(255,210,63,.6);transition:transform .4s var(--ease)}
+.logo:hover .logo-mark{transform:rotate(-8deg) scale(1.05)}
+.logo-mark svg{width:21px;height:21px}
+.logo em{font-style:normal;color:var(--volt)}
+.logo small{display:block;font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg3);margin-top:3px}
+.nav{display:flex;gap:30px;margin-left:auto}
+.nav a{position:relative;text-decoration:none;color:var(--fg2);font-size:15px;font-weight:500;padding:6px 0;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--volt);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav a:hover{color:var(--fg)}
+.nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.hdr-call{display:inline-flex;align-items:center;gap:11px;text-decoration:none;padding:9px 18px 9px 14px;border-radius:12px;border:1px solid var(--ln2);background:rgba(255,255,255,.03);transition:border-color .25s,background .25s}
+.hdr-call:hover{border-color:var(--volt);background:rgba(255,210,63,.06)}
+.hdr-call .ico{color:var(--volt);width:18px;height:18px}
+.hdr-call span{font:600 14.5px/1.2 var(--mono);color:var(--fg);white-space:nowrap}
+.hdr-call small{display:block;font:500 10.5px var(--font);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--volt);transform-origin:left;transform:scaleX(var(--sp,0));box-shadow:0 0 12px rgba(255,210,63,.8)}
+@media(max-width:980px){.nav{display:none}.hdr-call{margin-left:auto}}
+@media(max-width:560px){
+  .hdr-in{height:62px;gap:12px}
+  .logo{font-size:15.5px}
+  .logo small{display:none}
+  .logo-mark{width:34px;height:34px}
+  .hdr-call{padding:8px 12px}
+  .hdr-call small{display:none}
+  .hdr-call span{font-size:13px}
+}
 
-  /* ---------- Header ---------- */
-  header.site{
-    background:rgba(247,246,243,.88);backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;
-  }
-  .nav-inner{display:flex;align-items:center;gap:26px;height:70px;}
-  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font-weight:800;font-size:1.14rem;line-height:1.1;letter-spacing:.01em;}
-  .logo .mark{
-    width:40px;height:40px;border-radius:11px;flex:none;display:grid;place-items:center;
-    background:linear-gradient(140deg,var(--cobalt) 0%,var(--cobalt-dark) 100%);color:#fff;
-    box-shadow:0 6px 16px rgba(29,78,216,.28);
-  }
-  .logo em{font-style:normal;color:var(--cobalt);}
-  .logo small{display:block;font-weight:600;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-top:1px;}
-  nav.main{display:flex;gap:24px;margin-left:auto;}
-  nav.main a{color:var(--ink-2);text-decoration:none;font-weight:600;font-size:.93rem;padding:5px 0;border-bottom:2px solid transparent;transition:color .15s ease,border-color .15s ease;}
-  nav.main a:hover{color:var(--cobalt);border-bottom-color:var(--cobalt);}
-  .head-cta{display:flex;align-items:center;gap:12px;}
-  .phone-pill{
-    display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-    background:var(--cobalt);color:#fff;font-weight:800;
-    padding:10px 20px;border-radius:9px;font-size:.9rem;
-    box-shadow:0 8px 18px rgba(29,78,216,.24);transition:transform .15s ease,background .15s ease;
-  }
-  .phone-pill:hover{background:var(--cobalt-dark);transform:translateY(-1px);}
-  .phone-pill small{display:block;font-weight:700;font-size:.66rem;opacity:.82;line-height:1;letter-spacing:.06em;text-transform:uppercase;}
-  .phone-pill .num{line-height:1.25;}
-  @media(max-width:960px){nav.main{display:none;}}
-  @media(max-width:560px){
-    .nav-inner{height:60px;gap:10px;}
-    .logo{font-size:.98rem;white-space:nowrap;min-width:0;}
-    .logo small{display:none;}
-    .logo .mark{width:34px;height:34px;}
-    .phone-pill{padding:9px 14px;font-size:.82rem;margin-left:auto;flex:none;}
-    .phone-pill .txt{display:none;}
-    .phone-pill svg{display:none;}
-    .phone-pill .num{white-space:nowrap;}
-  }
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 24px;border-radius:12px;font:600 15.5px/1 var(--font);text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:transform .3s var(--ease),background .25s,border-color .25s,color .25s,box-shadow .3s}
+.btn .ico{width:18px;height:18px}
+.btn .arr{transition:transform .3s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-volt{background:var(--volt);color:var(--volt-ink);box-shadow:0 12px 32px -12px rgba(255,210,63,.6)}
+.btn-volt:hover{background:var(--volt-2);transform:translateY(-2px);box-shadow:0 18px 44px -14px rgba(255,210,63,.8)}
+.btn-ghost{border-color:var(--ln2);color:var(--fg);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--volt);color:var(--volt)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ink:hover{background:#000;transform:translateY(-2px);box-shadow:0 16px 32px -16px rgba(0,0,0,.6)}
+.btn-ink .ico{color:var(--volt)}
+.btn-white{background:#fff;color:var(--ink);border-color:rgba(0,0,0,.12)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 16px 32px -18px rgba(0,0,0,.5)}
 
-  /* ---------- Hero + Stromlaufplan ---------- */
-  .hero{
-    position:relative;overflow:hidden;isolation:isolate;
-    padding:104px 0 84px;
-    background:
-      radial-gradient(900px 520px at 76% 8%, rgba(29,78,216,.10) 0%, rgba(29,78,216,0) 62%),
-      radial-gradient(760px 420px at 4% 102%, rgba(29,78,216,.07) 0%, rgba(29,78,216,0) 58%),
-      var(--paper);
-  }
-  #gridCanvas{
-    position:absolute;inset:0;width:100%;height:100%;
-    z-index:-1;pointer-events:none;
-    opacity:0;transition:opacity .9s ease;
-  }
-  #gridCanvas.ready{opacity:1;}
-  .hero::after{
-    content:"";position:absolute;left:0;right:0;bottom:0;height:150px;z-index:-1;
-    background:linear-gradient(to bottom,rgba(247,246,243,0),var(--paper));pointer-events:none;
-  }
-  .hero .tag{
-    display:inline-flex;align-items:center;gap:9px;
-    color:var(--cobalt);font-weight:800;letter-spacing:.13em;font-size:.76rem;text-transform:uppercase;
-    background:var(--cobalt-soft);border:1px solid var(--cobalt-line);
-    padding:7px 15px;border-radius:999px;margin-bottom:22px;
-  }
-  .hero .tag .dot{
-    width:7px;height:7px;border-radius:50%;background:var(--green);flex:none;
-    box-shadow:0 0 0 4px rgba(21,128,61,.16);animation:pulse 2.4s ease-in-out infinite;
-  }
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(21,128,61,.18);}50%{box-shadow:0 0 0 7px rgba(21,128,61,0);}}
-  .hero h1{
-    font-size:clamp(2rem,4.8vw,3.05rem);line-height:1.16;color:var(--ink);
-    letter-spacing:-.02em;margin-bottom:20px;max-width:790px;
-  }
-  .hero h1 em{font-style:normal;color:var(--cobalt);}
-  .hero p.lead{max-width:600px;color:var(--ink-2);font-size:1.1rem;margin-bottom:32px;}
-  .hero-actions{display:flex;gap:13px;flex-wrap:wrap;}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:9px;
-    font-weight:800;padding:14px 27px;border-radius:9px;text-decoration:none;
-    font-size:.98rem;border:0;cursor:pointer;transition:transform .15s ease,background .15s ease,border-color .15s ease,color .15s ease,box-shadow .15s ease;
-  }
-  .btn:hover{transform:translateY(-2px);}
-  .btn-primary{background:var(--cobalt);color:#fff;box-shadow:0 12px 26px -8px rgba(29,78,216,.5);}
-  .btn-primary:hover{background:var(--cobalt-dark);}
-  .btn-outline{background:var(--surface);color:var(--ink);border:1.5px solid var(--line-2);box-shadow:var(--shadow);}
-  .btn-outline:hover{border-color:var(--cobalt);color:var(--cobalt);}
-  .btn-green{background:var(--green);color:#fff;box-shadow:0 12px 26px -8px rgba(21,128,61,.45);}
-  .btn-green:hover{background:#116632;}
+/* ---------- Typo ---------- */
+.sec{padding:clamp(84px,10vw,140px) 0;position:relative}
+.light{background:var(--paper);color:var(--ink)}
+.white{background:#fff;color:var(--ink)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 12.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg2);margin-bottom:20px}
+.eyebrow::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--volt);box-shadow:0 0 0 3px var(--volt-soft)}
+.light .eyebrow,.white .eyebrow{color:var(--ink3)}
+.light .eyebrow::before,.white .eyebrow::before{box-shadow:0 0 0 3px rgba(255,210,63,.35)}
+.h2{font-size:clamp(2.05rem,1.15rem + 2.8vw,3.4rem);line-height:1.04;letter-spacing:-.038em;font-weight:600;max-width:19ch;text-wrap:balance}
+.sub{margin-top:20px;font-size:clamp(1rem,.96rem + .2vw,1.1rem);color:var(--fg2);max-width:58ch}
+.light .sub,.white .sub{color:var(--ink2)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px 40px;margin-bottom:clamp(36px,5vw,60px)}
+.hint{display:inline-flex;align-items:center;gap:10px;font:500 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);padding-bottom:6px}
+.hint i{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;border:1px solid var(--line2);font-style:normal}
+@media(max-width:820px){.sec-head{grid-template-columns:1fr}.sec-head .hint{display:none}}
 
-  .hero-trust{
-    display:flex;flex-wrap:wrap;gap:10px;margin-top:46px;
-    border-top:1px solid var(--line);padding-top:28px;
-  }
-  .trust{
-    display:inline-flex;align-items:center;gap:9px;
-    background:rgba(255,255,255,.8);border:1px solid var(--line);border-radius:999px;
-    padding:8px 16px 8px 12px;font-size:.85rem;font-weight:600;color:var(--ink-2);
-    backdrop-filter:blur(6px);
-  }
-  .trust svg{color:var(--cobalt);flex:none;}
-  @media(max-width:640px){
-    .hero{padding:70px 0 62px;}
-    .hero p.lead{font-size:1.02rem;}
-    .hero-trust{margin-top:34px;padding-top:22px;}
-    .trust{font-size:.79rem;padding:7px 13px 7px 10px;}
-  }
+/* ---------- Reveal ---------- */
+.js [data-r]{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+.js [data-r].in{opacity:1;transform:none}
+.js [data-r].rv-done{transition:transform .5s var(--ease),box-shadow .5s ease,opacity .3s ease;transition-delay:0s}
+.js .proj.in:hover{transform:translateY(-5px)}
+.js .q.in:hover{transform:translateY(-4px)}
 
-  /* ---------- Sections ---------- */
-  section{padding:78px 0;}
-  @media(max-width:640px){section{padding:56px 0;}}
-  .eyebrow{color:var(--cobalt);font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:11px;}
-  h2{font-size:clamp(1.55rem,3vw,2.05rem);color:var(--ink);letter-spacing:-.02em;margin-bottom:12px;line-height:1.25;}
-  .sub{color:var(--ink-2);margin-bottom:42px;max-width:640px;font-size:1.03rem;}
-  .alt{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;padding:clamp(36px,4vw,64px) 0 clamp(70px,8vw,110px);
+  background:radial-gradient(1000px 620px at 85% -12%,rgba(64,104,178,.24),transparent 62%),radial-gradient(760px 480px at -8% 108%,rgba(255,210,63,.07),transparent 60%),var(--bg)}
+#grid{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:0;transition:opacity 1.4s ease}
+#grid.ready{opacity:1}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:160px;z-index:-1;background:linear-gradient(rgba(10,13,18,0),var(--bg));pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(32px,5vw,84px);align-items:center}
+.tag{display:inline-flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg2);padding:10px 15px;border:1px solid var(--ln2);border-radius:999px;background:rgba(255,255,255,.03);margin-bottom:28px;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none;animation:ping 2.4s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(61,214,140,.55)}70%,100%{box-shadow:0 0 0 9px rgba(61,214,140,0)}}
+.h1{font-size:clamp(2.8rem,1.4rem + 4.6vw,5.2rem);line-height:.97;letter-spacing:-.047em;font-weight:600}
+.h1 .ln{display:block;overflow:hidden;padding-bottom:.07em;margin-bottom:-.07em}
+.h1 .ln>span{display:inline-block}
+.js .h1 .ln>span{transform:translateY(108%);transition:transform 1.15s var(--ease)}
+.js .h1 .ln:nth-child(2)>span{transition-delay:.09s}
+.is-on .h1 .ln>span{transform:none}
+.h1 .h1-acc{display:block;margin-top:.4em;font-size:max(.34em,1.3rem);line-height:1.2;letter-spacing:-.022em;font-weight:500;color:var(--volt);text-shadow:0 0 28px rgba(255,210,63,.28)}
+.js .h1 .h1-acc{opacity:0}
+.is-on .h1 .h1-acc{animation:flick 1.25s linear .75s forwards}
+@keyframes flick{0%{opacity:0}6%{opacity:.85}9%{opacity:.08}16%{opacity:1}20%{opacity:.2}27%{opacity:.95}31%{opacity:.5}38%,100%{opacity:1}}
+.lead{margin-top:24px;font-size:clamp(1.02rem,.94rem + .32vw,1.2rem);color:var(--fg2);max-width:52ch}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.trust{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,max-content));gap:14px 36px;margin-top:40px;padding-top:24px;border-top:1px solid var(--ln)}
+.trust li{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--fg2);white-space:nowrap}
+.trust .ico{color:var(--volt);width:18px;height:18px}
+.js .hi{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.is-on .hi{opacity:1;transform:none}
+.is-on .hi.d1{transition-delay:.15s}.is-on .hi.d2{transition-delay:.45s}.is-on .hi.d3{transition-delay:.6s}.is-on .hi.d4{transition-delay:.75s}
 
-  /* ---------- Leistungen ---------- */
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  @media(max-width:860px){.grid-3{grid-template-columns:1fr;}}
-  .tile{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:28px 26px;transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;
-    position:relative;display:flex;flex-direction:column;box-shadow:var(--shadow);
-  }
-  .tile:hover{border-color:var(--cobalt);transform:translateY(-3px);box-shadow:var(--shadow-lg);}
-  .tile .ico{
-    width:52px;height:52px;border-radius:13px;display:grid;place-items:center;margin-bottom:18px;
-    background:var(--cobalt-soft);border:1px solid var(--cobalt-line);color:var(--cobalt);
-  }
-  .tile h3{margin-bottom:7px;font-size:1.08rem;color:var(--ink);}
-  .tile>p{color:var(--ink-2);font-size:.93rem;margin-bottom:16px;}
-  .tile ul{list-style:none;margin-bottom:20px;}
-  .tile li{position:relative;padding-left:24px;font-size:.89rem;color:var(--ink-2);margin-bottom:7px;}
-  .tile li::before{
-    content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:50%;background:var(--green);
-    -webkit-mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="black" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.7 5.9-4.2 4.8a.75.75 0 0 1-1.12.02L4.3 8.5a.75.75 0 1 1 1.1-1.02l1.5 1.62 3.66-4.2a.75.75 0 0 1 1.14.99z"/></svg>') center/contain no-repeat;
-    mask:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="black" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.7 5.9-4.2 4.8a.75.75 0 0 1-1.12.02L4.3 8.5a.75.75 0 1 1 1.1-1.02l1.5 1.62 3.66-4.2a.75.75 0 0 1 1.14.99z"/></svg>') center/contain no-repeat;
-  }
-  .tile .link{
-    margin-top:auto;color:var(--cobalt);text-decoration:none;font-weight:700;font-size:.92rem;
-    display:inline-flex;align-items:center;gap:6px;
-  }
-  .tile .link:hover{text-decoration:underline;}
-  .tile .badge{
-    position:absolute;top:20px;right:20px;background:var(--green-soft);color:var(--green);
-    font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
-    padding:4px 11px;border-radius:999px;border:1px solid rgba(21,128,61,.22);
-  }
+.hero-visual{position:relative;justify-self:end;width:100%;max-width:490px;padding:26px 0;perspective:1200px}
+.tilt{position:relative;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.hero-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--ln2);background:var(--bg3);box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}
+.js .hero-photo{clip-path:inset(100% 0 0 0 round 24px);transition:clip-path 1.35s var(--ease) .2s}
+.is-on .hero-photo{clip-path:inset(0 0 0 0 round 24px)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) contrast(1.04)}
+.js .hero-photo img{transform:scale(1.16);transition:transform 2.2s var(--ease) .2s}
+.is-on .hero-photo img{transform:scale(1.01)}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,13,18,.15) 0%,rgba(10,13,18,0) 30%,rgba(10,13,18,.05) 60%,rgba(10,13,18,.6) 100%);pointer-events:none}
+.since{position:absolute;right:16px;top:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:rgba(10,13,18,.62);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--ln2);font:500 12px var(--mono);letter-spacing:.06em;color:var(--fg)}
+.since b{color:var(--volt);font-weight:600}
+.wdg{position:absolute;z-index:3;background:rgba(13,18,25,.74);backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);border:1px solid rgba(255,255,255,.13);border-radius:16px;padding:14px 16px;box-shadow:0 24px 50px -20px rgba(0,0,0,.85);color:var(--fg)}
+.js .wdg{opacity:0;transform:translateY(16px) scale(.96);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.is-on .wdg{opacity:1;transform:none}
+.is-on .w-charge{transition-delay:1s}.is-on .w-pv{transition-delay:1.2s}.is-on .w-check{transition-delay:1.4s}
+.wdg-h{display:flex;align-items:center;gap:8px;white-space:nowrap;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--fg3)}
+.wdg-h .ico{width:15px;height:15px;color:var(--volt)}
+.live{margin-left:auto;display:inline-flex;align-items:center;gap:6px;color:var(--ok);text-transform:none;letter-spacing:0}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:ping 1.8s ease-out infinite}
+.wdg-v{display:flex;align-items:baseline;gap:6px;margin-top:8px}
+.wdg-v b{font-size:28px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.wdg-v span{font:500 13px var(--mono);color:var(--fg2)}
+.w-charge{left:-64px;top:74px;width:232px}
+.bar{position:relative;height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:12px 0 9px}
+.bar i{position:absolute;inset:0 auto 0 0;width:var(--soc,38%);border-radius:99px;background:linear-gradient(90deg,#f5b800,var(--volt));transition:width 3s var(--ease)}
+.bar i::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);transform:translateX(-100%);animation:shine 2.2s ease-in-out infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+.wdg-f{display:flex;justify-content:space-between;font:500 12px var(--mono);color:var(--fg3)}
+.wdg-f b{color:var(--fg);font-weight:600}
+.w-pv{right:-40px;top:52%;width:206px}
+.spark{width:100%;height:46px;margin-top:8px}
+.spark path.l{fill:none;stroke:var(--volt);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:300;stroke-dashoffset:300;transition:stroke-dashoffset 2.4s var(--ease) 1.5s}
+.spark path.a{fill:url(#pvg);opacity:0;transition:opacity 1.2s ease 2.6s}
+.is-on .spark path.l{stroke-dashoffset:0}
+.is-on .spark path.a{opacity:1}
+.w-check{left:-46px;bottom:58px;width:250px}
+.chk{display:grid;grid-template-columns:1fr auto;gap:5px 14px;margin-top:10px;font-size:13.5px;color:var(--fg2)}
+.chk b{font:600 13.5px var(--mono);color:var(--fg);text-align:right}
+.pass{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:6px 11px;border-radius:8px;background:rgba(61,214,140,.13);color:#7be7b1;font-size:13px;font-weight:600}
+.pass .ico{width:15px;height:15px}
+.pass path{stroke-dasharray:30;stroke-dashoffset:30;transition:stroke-dashoffset .7s var(--ease) 2.1s}
+.is-on .pass path{stroke-dashoffset:0}
+@media(max-width:1180px){.w-charge{left:-30px}.w-check{left:-24px}.w-pv{right:-16px}}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-visual{justify-self:stretch;max-width:600px;padding:8px 0 0}
+  .hero-photo{aspect-ratio:4/3.3}
+  .w-pv{display:none}
+  .w-charge{left:12px;top:26px;width:212px}
+  .w-check{left:auto;right:12px;bottom:14px;width:226px}
+  .trust{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .trust li{white-space:normal}
+}
+@media(max-width:560px){
+  .hero-photo{aspect-ratio:4/4.4}
+  .w-charge{left:10px;top:18px;width:188px;padding:12px 13px}
+  .w-check{right:10px;bottom:10px;width:200px;padding:12px 13px}
+  .wdg-v b{font-size:23px}
+  .chk{font-size:12.5px}
+  .chk b{font-size:12.5px}
+  .since{display:none}
+  .tag{font-size:11px;letter-spacing:.08em;padding:9px 13px}
+  .trust{gap:12px 18px;margin-top:36px}
+  .trust li{font-size:13.5px}
+  .actions .btn{flex:1 1 auto}
+}
 
-  /* ---------- Kennzahlen-Band ---------- */
-  .stripe{
-    background:linear-gradient(100deg,var(--cobalt-dark) 0%,var(--cobalt) 100%);
-    color:#fff;padding:38px 0;position:relative;overflow:hidden;
-  }
-  .stripe::before{
-    content:"";position:absolute;inset:0;opacity:.14;pointer-events:none;
-    background-image:
-      linear-gradient(#fff 1px,transparent 1px),
-      linear-gradient(90deg,#fff 1px,transparent 1px);
-    background-size:34px 34px;
-  }
-  .stripe .wrap{display:flex;gap:26px;flex-wrap:wrap;justify-content:space-between;align-items:center;position:relative;}
-  .stripe .item{display:flex;flex-direction:column;min-width:120px;}
-  .stripe b{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;}
-  .stripe span{font-size:.9rem;font-weight:600;opacity:.82;}
-  @media(max-width:640px){
-    .stripe .wrap{gap:22px;}
-    .stripe .item{min-width:calc(50% - 11px);}
-    .stripe b{font-size:1.5rem;}
-  }
+/* ---------- Ticker ---------- */
+.ticker{background:var(--volt);color:var(--volt-ink);overflow:hidden;position:relative;z-index:2}
+.ticker-track{display:flex;width:max-content;animation:tick 42s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track>div{display:flex;align-items:center}
+.ticker-track span{display:inline-flex;align-items:center;gap:28px;padding:19px 28px 19px 0;font-size:clamp(19px,1.1rem + .9vw,30px);font-weight:600;letter-spacing:-.025em;white-space:nowrap}
+.ticker-track span svg{width:.8em;height:.8em}
+@keyframes tick{to{transform:translateX(-50%)}}
 
-  /* ---------- Ablauf ---------- */
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step;}
-  @media(max-width:900px){.steps{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:520px){.steps{grid-template-columns:1fr;}}
-  .step{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:26px 22px;position:relative;box-shadow:var(--shadow);
-  }
-  .step::before{
-    counter-increment:step;content:counter(step);
-    display:grid;place-items:center;width:40px;height:40px;border-radius:11px;
-    background:var(--cobalt-soft);border:1px solid var(--cobalt-line);
-    color:var(--cobalt);font-weight:800;font-size:1.05rem;margin-bottom:16px;
-  }
-  .step h3{font-size:1rem;color:var(--ink);margin-bottom:6px;}
-  .step p{color:var(--ink-2);font-size:.9rem;}
+/* ---------- Leistungen / Verteiler ---------- */
+.board{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(14px,2.2vw,26px);box-shadow:0 40px 70px -50px rgba(14,19,25,.45)}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:16px;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:2px 4px 16px}
+.pwr{display:inline-flex;align-items:center;gap:8px}
+.pwr i{width:8px;height:8px;border-radius:50%;background:#b8bcb4;transition:background .3s,box-shadow .3s}
+.board.powered .pwr i{background:#16a34a;box-shadow:0 0 0 3px rgba(22,163,74,.18),0 0 12px #22c55e}
+.rail-wrap{position:relative;border-radius:16px;padding:20px clamp(10px,1.8vw,22px) 18px;background:linear-gradient(180deg,#eceee9,#e3e5df);border:1px solid var(--line)}
+.rail-wrap::before{content:"";position:absolute;left:0;right:0;top:50%;height:36px;margin-top:-26px;background:linear-gradient(180deg,#c3c6bf 0,#e8eae5 22%,#d0d3cc 50%,#b8bbb4 78%,#cfd2cb 100%);box-shadow:0 1px 0 rgba(255,255,255,.7)}
+.rail-wrap::after{content:"";position:absolute;left:0;right:0;top:50%;height:6px;margin-top:-11px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 12px,transparent 12px 30px);opacity:.5}
+.rail{position:relative;z-index:1;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.mcb{appearance:none;-webkit-appearance:none;position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;height:226px;padding:12px 10px 12px;border-radius:12px;border:1px solid #d1d4cd;background:linear-gradient(180deg,#fff 0%,#f6f7f4 60%,#eceee9 100%);color:var(--ink);cursor:pointer;text-align:center;box-shadow:inset 0 1px 0 #fff,0 10px 22px -14px rgba(14,19,25,.45);transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+.mcb:hover{transform:translateY(-3px);border-color:#b9bdb4;box-shadow:inset 0 1px 0 #fff,0 18px 28px -16px rgba(14,19,25,.5)}
+.mcb[aria-selected="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),0 22px 36px -18px rgba(14,19,25,.6)}
+.mcb-top{display:flex;justify-content:space-between;align-items:baseline;width:100%;font:500 11px var(--mono);color:var(--ink3)}
+.mcb-top b{font-weight:600;color:var(--ink);font-size:12px}
+.mcb-slot{position:relative;width:40px;height:84px;border-radius:10px;background:#1a1f26;box-shadow:inset 0 3px 8px rgba(0,0,0,.65),0 1px 0 #fff}
+.mcb-lever{position:absolute;left:4px;right:4px;height:40px;bottom:4px;border-radius:7px;background:linear-gradient(180deg,#434b56,#252a31);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 3px 0 #0b0d10;display:grid;place-items:center;font:600 11px var(--mono);color:#9aa3b0;transition:bottom .42s cubic-bezier(.45,1.7,.4,1),background .3s,color .3s}
+.mcb-lever::after{content:"0"}
+.mcb.up .mcb-lever,.mcb[aria-selected="true"] .mcb-lever{bottom:40px;background:linear-gradient(180deg,var(--volt-2),var(--volt));color:var(--volt-ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 3px 0 #b48f00,0 0 22px rgba(255,210,63,.55)}
+.mcb.up .mcb-lever::after,.mcb[aria-selected="true"] .mcb-lever::after{content:"I"}
+.mcb-name{font-weight:600;font-size:14.5px;letter-spacing:-.01em;line-height:1.2;margin-top:auto}
+.mcb-led{width:70%;height:4px;border-radius:4px;background:#d3d6cf;transition:background .3s,box-shadow .3s}
+.mcb.up .mcb-led,.mcb[aria-selected="true"] .mcb-led{background:var(--volt);box-shadow:0 0 12px rgba(255,200,0,.8)}
+.mcb.zap::before{content:"";position:absolute;inset:-1px;border-radius:12px;box-shadow:0 0 0 0 rgba(255,210,63,.7);animation:zap .6s ease-out}
+@keyframes zap{to{box-shadow:0 0 0 14px rgba(255,210,63,0)}}
+.svc-wrap{margin-top:18px}
+.svc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(22px,4vw,60px);align-items:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(12px,1.4vw,16px)}
+.svc[hidden]{display:none}
+.svc-img{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#e7e9e4}
+.svc-img img{width:100%;height:100%;object-fit:cover}
+.svc-badge{position:absolute;left:14px;top:14px;background:var(--volt);color:var(--volt-ink);font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 11px;border-radius:8px}
+.svc-body{padding:clamp(6px,1.6vw,20px) clamp(6px,2.4vw,32px) clamp(6px,1.6vw,20px) 0}
+.svc-code{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.svc h3{font-size:clamp(1.7rem,1.1rem + 1.5vw,2.45rem);line-height:1.06;letter-spacing:-.035em;font-weight:600;margin:12px 0 14px}
+.svc-txt{color:var(--ink2);font-size:1.06rem;max-width:44ch}
+.ticks{list-style:none;display:grid;gap:11px;margin:24px 0 30px}
+.ticks li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;line-height:1.45}
+.ticks .ico{width:21px;height:21px;padding:3px;border-radius:6px;background:var(--ink);color:var(--volt);margin-top:0}
+.svc.enter .svc-img img{animation:imgIn 1s var(--ease) both}
+.svc.enter .svc-body>*{animation:upIn .7s var(--ease) both}
+.svc.enter .svc-body>:nth-child(2){animation-delay:.05s}.svc.enter .svc-body>:nth-child(3){animation-delay:.1s}.svc.enter .svc-body>:nth-child(4){animation-delay:.15s}.svc.enter .svc-body>:nth-child(5){animation-delay:.2s}
+@keyframes imgIn{from{clip-path:inset(0 0 0 100%);transform:scale(1.08)}to{clip-path:inset(0 0 0 0);transform:none}}
+@keyframes upIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:860px){
+  .rail{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 8px}
+  .rail-wrap::before,.rail-wrap::after{display:none}
+  .mcb{height:168px;gap:9px;padding:10px 8px}
+  .mcb-slot{width:32px;height:62px}
+  .mcb-lever{height:29px}
+  .mcb.up .mcb-lever,.mcb[aria-selected="true"] .mcb-lever{bottom:29px}
+  .mcb-name{font-size:13px}
+  .svc{grid-template-columns:1fr}
+  .svc-body{padding:4px 8px 10px}
+}
+@media(max-width:420px){.mcb-top span{display:none}.mcb-top{justify-content:center}}
 
-  /* ---------- Split (Warum wir) ---------- */
-  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start;}
-  @media(max-width:900px){.split{grid-template-columns:1fr;}}
-  .checklist{list-style:none;display:grid;gap:16px;}
-  .checklist li{display:flex;gap:14px;align-items:flex-start;}
-  .checklist .ci{
-    width:38px;height:38px;flex:none;border-radius:10px;display:grid;place-items:center;
-    background:var(--cobalt-soft);border:1px solid var(--cobalt-line);color:var(--cobalt);
-  }
-  .checklist b{display:block;color:var(--ink);font-size:.99rem;}
-  .checklist span{font-size:.9rem;color:var(--ink-2);}
-  .panel{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:30px 28px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden;
-  }
-  .panel::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:3px;
-    background:linear-gradient(90deg,var(--cobalt),rgba(29,78,216,0));
-  }
-  .panel h3{color:var(--ink);font-size:1.14rem;margin-bottom:6px;}
-  .panel>p{color:var(--ink-2);font-size:.93rem;margin-bottom:22px;}
-  .meter{display:grid;gap:17px;margin-bottom:24px;}
-  .meter .row b{display:flex;justify-content:space-between;gap:12px;font-size:.88rem;color:var(--ink);font-weight:600;margin-bottom:8px;}
-  .meter .row b i{font-style:normal;color:var(--cobalt);font-weight:800;font-variant-numeric:tabular-nums;}
-  /* Die Bahn muss gegen die weiße Karte sichtbar bleiben – sonst fehlt der
-     Bezugsrahmen und der Prozentwert lässt sich nicht ablesen. */
-  .bar{
-    display:block;                /* <span> ist sonst inline – height greift dann nicht */
-    height:10px;border-radius:99px;background:#ccd4e3;overflow:hidden;
-    box-shadow:inset 0 1px 2px rgba(26,31,38,.10);
-  }
-  .bar i{display:block;height:100%;border-radius:99px;background:var(--cobalt);}
-  .panel .note{font-size:.83rem;color:var(--ink-3);border-top:1px solid var(--line);padding-top:16px;}
+/* ---------- Zahlen ---------- */
+.stats{background:var(--bg);border-bottom:1px solid var(--ln)}
+.stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.stat{padding:clamp(34px,4.5vw,56px) clamp(16px,2vw,28px);border-left:1px solid var(--ln)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat b{display:block;font-size:clamp(2.1rem,1.3rem + 2.3vw,3.5rem);font-weight:600;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat b em{font-style:normal;color:var(--volt)}
+.stat .lab{display:block;margin-top:14px;font-size:14.5px;color:var(--fg2)}
+@media(max-width:900px){
+  .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat{border-left:0;border-top:1px solid var(--ln);padding-left:0}
+  .stat:nth-child(even){padding-left:24px;border-left:1px solid var(--ln)}
+  .stat:nth-child(-n+2){border-top:0}
+  .stat:last-child{grid-column:1/-1}
+}
 
-  /* ---------- Projekte ---------- */
-  .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  @media(max-width:860px){.projects{grid-template-columns:1fr;}}
-  .project{
-    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface);
-    transition:border-color .2s ease,transform .2s ease,box-shadow .2s ease;box-shadow:var(--shadow);
-  }
-  .project:hover{border-color:var(--cobalt);transform:translateY(-3px);box-shadow:var(--shadow-lg);}
-  .project .thumb{
-    height:172px;position:relative;display:grid;place-items:center;
-    background:linear-gradient(150deg,#eef1f7 0%,#e2e7f3 100%);
-    border-bottom:1px solid var(--line);overflow:hidden;
-  }
-  .project .thumb::before{
-    content:"";position:absolute;inset:0;opacity:.85;
-    background-image:
-      linear-gradient(rgba(29,78,216,.14) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(29,78,216,.14) 1px,transparent 1px);
-    background-size:26px 26px;
-    -webkit-mask:radial-gradient(circle at 50% 45%,#000 0%,transparent 78%);
-    mask:radial-gradient(circle at 50% 45%,#000 0%,transparent 78%);
-  }
-  .project .thumb svg{position:relative;color:var(--cobalt);opacity:.9;}
-  .project .body{padding:22px 22px 24px;}
-  .project .kicker{font-size:.72rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--cobalt);margin-bottom:7px;}
-  .project h3{font-size:1.03rem;color:var(--ink);margin-bottom:7px;}
-  .project p{font-size:.9rem;color:var(--ink-2);margin-bottom:14px;}
-  .facts{display:flex;flex-wrap:wrap;gap:7px;}
-  .facts span{
-    font-size:.76rem;font-weight:600;color:var(--ink-2);
-    background:var(--paper);border:1px solid var(--line);
-    padding:4px 10px;border-radius:999px;
-  }
+/* ---------- Ablauf ---------- */
+.flow{--gap:28px;--n:56px;position:relative}
+.flow-list{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.flow-line{position:absolute;top:calc(var(--n) / 2 - 1.5px);left:calc(var(--n) / 2);right:calc((100% - 3 * var(--gap)) / 4 - var(--n) / 2);height:3px;border-radius:3px;background:var(--line2)}
+.flow-fill{position:absolute;inset:0;border-radius:3px;background:linear-gradient(90deg,#f0b400,var(--volt));transform-origin:left;transform:scaleX(var(--p,0));box-shadow:0 0 14px rgba(255,200,0,.55)}
+.flow-spark{position:absolute;top:50%;left:calc(var(--p,0) * 100%);width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--volt),0 0 20px 6px rgba(255,210,63,.75);opacity:var(--so,0);transition:opacity .3s}
+.flow-step{position:relative}
+.flow-node{position:relative;z-index:1;width:var(--n);height:var(--n);border-radius:16px;display:grid;place-items:center;background:#fff;border:1px solid var(--line2);font:600 15px var(--mono);color:var(--ink3);transition:background .45s,color .45s,border-color .45s,box-shadow .45s,transform .45s var(--ease)}
+.flow-step.lit .flow-node{background:var(--ink);color:var(--volt);border-color:var(--ink);box-shadow:0 0 0 6px rgba(255,210,63,.3);transform:scale(1.04)}
+.flow-tag{margin-top:26px;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.flow-step h3{font-size:1.36rem;letter-spacing:-.025em;line-height:1.2;font-weight:600;margin:10px 0 10px}
+.flow-step p{color:var(--ink2);font-size:15.5px}
+@media(max-width:860px){
+  .flow-list{grid-template-columns:1fr;gap:34px}
+  .flow-line{top:calc(var(--n) / 2);bottom:calc(var(--n) / 2);left:calc(var(--n) / 2 - 1.5px);right:auto;width:3px;height:auto}
+  .flow-fill{transform-origin:top;transform:scaleY(var(--p,0))}
+  .flow-spark{left:50%;top:calc(var(--p,0) * 100%)}
+  .flow-step{padding-left:calc(var(--n) + 22px)}
+  .flow-node{position:absolute;left:0;top:0}
+  .flow-tag{margin-top:2px}
+}
 
-  /* ---------- Bewertungen ---------- */
-  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  @media(max-width:860px){.quotes{grid-template-columns:1fr;}}
-  .quote{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;
-    display:flex;flex-direction:column;box-shadow:var(--shadow);
-  }
-  .stars{color:#b8791c;font-size:1.02rem;letter-spacing:2px;margin-bottom:12px;}
-  .quote p{color:var(--ink);font-size:.95rem;margin-bottom:18px;}
-  .who{display:flex;align-items:center;gap:11px;margin-top:auto;}
-  .who .av{
-    width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
-    background:linear-gradient(140deg,var(--cobalt),var(--cobalt-dark));color:#fff;font-weight:800;font-size:.92rem;
-  }
-  .who b{display:block;color:var(--ink);font-size:.9rem;}
-  .who span{font-size:.8rem;color:var(--ink-3);}
+/* ---------- Warum ---------- */
+.why{background:var(--bg);overflow:hidden}
+.why::before{content:"";position:absolute;right:-200px;top:-200px;width:700px;height:700px;background:radial-gradient(closest-side,rgba(255,210,63,.07),transparent);pointer-events:none}
+.why-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,6vw,90px);align-items:start}
+.why-list{list-style:none;border-top:1px solid var(--ln);margin-top:clamp(28px,4vw,44px)}
+.why-list li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:20px;padding:22px 0;border-bottom:1px solid var(--ln)}
+.why-ico{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;border:1px solid var(--ln2);color:var(--volt);transition:background .3s,color .3s,border-color .3s,transform .4s var(--ease)}
+.why-list li:hover .why-ico{background:var(--volt);color:var(--volt-ink);border-color:var(--volt);transform:rotate(-6deg)}
+.why-list b{display:block;font-size:1.13rem;font-weight:600;letter-spacing:-.015em;margin-bottom:4px}
+.why-list span{color:var(--fg2);font-size:15.5px}
+.dev{position:sticky;top:104px;background:linear-gradient(180deg,#161c25,#0e1218);border:1px solid var(--ln2);border-radius:var(--r-lg);padding:20px;box-shadow:0 50px 90px -50px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.07)}
+.dev-top{display:flex;align-items:center;gap:10px;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);padding:2px 6px 16px}
+.dev-top .rec{width:8px;height:8px;border-radius:50%;background:#465060;transition:background .3s,box-shadow .3s}
+.dev.in .dev-top .rec{background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.dev-top .mode{margin-left:auto;padding:4px 8px;border:1px solid var(--ln2);border-radius:6px;color:var(--fg2)}
+.dev-screen{background:#06090d;border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:24px 22px 8px;box-shadow:inset 0 0 50px rgba(255,210,63,.035)}
+.dev h3{font-size:1.5rem;letter-spacing:-.025em;font-weight:600}
+.dev-screen>p{color:var(--fg2);font-size:15px;margin:8px 0 24px}
+.mrow{margin-bottom:20px}
+.mrow-h{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;margin-bottom:9px}
+.mrow-h i{font:600 14.5px var(--mono);font-style:normal;color:var(--volt);font-variant-numeric:tabular-nums;white-space:nowrap}
+.seg{position:relative;height:12px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 7px,transparent 7px 10px)}
+.seg i{position:absolute;inset:0 auto 0 0;width:0;background:repeating-linear-gradient(90deg,var(--volt) 0 7px,transparent 7px 10px);filter:drop-shadow(0 0 5px rgba(255,210,63,.55));transition:width 1.8s var(--ease)}
+.mrow:nth-child(2) .seg i{transition-delay:.15s}.mrow:nth-child(3) .seg i{transition-delay:.3s}.mrow:nth-child(4) .seg i{transition-delay:.45s}
+.dev.in .seg i{width:var(--w)}
+.dev .btn{width:100%;margin-top:18px}
+.dev-note{font-size:13px;color:var(--fg3);margin:14px 6px 2px}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}.dev{position:relative;top:0}}
 
-  /* ---------- FAQ ---------- */
-  .faq{display:grid;gap:12px;max-width:820px;}
-  .faq details{
-    background:var(--surface);border:1px solid var(--line);border-radius:12px;
-    padding:0 22px;transition:border-color .2s ease,box-shadow .2s ease;box-shadow:var(--shadow);
-  }
-  .faq details[open]{border-color:var(--cobalt-line);}
-  .faq summary{
-    list-style:none;cursor:pointer;padding:18px 0;font-weight:700;color:var(--ink);font-size:.99rem;
-    display:flex;align-items:center;justify-content:space-between;gap:16px;
-  }
-  .faq summary::-webkit-details-marker{display:none;}
-  .faq summary::after{
-    content:"";width:11px;height:11px;flex:none;border-right:2px solid var(--cobalt);border-bottom:2px solid var(--cobalt);
-    transform:rotate(45deg) translateY(-3px);transition:transform .2s ease;
-  }
-  .faq details[open] summary::after{transform:rotate(225deg) translateY(-2px);}
-  .faq .answer{color:var(--ink-2);font-size:.93rem;padding:0 0 20px;border-top:1px solid var(--line);padding-top:16px;}
+/* ---------- Projekte ---------- */
+.proj-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.proj{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s,opacity .9s var(--ease)}
+.proj:hover{transform:translateY(-5px);box-shadow:0 36px 70px -40px rgba(14,19,25,.55)}
+.proj:first-child{grid-column:1/-1;flex-direction:row}
+.proj-img{position:relative;overflow:hidden;aspect-ratio:16/9;background:#e5e7e2}
+.proj:first-child .proj-img{flex:0 0 58%;aspect-ratio:16/10}
+.proj:first-child .proj-body{align-self:center;padding:clamp(24px,4vw,56px)}
+.proj:first-child h3{font-size:clamp(1.6rem,1.1rem + 1.4vw,2.3rem);letter-spacing:-.035em;line-height:1.08;margin:12px 0 14px}
+.proj:first-child p{font-size:1.06rem}
+.proj-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.proj:hover .proj-img img{transform:scale(1.05)}
+.proj-num{position:absolute;left:16px;bottom:16px;background:var(--volt);color:var(--volt-ink);font-weight:600;font-size:1.2rem;letter-spacing:-.02em;padding:9px 14px;border-radius:10px;line-height:1}
+.proj-num small{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-left:6px;opacity:.75}
+.proj-body{padding:24px 26px 26px}
+.kick{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.proj h3{font-size:1.38rem;letter-spacing:-.025em;line-height:1.2;font-weight:600;margin:9px 0 8px}
+.proj p{color:var(--ink2);font-size:15.5px}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.facts span{font:500 12px var(--mono);padding:6px 10px;border-radius:8px;background:var(--paper);border:1px solid var(--line);color:var(--ink2)}
+@media(max-width:900px){.proj-grid{grid-template-columns:1fr}.proj:first-child{flex-direction:column}.proj:first-child .proj-img{flex:none}.proj:first-child .proj-body{padding:24px 26px 26px}}
 
-  /* ---------- CTA ---------- */
-  .cta{
-    text-align:center;position:relative;overflow:hidden;color:#fff;
-    background:
-      radial-gradient(700px 380px at 50% 118%, rgba(255,255,255,.16), transparent 62%),
-      linear-gradient(150deg,var(--cobalt-dark) 0%,var(--cobalt) 100%);
-  }
-  .cta::before{
-    content:"";position:absolute;inset:0;opacity:.1;pointer-events:none;
-    background-image:
-      linear-gradient(#fff 1px,transparent 1px),
-      linear-gradient(90deg,#fff 1px,transparent 1px);
-    background-size:38px 38px;
-    -webkit-mask:radial-gradient(ellipse at 50% 40%,#000 0%,transparent 75%);
-    mask:radial-gradient(ellipse at 50% 40%,#000 0%,transparent 75%);
-  }
-  .cta .wrap{position:relative;}
-  .cta h2{color:#fff;}
-  .cta p{color:rgba(255,255,255,.82);max-width:560px;margin:0 auto 30px;font-size:1.04rem;}
-  .cta-actions{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;}
-  .cta .btn-outline{background:#fff;color:var(--cobalt-dark);border-color:#fff;}
-  .cta .btn-outline:hover{color:var(--cobalt-dark);border-color:#fff;transform:translateY(-2px);}
-  .cta .note{margin-top:22px;font-size:.86rem;color:rgba(255,255,255,.72);}
+/* ---------- Stimmen ---------- */
+.rating{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--line);border-radius:16px;background:var(--paper)}
+.rating b{font-size:2.3rem;font-weight:600;letter-spacing:-.04em;line-height:1}
+.rating .stars{display:block}
+.rating small{display:block;font:500 11.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:3px}
+.stars{color:#e0a100;letter-spacing:3px;font-size:15px;line-height:1}
+.q-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.q{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px 24px;display:flex;flex-direction:column;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s,opacity .9s var(--ease)}
+.q:hover{transform:translateY(-4px);box-shadow:0 30px 60px -40px rgba(14,19,25,.45)}
+.q::before{content:"\201C";position:absolute;right:20px;top:-6px;font-size:120px;line-height:1;font-weight:600;color:var(--volt);opacity:.9}
+.q p{font-size:1.07rem;line-height:1.55;margin:16px 0 24px;letter-spacing:-.005em;position:relative}
+.who{margin-top:auto;display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+.av{width:42px;height:42px;border-radius:12px;background:var(--ink);color:var(--volt);display:grid;place-items:center;font:600 13.5px var(--mono);flex:none}
+.who b{display:block;font-size:15px;font-weight:600}
+.who span{font-size:13.5px;color:var(--ink3)}
+@media(max-width:900px){.q-grid{grid-template-columns:1fr}}
 
-  /* ---------- Kontakt ---------- */
-  .contact-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:start;}
-  @media(max-width:900px){.contact-grid{grid-template-columns:1fr;}}
-  .card{
-    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
-    padding:30px 28px;box-shadow:var(--shadow-lg);
-  }
-  .card h3{color:var(--ink);font-size:1.1rem;margin-bottom:16px;}
-  .avail{
-    display:inline-flex;align-items:center;gap:9px;background:var(--green-soft);color:var(--green);
-    border:1px solid rgba(21,128,61,.22);
-    font-weight:700;font-size:.83rem;padding:7px 15px;border-radius:999px;margin-bottom:18px;
-  }
-  .avail .dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
-  .c-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line);}
-  .c-row:last-child{border-bottom:0;padding-bottom:0;}
-  .c-row .ci{
-    width:40px;height:40px;flex:none;border-radius:10px;display:grid;place-items:center;
-    background:var(--cobalt-soft);border:1px solid var(--cobalt-line);color:var(--cobalt);
-  }
-  .c-row b{display:block;font-size:.72rem;color:var(--ink-3);font-weight:800;text-transform:uppercase;letter-spacing:.1em;}
-  .c-row a,.c-row .val{color:var(--ink);font-weight:700;font-size:1.02rem;text-decoration:none;}
-  .c-row a:hover{color:var(--cobalt);}
-  .c-row .hint{display:block;font-size:.85rem;color:var(--ink-2);font-weight:400;}
-  .hours{list-style:none;}
-  .hours li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem;color:var(--ink-2);}
-  .hours li:last-child{border-bottom:0;}
-  .hours li b{color:var(--ink);font-weight:700;}
-  .hours li.em b{color:var(--cobalt);}
-  .areas{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;}
-  .areas span{
-    font-size:.79rem;font-weight:600;color:var(--ink-2);
-    background:var(--paper);border:1px solid var(--line);padding:5px 12px;border-radius:999px;
-  }
+/* ---------- FAQ ---------- */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(32px,6vw,100px);align-items:start}
+.faq-side{position:sticky;top:110px}
+.faq-side .btn{margin-top:30px}
+.acc{border-top:1px solid var(--line2)}
+.acc details{border-bottom:1px solid var(--line2)}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:22px;padding:24px 0;font-size:1.13rem;font-weight:600;letter-spacing:-.015em;line-height:1.35;transition:color .2s}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary:hover{color:#000}
+.pm{position:relative;width:36px;height:36px;flex:none;border-radius:11px;border:1px solid var(--line2);background:#fff;transition:background .3s,border-color .3s,transform .4s var(--ease)}
+.pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--ink);border-radius:2px;transition:transform .4s var(--ease)}
+.pm::after{transform:rotate(90deg)}
+.acc details[open]:not(.closing) .pm{background:var(--volt);border-color:var(--volt);transform:rotate(180deg)}
+.acc details[open]:not(.closing) .pm::after{transform:rotate(0)}
+.ans{overflow:hidden}
+.ans p{padding:0 60px 26px 0;color:var(--ink2);font-size:16px}
+@media(max-width:900px){.faq-grid{grid-template-columns:1fr}.faq-side{position:relative;top:0}.ans p{padding-right:0}}
 
-  /* ---------- Footer ---------- */
-  footer{
-    background:var(--ink);color:#9aa3b0;font-size:.87rem;padding:40px 0 110px;
-  }
-  .foot-grid{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:26px;}
-  .foot-brand{color:#fff;font-weight:800;font-size:1.04rem;margin-bottom:6px;}
-  .foot-brand em{font-style:normal;color:#7ea2f5;}
-  .foot-col b{display:block;color:#e6e9ee;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
-  .foot-col a{display:block;margin-bottom:6px;}
-  footer a{color:#b9c1cc;text-decoration:none;}
-  footer a:hover{color:#fff;}
-  .foot-legal{border-top:1px solid rgba(255,255,255,.14);padding-top:20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;}
-  @media(min-width:761px){footer{padding-bottom:40px;}}
+/* ---------- CTA ---------- */
+.cta{background:var(--volt);color:var(--volt-ink);position:relative;overflow:hidden;padding:clamp(84px,10vw,140px) 0}
+.cta::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(0,0,0,.035) 0 2px,transparent 2px 16px);pointer-events:none}
+.cta-bolt{position:absolute;right:-70px;top:50%;width:min(560px,60vw);height:auto;transform:translateY(-50%) rotate(8deg);color:rgba(0,0,0,.07);pointer-events:none}
+.cta.in .cta-bolt{animation:strike 1.3s ease .3s both}
+@keyframes strike{0%{color:rgba(0,0,0,.07)}8%{color:rgba(255,255,255,.65)}14%{color:rgba(0,0,0,.07)}20%{color:rgba(255,255,255,.45)}30%,100%{color:rgba(0,0,0,.07)}}
+.cta-in{position:relative;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:40px 60px;align-items:end}
+.cta .eyebrow{color:rgba(20,18,10,.7)}
+.cta .eyebrow::before{background:var(--volt-ink);box-shadow:none}
+.cta h2{font-size:clamp(2.8rem,1.3rem + 5.6vw,6.4rem);line-height:.93;letter-spacing:-.055em;font-weight:600}
+.cta p{font-size:clamp(1.05rem,1rem + .3vw,1.22rem);max-width:44ch;margin-top:24px}
+.cta-actions{display:flex;flex-direction:column;gap:12px}
+.cta .btn{height:62px;font-size:16.5px;justify-content:space-between;padding:0 22px}
+.cta .btn span{display:inline-flex;align-items:center;gap:12px}
+.cta-note{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:40px;font:500 13px var(--mono);letter-spacing:.02em}
+.cta-note span{display:inline-flex;align-items:center;gap:8px}
+.cta-note .ico{width:16px;height:16px}
+@media(max-width:860px){.cta-in{grid-template-columns:1fr}.cta-bolt{right:-120px;opacity:.7}}
 
-  /* ---------- Mobile Sticky Bar ---------- */
-  .mobile-bar{
-    position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;gap:10px;
-    background:rgba(255,255,255,.97);backdrop-filter:blur(10px);
-    border-top:1px solid var(--line-2);
-    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-    box-shadow:0 -6px 22px rgba(26,31,38,.12);
-  }
-  .mobile-bar .btn{flex:1;padding:13px 8px;font-size:.93rem;}
-  @media(max-width:760px){.mobile-bar{display:flex;}}
+/* ---------- Kontakt ---------- */
+.k-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:22px;align-items:start}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(22px,3vw,38px)}
+.form-card h3{font-size:1.6rem;letter-spacing:-.03em;font-weight:600}
+.form-card .lbl{display:block;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin:24px 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;border:0}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip span{display:inline-flex;align-items:center;height:40px;padding:0 15px;border-radius:10px;border:1px solid var(--line2);background:#fff;font-size:14.5px;font-weight:500;cursor:pointer;transition:background .2s,color .2s,border-color .2s,box-shadow .2s}
+.chip span:hover{border-color:var(--ink)}
+.chip input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:inset 0 -3px 0 var(--volt)}
+.chip input:focus-visible+span{outline:2px solid var(--ink);outline-offset:2px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.f{display:flex;flex-direction:column;gap:7px}
+.f.full{grid-column:1/-1}
+.f label{font-size:13.5px;font-weight:600;color:var(--ink2)}
+.f input,.f textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line2);border-radius:12px;padding:13px 14px;transition:border-color .2s,box-shadow .2s,background .2s;width:100%}
+.f textarea{resize:vertical;min-height:110px}
+.f input:focus,.f textarea:focus{outline:none;border-color:var(--ink);background:#fff;box-shadow:0 0 0 4px rgba(255,210,63,.5)}
+.consent{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink2);margin:20px 0 24px;cursor:pointer}
+.consent input{width:18px;height:18px;margin-top:2px;flex:none;accent-color:var(--ink)}
+.form-foot{display:flex;align-items:center;gap:14px 20px;flex-wrap:wrap}
+.demo-note{font-size:12.5px;color:var(--ink3);max-width:30ch}
+.done{display:none}
+.form-card.sent form{display:none}
+.form-card.sent .done{display:block;animation:upIn .7s var(--ease) both}
+.done-ico{width:64px;height:64px;border-radius:18px;background:var(--volt);color:var(--volt-ink);display:grid;place-items:center;margin-bottom:22px;box-shadow:0 0 0 8px rgba(255,210,63,.25)}
+.done-ico .ico{width:30px;height:30px}
+.done p{color:var(--ink2);margin-top:10px;max-width:46ch}
+.done .demo-note{margin-top:18px;max-width:none}
+.info{background:var(--bg);color:var(--fg);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);position:relative;overflow:hidden}
+.avail{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(61,214,140,.12);color:#7be7b1;font-size:13.5px;font-weight:600;margin-bottom:8px}
+.avail i{width:7px;height:7px;border-radius:50%;background:currentColor;animation:ping 2.4s ease-out infinite}
+.avail.off{background:rgba(255,210,63,.12);color:var(--volt)}
+.avail.off i{animation:none}
+.c-row{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;padding:16px 0;border-bottom:1px solid var(--ln)}
+.c-ico{width:44px;height:44px;border-radius:12px;border:1px solid var(--ln2);display:grid;place-items:center;color:var(--volt)}
+.c-ico .ico{width:19px;height:19px}
+.c-row small{display:block;font:500 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);margin-bottom:2px}
+.c-row a,.c-row .v{font-weight:600;font-size:1.05rem;text-decoration:none;color:var(--fg);transition:color .2s}
+.c-row a:hover{color:var(--volt)}
+.c-row .h{display:block;font-size:14px;color:var(--fg2)}
+.info h4{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg3);margin:28px 0 8px}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--ln);font-size:15px;color:var(--fg2)}
+.hours li b{color:var(--fg);font-weight:600;font-family:var(--mono);font-size:14px}
+.hours li.em b{color:var(--volt)}
+.hours li.today span{color:var(--fg)}
+.hours li.today span::after{content:" · heute";font:500 11px var(--mono);color:var(--volt);letter-spacing:.06em}
+.area-txt{font-size:14.5px;color:var(--fg2)}
+.areas{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.areas span{font:500 12px var(--mono);color:var(--fg2);border:1px solid var(--ln2);padding:6px 10px;border-radius:8px}
+@media(max-width:960px){.k-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.fields{grid-template-columns:1fr}}
 
-  @media(prefers-reduced-motion:reduce){
-    *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;}
-    html{scroll-behavior:auto;}
-  }
+/* ---------- Footer ---------- */
+footer{background:#06080b;color:var(--fg3);font-size:14.5px;padding:70px 0 40px;border-top:1px solid var(--ln)}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,.6fr));gap:36px;padding-bottom:44px;border-bottom:1px solid var(--ln)}
+.foot-brand{color:var(--fg);font-weight:700;font-size:1.25rem;letter-spacing:.02em;margin-bottom:12px}
+.foot-brand em{font-style:normal;color:var(--volt)}
+.foot-col b{display:block;font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--fg2);margin-bottom:14px}
+.foot-col a{display:block;margin-bottom:8px}
+footer a{color:var(--fg3);text-decoration:none;transition:color .2s}
+footer a:hover{color:var(--volt)}
+.foot-legal{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-top:24px;font-size:13.5px}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid>div:first-child{grid-column:1/-1}footer{padding-bottom:110px}}
+
+/* ---------- Mobile-Leiste ---------- */
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(10,13,18,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--ln2);transform:translateY(110%);transition:transform .45s var(--ease)}
+.mbar.show{transform:none}
+.mbar .btn{flex:1;height:50px;font-size:15px;padding:0 10px}
+@media(max-width:760px){.mbar{display:flex}}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important}
+  .ticker-track{animation:none}
+}
 </style>
 </head>
 <body>
 
-<div class="demo-banner">🔍 Demo-Website – erstellt von <b>LokalSuite</b>. So könnte Ihre Firmenseite aussehen.</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 2 4 13.2c-.4.5-.05 1.3.6 1.3H10l-1.4 7.2c-.13.68.74 1.08 1.17.54L19.9 10.8c.4-.5.06-1.3-.6-1.3H14l1.1-6.6c.11-.67-.75-1.05-1.17-.53z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2.05 22l4.94-1.55A9.94 9.94 0 1 0 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.4-.7-2.88-1.14-4.7-4.07-4.85-4.26-.14-.19-1.15-1.53-1.15-2.92s.73-2.07 1-2.36c.24-.28.55-.35.73-.35h.53c.17 0 .4-.06.62.48.24.56.78 1.93.85 2.07.07.14.12.3.02.49-.09.19-.14.3-.28.47l-.43.5c-.14.14-.28.3-.12.58.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.24.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.68-.17 1.35z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 14 2 2 4-4"/></g></symbol>
+  <symbol id="i-plan" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 11h3"/></g></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></g></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V10h4v10"/><path d="M14 20V4h4v16"/></g></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></g></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></g></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="12" height="18" rx="2"/><path d="M9 8v4M7 15h4"/><path d="M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0v-6"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15h18l-2-9H5z"/><path d="M12 6v9M4.4 10.5h15.2M9 19h6M12 15v4"/></g></symbol>
+  <symbol id="i-meter" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><rect x="8" y="5" width="8" height="5" rx="1"/><circle cx="12" cy="15.5" r="2.5"/></g></symbol>
+</svg>
 
-<!-- ======= Header ======= -->
-<header class="site">
-  <div class="wrap nav-inner">
-    <a class="logo" href="#top">
-      <span class="mark">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.2c-.4.5-.05 1.3.6 1.3H10l-1.4 7.2c-.13.68.74 1.08 1.17.54L19.9 10.8c.4-.5.06-1.3-.6-1.3H14l1.1-6.6c.11-.67-.75-1.05-1.17-.53z"/></svg>
-      </span>
+<div class="demo">Demo-Website – erstellt von <a href="https://lokalsuite.de">LokalSuite</a>. So könnte Ihre Firmenseite aussehen.</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="#top" aria-label="Volt &amp; Watt Elektrotechnik, zum Seitenanfang">
+      <span class="logo-mark"><svg aria-hidden="true"><use href="#i-bolt"/></svg></span>
       <span>VOLT<em>&amp;</em>WATT<small>Elektrotechnik · Meisterbetrieb</small></span>
     </a>
-    <nav class="main">
+    <nav class="nav" aria-label="Hauptnavigation">
       <a href="#leistungen">Leistungen</a>
       <a href="#ablauf">Ablauf</a>
       <a href="#projekte">Projekte</a>
       <a href="#faq">FAQ</a>
       <a href="#kontakt">Kontakt</a>
     </nav>
-    <div class="head-cta">
-      <a class="phone-pill" href="tel:+490000000000">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span class="num"><small class="txt">Angebot anfragen</small>0000 / 000 00 00</span>
-      </a>
-    </div>
+    <a class="hdr-call" href="tel:+490000000000">
+      <svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>
+      <span><small>Angebot anfragen</small>0000 / 000 00 00</span>
+    </a>
   </div>
+  <span class="progress" id="progress" aria-hidden="true"></span>
 </header>
 
+<main>
 <!-- ======= Hero ======= -->
 <section class="hero" id="top">
-  <canvas id="gridCanvas" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <p class="tag"><span class="dot"></span>Elektromeisterbetrieb · Musterstadt</p>
-    <h1>Strom ist unser Handwerk.<br><em>Von der Steckdose bis zum Smart Home.</em></h1>
-    <p class="lead">
-      Volt &amp; Watt plant und installiert Ihre komplette Elektrik – modern, sicher und nach
-      allen geltenden Normen. Spezialisiert auf Wallboxen, Photovoltaik-Anschluss und
-      intelligente Haustechnik.
-    </p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#kontakt">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4 13.2c-.4.5-.05 1.3.6 1.3H10l-1.4 7.2c-.13.68.74 1.08 1.17.54L19.9 10.8c.4-.5.06-1.3-.6-1.3H14l1.1-6.6c.11-.67-.75-1.05-1.17-.53z"/></svg>
-        Kostenloses Angebot
-      </a>
-      <a class="btn btn-outline" href="#leistungen">Leistungen ansehen</a>
+  <canvas id="grid" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="tag hi"><span class="dot"></span>Elektromeisterbetrieb · Musterstadt</p>
+      <h1 class="h1">
+        <span class="ln"><span>Strom ist unser</span></span>
+        <span class="ln"><span>Handwerk.</span></span>
+        <span class="h1-acc">Von der Steckdose bis zum Smart&nbsp;Home.</span>
+      </h1>
+      <p class="lead hi d2">Volt &amp; Watt plant und installiert Ihre komplette Elektrik – modern, sicher und nach allen geltenden Normen. Spezialisiert auf Wallboxen, Photovoltaik-Anschluss und intelligente Haustechnik.</p>
+      <div class="actions hi d3">
+        <a class="btn btn-volt" href="#kontakt"><svg class="ico" aria-hidden="true"><use href="#i-bolt"/></svg>Kostenloses Angebot</a>
+        <a class="btn btn-ghost" href="#leistungen">Leistungen ansehen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <ul class="trust hi d4">
+        <li><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg>Innungsfachbetrieb</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-doc"/></svg>E-Check mit Prüfprotokoll</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-wallet"/></svg>Festpreis-Garantie</li>
+        <li><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg>Angebot in 48 Stunden</li>
+      </ul>
     </div>
-    <div class="hero-trust">
-      <span class="trust">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-        Innungsfachbetrieb
-      </span>
-      <span class="trust">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 14 2 2 4-4"/></svg>
-        E-Check mit Prüfprotokoll
-      </span>
-      <span class="trust">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg>
-        Festpreis-Garantie
-      </span>
-      <span class="trust">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-        Angebot in 48 Stunden
-      </span>
-    </div>
-  </div>
-</section>
 
-<!-- ======= Leistungen ======= -->
-<section id="leistungen">
-  <div class="wrap">
-    <p class="eyebrow">Was wir für Sie tun</p>
-    <h2>Alles rund um moderne Elektrotechnik – aus einer Hand</h2>
-    <p class="sub">Ein Ansprechpartner von der Planung über die Installation bis zur Abnahme. Sauber dokumentiert, normgerecht ausgeführt und mit verbindlichem Festpreis.</p>
-    <div class="grid-3">
+    <div class="hero-visual" aria-hidden="true">
+      <div class="tilt" id="tilt">
+        <figure class="hero-photo">
+          <img src="https://images.unsplash.com/photo-1615774925655-a0e97fc85c14?auto=format&fit=crop&w=900&h=1125&q=78" width="900" height="1125" alt="" fetchpriority="high">
+        </figure>
+        <span class="since">Meisterbetrieb seit <b>2008</b></span>
 
-      <article class="tile">
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="12" height="18" rx="2"/><path d="M9 8v4"/><path d="M7 15h4"/><path d="M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0v-6"/></svg>
+        <div class="wdg w-charge">
+          <div class="wdg-h"><svg class="ico"><use href="#i-car"/></svg>Wallbox · Garage<span class="live"><i></i>lädt</span></div>
+          <div class="wdg-v"><b>11,0</b><span>kW</span></div>
+          <div class="bar"><i id="socBar"></i></div>
+          <div class="wdg-f"><span>Akku</span><span><b id="soc">38</b> %</span></div>
         </div>
-        <h3>Wallbox &amp; E-Mobilität</h3>
-        <p>Beratung, Installation und Anmeldung Ihrer Ladestation – inklusive Lastmanagement.</p>
-        <ul>
-          <li>Prüfung von Hausanschluss &amp; Absicherung</li>
-          <li>Anmeldung beim Netzbetreiber übernehmen wir</li>
-          <li>Lastmanagement für mehrere Ladepunkte</li>
-        </ul>
-        <a class="link" href="#kontakt">Wallbox anfragen →</a>
-      </article>
 
-      <article class="tile">
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h18l-2-9H5z"/><path d="M12 6v9"/><path d="M4.4 10.5h15.2"/><path d="M9 19h6"/><path d="M12 15v4"/></svg>
+        <div class="wdg w-pv">
+          <div class="wdg-h"><svg class="ico"><use href="#i-sun"/></svg>PV-Anlage · heute</div>
+          <div class="wdg-v"><b id="pv">0,0</b><span>kWh</span></div>
+          <svg class="spark" viewBox="0 0 180 46" preserveAspectRatio="none">
+            <defs><linearGradient id="pvg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd23f" stop-opacity=".35"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></linearGradient></defs>
+            <path class="a" d="M2 44 C 20 42 30 38 44 30 S 70 8 90 6 S 128 14 142 26 S 166 40 178 42 L178 46 L2 46 Z"/>
+            <path class="l" d="M2 44 C 20 42 30 38 44 30 S 70 8 90 6 S 128 14 142 26 S 166 40 178 42"/>
+          </svg>
         </div>
-        <h3>Photovoltaik &amp; Speicher</h3>
-        <p>Vom Zählerschrank bis zum Wechselrichter: Wir bringen Ihre Anlage sicher ans Netz.</p>
-        <ul>
-          <li>Zählerschrank-Umbau nach TAB</li>
-          <li>Wechselrichter, Speicher &amp; Notstrom</li>
-          <li>Inbetriebnahme &amp; Marktstammdaten-Meldung</li>
-        </ul>
-        <a class="link" href="#kontakt">PV-Anschluss planen →</a>
-      </article>
 
-      <article class="tile">
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M12 11.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+        <div class="wdg w-check">
+          <div class="wdg-h"><svg class="ico"><use href="#i-doc"/></svg>E-Check · FI-Prüfung</div>
+          <div class="chk"><span>Nennfehlerstrom</span><b>30 mA</b><span>Auslösezeit</span><b>18 ms</b></div>
+          <span class="pass"><svg class="ico" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.5 4.5L19 7.5"/></svg>Bestanden</span>
         </div>
-        <h3>Smart Home &amp; KNX</h3>
-        <p>Licht, Heizung, Rollläden und Sicherheit – zentral gesteuert, einfach bedienbar.</p>
-        <ul>
-          <li>KNX &amp; funkbasierte Systeme</li>
-          <li>Szenen für Alltag, Urlaub und Nacht</li>
-          <li>Einweisung, damit es wirklich jeder bedient</li>
-        </ul>
-        <a class="link" href="#kontakt">Smart Home besprechen →</a>
-      </article>
-
-      <article class="tile">
-        <span class="badge">Mit Protokoll</span>
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/><path d="m8 13 3 3 10-10"/></svg>
-        </div>
-        <h3>E-Check &amp; Modernisierung</h3>
-        <p>Sicherheitsprüfung für Altbau und Gewerbe – mit Prüfprotokoll für Ihre Versicherung.</p>
-        <ul>
-          <li>Messung nach DIN VDE 0100-600 / 0105-100</li>
-          <li>FI-Schutzschalter nachrüsten</li>
-          <li>Klare Mängelliste mit Prioritäten</li>
-        </ul>
-        <a class="link" href="#kontakt">E-Check buchen →</a>
-      </article>
-
-      <article class="tile">
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-        </div>
-        <h3>Elektroinstallation</h3>
-        <p>Neubau, Sanierung oder eine einzelne Leitung – wir arbeiten sauber und nach Plan.</p>
-        <ul>
-          <li>Komplettinstallation für Neubau &amp; Umbau</li>
-          <li>Zählerschrank, Verteilung, Beleuchtung</li>
-          <li>Staubarm arbeiten, besenrein übergeben</li>
-        </ul>
-        <a class="link" href="#kontakt">Projekt anfragen →</a>
-      </article>
-
-      <article class="tile">
-        <span class="badge">24 h erreichbar</span>
-        <div class="ico">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 2.6 1.4 4 2.4 5.2.7.9 1.1 1.4 1.1 2.3v.5h7v-.5c0-.9.4-1.4 1.1-2.3C17.6 13 19 11.6 19 9a7 7 0 0 0-7-7z"/><path d="M9.5 21h5"/><path d="M10 18.5h4"/></svg>
-        </div>
-        <h3>Störungsdienst</h3>
-        <p>Sicherung fliegt raus, kein Strom, Kurzschluss? Wir finden den Fehler – schnell.</p>
-        <ul>
-          <li>Systematische Fehlersuche statt Raten</li>
-          <li>Sofortmaßnahme zur Sicherheit</li>
-          <li>Reparatur mit Kostentransparenz vorab</li>
-        </ul>
-        <a class="link" href="tel:+490000000000">Störung melden →</a>
-      </article>
-
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ======= Zahlen-Band ======= -->
-<div class="stripe">
-  <div class="wrap">
-    <div class="item"><b>500+</b><span>Wallboxen installiert</span></div>
-    <div class="item"><b>48 h</b><span>Angebot nach Ortstermin</span></div>
-    <div class="item"><b>4,8 ★</b><span>bei Google</span></div>
-    <div class="item"><b>18 Jahre</b><span>Meisterbetrieb</span></div>
-    <div class="item"><b>Festpreis</b><span>garantiert vor Baubeginn</span></div>
+<!-- ======= Laufband ======= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div>
+      <span>Wallbox &amp; E-Mobilität <svg><use href="#i-bolt"/></svg></span>
+      <span>Photovoltaik &amp; Speicher <svg><use href="#i-bolt"/></svg></span>
+      <span>Smart Home &amp; KNX <svg><use href="#i-bolt"/></svg></span>
+      <span>E-Check &amp; Modernisierung <svg><use href="#i-bolt"/></svg></span>
+      <span>Elektroinstallation <svg><use href="#i-bolt"/></svg></span>
+      <span>Störungsdienst <svg><use href="#i-bolt"/></svg></span>
+    </div>
+    <div>
+      <span>Wallbox &amp; E-Mobilität <svg><use href="#i-bolt"/></svg></span>
+      <span>Photovoltaik &amp; Speicher <svg><use href="#i-bolt"/></svg></span>
+      <span>Smart Home &amp; KNX <svg><use href="#i-bolt"/></svg></span>
+      <span>E-Check &amp; Modernisierung <svg><use href="#i-bolt"/></svg></span>
+      <span>Elektroinstallation <svg><use href="#i-bolt"/></svg></span>
+      <span>Störungsdienst <svg><use href="#i-bolt"/></svg></span>
+    </div>
   </div>
 </div>
 
-<!-- ======= Ablauf ======= -->
-<section id="ablauf">
+<!-- ======= Leistungen ======= -->
+<section class="sec light" id="leistungen">
   <div class="wrap">
-    <p class="eyebrow">So läuft's ab</p>
-    <h2>In vier Schritten zur fertigen Anlage</h2>
-    <p class="sub">Kein Papierkram-Chaos, keine Überraschungen auf der Rechnung. Sie wissen von Anfang an, was passiert – und was es kostet.</p>
-    <div class="steps">
-      <div class="step">
-        <h3>Anfrage stellen</h3>
-        <p>Anrufen oder ein Foto des Sicherungskastens per WhatsApp schicken. Wir melden uns am selben Werktag.</p>
+    <div class="sec-head">
+      <div data-r>
+        <p class="eyebrow">Was wir für Sie tun</p>
+        <h2 class="h2">Alles rund um moderne Elektrotechnik – aus einer Hand</h2>
+        <p class="sub">Ein Ansprechpartner von der Planung über die Installation bis zur Abnahme. Sauber dokumentiert, normgerecht ausgeführt und mit verbindlichem Festpreis.</p>
       </div>
-      <div class="step">
-        <h3>Ortstermin</h3>
-        <p>Wir schauen uns Anschluss, Verteilung und Leitungswege an – kostenlos und unverbindlich.</p>
+      <p class="hint" data-r style="--i:2"><i>↓</i>Schalter umlegen, Leistung ansehen</p>
+    </div>
+
+    <div class="board" id="board" data-r>
+      <div class="board-top"><span>Unterverteilung UV-1 · Volt &amp; Watt</span><span class="pwr"><i></i>Spannung</span></div>
+      <div class="rail-wrap">
+        <div class="rail" role="tablist" aria-label="Unsere Leistungen">
+          <button class="mcb" role="tab" id="t1" aria-controls="p1" aria-selected="true"><span class="mcb-top"><b>-F1</b><span>B16 3P</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">Wallbox</span><span class="mcb-led"></span></button>
+          <button class="mcb" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1"><span class="mcb-top"><b>-F2</b><span>B20 3P</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">Photovoltaik</span><span class="mcb-led"></span></button>
+          <button class="mcb" role="tab" id="t3" aria-controls="p3" aria-selected="false" tabindex="-1"><span class="mcb-top"><b>-F3</b><span>B10</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">Smart Home</span><span class="mcb-led"></span></button>
+          <button class="mcb" role="tab" id="t4" aria-controls="p4" aria-selected="false" tabindex="-1"><span class="mcb-top"><b>-Q1</b><span>FI 30 mA</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">E-Check</span><span class="mcb-led"></span></button>
+          <button class="mcb" role="tab" id="t5" aria-controls="p5" aria-selected="false" tabindex="-1"><span class="mcb-top"><b>-F4</b><span>B16</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">Installation</span><span class="mcb-led"></span></button>
+          <button class="mcb" role="tab" id="t6" aria-controls="p6" aria-selected="false" tabindex="-1"><span class="mcb-top"><b>-F5</b><span>24 h</span></span><span class="mcb-slot"><span class="mcb-lever"></span></span><span class="mcb-name">Störungs&shy;dienst</span><span class="mcb-led"></span></button>
+        </div>
       </div>
-      <div class="step">
-        <h3>Festpreis-Angebot</h3>
-        <p>Innerhalb von 48 Stunden erhalten Sie ein verbindliches Angebot mit allen Positionen im Klartext.</p>
+    </div>
+
+    <div class="svc-wrap" id="svcWrap">
+      <article class="svc" id="p1" role="tabpanel" aria-labelledby="t1">
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1791221254274-5b35c0c42fd6?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Wallbox an einer dunklen Garagenwand, daneben ein Elektroauto" loading="lazy"></figure>
+        <div class="svc-body">
+          <p class="svc-code">-F1 · E-Mobilität</p>
+          <h3>Wallbox &amp; E-Mobilität</h3>
+          <p class="svc-txt">Beratung, Installation und Anmeldung Ihrer Ladestation – inklusive Lastmanagement.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Prüfung von Hausanschluss &amp; Absicherung</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Anmeldung beim Netzbetreiber übernehmen wir</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Lastmanagement für mehrere Ladepunkte</li>
+          </ul>
+          <a class="btn btn-ink" href="#kontakt" data-topic="Wallbox">Wallbox anfragen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="svc" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1655300256335-beef51a914fe?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Wohnhaus mit Photovoltaikmodulen auf dem Ziegeldach" loading="lazy"></figure>
+        <div class="svc-body">
+          <p class="svc-code">-F2 · Solarstrom</p>
+          <h3>Photovoltaik &amp; Speicher</h3>
+          <p class="svc-txt">Vom Zählerschrank bis zum Wechselrichter: Wir bringen Ihre Anlage sicher ans Netz.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Zählerschrank-Umbau nach TAB</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Wechselrichter, Speicher &amp; Notstrom</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Inbetriebnahme &amp; Marktstammdaten-Meldung</li>
+          </ul>
+          <a class="btn btn-ink" href="#kontakt" data-topic="Photovoltaik">PV-Anschluss planen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="svc" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1650682009477-52fd77302b78?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Smart-Home-Bedienfeld auf einer Arbeitsplatte" loading="lazy"></figure>
+        <div class="svc-body">
+          <p class="svc-code">-F3 · Haustechnik</p>
+          <h3>Smart Home &amp; KNX</h3>
+          <p class="svc-txt">Licht, Heizung, Rollläden und Sicherheit – zentral gesteuert, einfach bedienbar.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>KNX &amp; funkbasierte Systeme</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Szenen für Alltag, Urlaub und Nacht</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Einweisung, damit es wirklich jeder bedient</li>
+          </ul>
+          <a class="btn btn-ink" href="#kontakt" data-topic="Smart Home">Smart Home besprechen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="svc" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1710194572710-bbd92a2d3f9c?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Gelbes Multimeter bei einer Messung" loading="lazy"><figcaption class="svc-badge">Mit Protokoll</figcaption></figure>
+        <div class="svc-body">
+          <p class="svc-code">-Q1 · Sicherheit</p>
+          <h3>E-Check &amp; Modernisierung</h3>
+          <p class="svc-txt">Sicherheitsprüfung für Altbau und Gewerbe – mit Prüfprotokoll für Ihre Versicherung.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Messung nach DIN VDE 0100-600 / 0105-100</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>FI-Schutzschalter nachrüsten</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Klare Mängelliste mit Prioritäten</li>
+          </ul>
+          <a class="btn btn-ink" href="#kontakt" data-topic="E-Check">E-Check buchen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="svc" id="p5" role="tabpanel" aria-labelledby="t5" hidden>
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1635335874521-7987db781153?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Sauber verdrahteter Verteilerkasten mit Hutschiene" loading="lazy"></figure>
+        <div class="svc-body">
+          <p class="svc-code">-F4 · Neubau &amp; Sanierung</p>
+          <h3>Elektroinstallation</h3>
+          <p class="svc-txt">Neubau, Sanierung oder eine einzelne Leitung – wir arbeiten sauber und nach Plan.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Komplettinstallation für Neubau &amp; Umbau</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Zählerschrank, Verteilung, Beleuchtung</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Staubarm arbeiten, besenrein übergeben</li>
+          </ul>
+          <a class="btn btn-ink" href="#kontakt" data-topic="Installation">Projekt anfragen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="svc" id="p6" role="tabpanel" aria-labelledby="t6" hidden>
+        <figure class="svc-img"><img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=1100&h=825&q=75" width="1100" height="825" alt="Sicherungsautomaten und Fehlerstromschutzschalter in einem Sicherungskasten" loading="lazy"><figcaption class="svc-badge">24 h erreichbar</figcaption></figure>
+        <div class="svc-body">
+          <p class="svc-code">-F5 · Notfall</p>
+          <h3>Störungsdienst</h3>
+          <p class="svc-txt">Sicherung fliegt raus, kein Strom, Kurzschluss? Wir finden den Fehler – schnell.</p>
+          <ul class="ticks">
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Systematische Fehlersuche statt Raten</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Sofortmaßnahme zur Sicherheit</li>
+            <li><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Reparatur mit Kostentransparenz vorab</li>
+          </ul>
+          <a class="btn btn-ink" href="tel:+490000000000"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Störung melden</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======= Zahlen ======= -->
+<section class="stats" aria-label="Volt &amp; Watt in Zahlen">
+  <div class="wrap stats-grid">
+    <div class="stat" data-r><b><span data-count="500">500</span><em>+</em></b><span class="lab">Wallboxen installiert</span></div>
+    <div class="stat" data-r style="--i:1"><b><span data-count="48">48</span> <em>h</em></b><span class="lab">Angebot nach Ortstermin</span></div>
+    <div class="stat" data-r style="--i:2"><b><span data-count="4.8" data-dec="1">4,8</span> <em>★</em></b><span class="lab">bei Google</span></div>
+    <div class="stat" data-r style="--i:3"><b><span data-count="18">18</span> <em>J.</em></b><span class="lab">Meisterbetrieb</span></div>
+    <div class="stat" data-r style="--i:4"><b>Fest<em>preis</em></b><span class="lab">garantiert vor Baubeginn</span></div>
+  </div>
+</section>
+
+<!-- ======= Ablauf ======= -->
+<section class="sec light" id="ablauf">
+  <div class="wrap">
+    <div class="sec-head">
+      <div data-r>
+        <p class="eyebrow">So läuft's ab</p>
+        <h2 class="h2">In vier Schritten zur fertigen Anlage</h2>
+        <p class="sub">Kein Papierkram-Chaos, keine Überraschungen auf der Rechnung. Sie wissen von Anfang an, was passiert – und was es kostet.</p>
       </div>
-      <div class="step">
-        <h3>Installation &amp; Abnahme</h3>
-        <p>Termingerechte Ausführung, Messprotokoll, Einweisung – und eine besenreine Baustelle.</p>
-      </div>
+    </div>
+    <div class="flow" id="flow">
+      <span class="flow-line" aria-hidden="true"><span class="flow-fill"></span><span class="flow-spark"></span></span>
+      <ol class="flow-list">
+      <li class="flow-step" data-r><span class="flow-node">01</span><p class="flow-tag">Am selben Werktag</p><h3>Anfrage stellen</h3><p>Anrufen oder ein Foto des Sicherungskastens per WhatsApp schicken. Wir melden uns am selben Werktag.</p></li>
+      <li class="flow-step" data-r style="--i:1"><span class="flow-node">02</span><p class="flow-tag">Kostenlos</p><h3>Ortstermin</h3><p>Wir schauen uns Anschluss, Verteilung und Leitungswege an – kostenlos und unverbindlich.</p></li>
+      <li class="flow-step" data-r style="--i:2"><span class="flow-node">03</span><p class="flow-tag">In 48 Stunden</p><h3>Festpreis-Angebot</h3><p>Innerhalb von 48 Stunden erhalten Sie ein verbindliches Angebot mit allen Positionen im Klartext.</p></li>
+      <li class="flow-step" data-r style="--i:3"><span class="flow-node">04</span><p class="flow-tag">Mit Messprotokoll</p><h3>Installation &amp; Abnahme</h3><p>Termingerechte Ausführung, Messprotokoll, Einweisung – und eine besenreine Baustelle.</p></li>
+      </ol>
     </div>
   </div>
 </section>
 
 <!-- ======= Warum wir ======= -->
-<section class="alt" id="warum">
-  <div class="wrap">
-    <p class="eyebrow">Warum Volt &amp; Watt</p>
-    <h2>Handwerk, auf das man sich verlassen kann</h2>
-    <p class="sub">Elektrik sieht man später nicht mehr – umso wichtiger ist, wer sie gemacht hat.</p>
-    <div class="split">
-      <ul class="checklist">
-        <li>
-          <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
-          <div><b>Meisterbetrieb seit 2008</b><span>Eingetragen in die Handwerksrolle, Mitglied der Elektro-Innung. Jede Abnahme läuft über den Meister.</span></div>
-        </li>
-        <li>
-          <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12V8H6a2 2 0 0 1 0-4h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></span>
-          <div><b>Festpreis statt Stundenzettel</b><span>Der Preis steht, bevor die erste Leitung gezogen wird. Nachträge nur, wenn Sie sie schriftlich freigeben.</span></div>
-        </li>
-        <li>
-          <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 11h3"/></svg></span>
-          <div><b>Alles dokumentiert</b><span>Messprotokoll, Stromlaufplan und Fotos der verdeckten Leitungen – digital, damit Sie in 10 Jahren noch wissen, wo was liegt.</span></div>
-        </li>
-        <li>
-          <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M6 21V9l6-5 6 5v12"/><path d="M10 21v-5h4v5"/></svg></span>
-          <div><b>Ein Team, keine Subunternehmer</b><span>Bei Ihnen arbeiten dieselben Gesellen, die Sie beim Ortstermin kennengelernt haben.</span></div>
-        </li>
-        <li>
-          <span class="ci"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M6 20V10h4v10"/><path d="M14 20V4h4v16"/></svg></span>
-          <div><b>Fördermittel im Blick</b><span>Wir sagen Ihnen, welche Zuschüsse für Wallbox, Speicher oder Modernisierung gerade sinnvoll sind.</span></div>
-        </li>
+<section class="sec why" id="warum">
+  <div class="wrap why-grid">
+    <div>
+      <div data-r>
+        <p class="eyebrow">Warum Volt &amp; Watt</p>
+        <h2 class="h2">Handwerk, auf das man sich verlassen kann</h2>
+        <p class="sub">Elektrik sieht man später nicht mehr – umso wichtiger ist, wer sie gemacht hat.</p>
+      </div>
+      <ul class="why-list">
+        <li data-r><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-shield"/></svg></span><div><b>Meisterbetrieb seit 2008</b><span>Eingetragen in die Handwerksrolle, Mitglied der Elektro-Innung. Jede Abnahme läuft über den Meister.</span></div></li>
+        <li data-r style="--i:1"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-wallet"/></svg></span><div><b>Festpreis statt Stundenzettel</b><span>Der Preis steht, bevor die erste Leitung gezogen wird. Nachträge nur, wenn Sie sie schriftlich freigeben.</span></div></li>
+        <li data-r style="--i:2"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-plan"/></svg></span><div><b>Alles dokumentiert</b><span>Messprotokoll, Stromlaufplan und Fotos der verdeckten Leitungen – digital, damit Sie in 10 Jahren noch wissen, wo was liegt.</span></div></li>
+        <li data-r style="--i:3"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-team"/></svg></span><div><b>Ein Team, keine Subunternehmer</b><span>Bei Ihnen arbeiten dieselben Gesellen, die Sie beim Ortstermin kennengelernt haben.</span></div></li>
+        <li data-r style="--i:4"><span class="why-ico"><svg class="ico" aria-hidden="true"><use href="#i-chart"/></svg></span><div><b>Fördermittel im Blick</b><span>Wir sagen Ihnen, welche Zuschüsse für Wallbox, Speicher oder Modernisierung gerade sinnvoll sind.</span></div></li>
       </ul>
+    </div>
 
-      <aside class="panel">
+    <aside class="dev" id="dev" data-r>
+      <div class="dev-top"><span class="rec"></span>E-Check · Befunde im Bestand<span class="mode">VDE</span></div>
+      <div class="dev-screen">
         <h3>Sicherheit ist messbar</h3>
         <p>Beim E-Check prüfen wir Ihre Anlage nach VDE-Norm und dokumentieren jeden Wert. Das sind die häufigsten Mängel, die wir im Bestand finden:</p>
-        <div class="meter">
-          <div class="row">
-            <b>Kein FI-Schutzschalter <i>62 %</i></b>
-            <span class="bar"><i style="width:62%"></i></span>
-          </div>
-          <div class="row">
-            <b>Überalterter Zählerschrank <i>47 %</i></b>
-            <span class="bar"><i style="width:47%"></i></span>
-          </div>
-          <div class="row">
-            <b>Überlastete Stromkreise <i>38 %</i></b>
-            <span class="bar"><i style="width:38%"></i></span>
-          </div>
-          <div class="row">
-            <b>Fehlender Überspannungsschutz <i>71 %</i></b>
-            <span class="bar"><i style="width:71%"></i></span>
-          </div>
-        </div>
-        <a class="btn btn-primary" href="#kontakt" style="width:100%;margin-bottom:18px;">E-Check-Termin anfragen</a>
-        <p class="note">Beispielhafte Werte aus unseren Prüfungen im Bestand. Ihr tatsächlicher Zustand wird beim Ortstermin gemessen.</p>
-      </aside>
-    </div>
+        <div class="mrow"><div class="mrow-h"><span>Fehlender Überspannungsschutz</span><i data-pct="71">71 %</i></div><div class="seg" style="--w:71%"><i></i></div></div>
+        <div class="mrow"><div class="mrow-h"><span>Kein FI-Schutzschalter</span><i data-pct="62">62 %</i></div><div class="seg" style="--w:62%"><i></i></div></div>
+        <div class="mrow"><div class="mrow-h"><span>Überalterter Zählerschrank</span><i data-pct="47">47 %</i></div><div class="seg" style="--w:47%"><i></i></div></div>
+        <div class="mrow"><div class="mrow-h"><span>Überlastete Stromkreise</span><i data-pct="38">38 %</i></div><div class="seg" style="--w:38%"><i></i></div></div>
+      </div>
+      <a class="btn btn-volt" href="#kontakt" data-topic="E-Check">E-Check-Termin anfragen<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <p class="dev-note">Beispielhafte Werte aus unseren Prüfungen im Bestand. Ihr tatsächlicher Zustand wird beim Ortstermin gemessen.</p>
+    </aside>
   </div>
 </section>
 
 <!-- ======= Projekte ======= -->
-<section id="projekte">
+<section class="sec light" id="projekte">
   <div class="wrap">
-    <p class="eyebrow">Aus der Werkstatt</p>
-    <h2>Projekte, die wir zuletzt umgesetzt haben</h2>
-    <p class="sub">Drei typische Aufträge aus Musterstadt und Umgebung – so sieht unsere Arbeit in der Praxis aus.</p>
-    <div class="projects">
-
-      <article class="project">
-        <div class="thumb">
-          <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="12" height="18" rx="2"/><path d="M9 8v4"/><path d="M7 15h4"/><path d="M15 9h2a2 2 0 0 1 2 2v6a1.5 1.5 0 0 0 3 0v-6"/></svg>
-        </div>
-        <div class="body">
-          <p class="kicker">Mehrfamilienhaus</p>
+    <div class="sec-head">
+      <div data-r>
+        <p class="eyebrow">Aus der Werkstatt</p>
+        <h2 class="h2">Projekte, die wir zuletzt umgesetzt haben</h2>
+        <p class="sub">Drei typische Aufträge aus Musterstadt und Umgebung – so sieht unsere Arbeit in der Praxis aus.</p>
+      </div>
+    </div>
+    <div class="proj-grid">
+      <article class="proj" data-r>
+        <div class="proj-img"><img src="https://images.unsplash.com/photo-1766507679659-30076abc8c95?auto=format&fit=crop&w=1200&h=750&q=75" width="1200" height="750" alt="Ladestation mit zwei Ladekabeln an einer Backsteinwand" loading="lazy"><span class="proj-num">8 Ladepunkte</span></div>
+        <div class="proj-body">
+          <p class="kick">Mehrfamilienhaus</p>
           <h3>8 Ladepunkte mit Lastmanagement</h3>
           <p>Tiefgarage mit begrenztem Hausanschluss: dynamisches Lastmanagement statt teurer Netzverstärkung.</p>
           <div class="facts"><span>22 kW je Ladepunkt</span><span>4 Tage Bauzeit</span><span>Eichrechtskonform</span></div>
         </div>
       </article>
-
-      <article class="project">
-        <div class="thumb">
-          <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15h18l-2-9H5z"/><path d="M12 6v9"/><path d="M4.4 10.5h15.2"/><path d="M9 19h6"/><path d="M12 15v4"/></svg>
-        </div>
-        <div class="body">
-          <p class="kicker">Einfamilienhaus, Baujahr 1974</p>
+      <article class="proj" data-r style="--i:1">
+        <div class="proj-img"><img src="https://images.unsplash.com/photo-1780445392417-68b9dccc45f2?auto=format&fit=crop&w=900&h=506&q=75" width="900" height="506" alt="Wechselrichter und Batteriespeicher an einer Kellerwand" loading="lazy"><span class="proj-num">9,8 kWh<small>Speicher</small></span></div>
+        <div class="proj-body">
+          <p class="kick">Einfamilienhaus, Baujahr 1974</p>
           <h3>PV-Anschluss mit Speicher &amp; Notstrom</h3>
           <p>Neuer Zählerschrank nach TAB, 9,8 kWh Speicher und Notstromumschaltung für Heizung und Kühlschrank.</p>
           <div class="facts"><span>Zählerschrank neu</span><span>Notstrom-fähig</span><span>Anmeldung inklusive</span></div>
         </div>
       </article>
-
-      <article class="project">
-        <div class="thumb">
-          <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5"/><path d="M12 11.5a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
-        </div>
-        <div class="body">
-          <p class="kicker">Arztpraxis, 240 m²</p>
+      <article class="proj" data-r style="--i:2">
+        <div class="proj-img"><img src="https://images.unsplash.com/photo-1648948494089-4c75c418bc2a?auto=format&fit=crop&w=900&h=506&q=75" width="900" height="506" alt="Helle Räume mit blendfreien LED-Deckenleuchten" loading="lazy"><span class="proj-num">−61 %<small>Stromkosten</small></span></div>
+        <div class="proj-body">
+          <p class="kick">Arztpraxis, 240 m²</p>
           <h3>E-Check &amp; Beleuchtung auf LED</h3>
           <p>Prüfung ortsfester Anlagen mit Protokoll für die Versicherung, dazu Umrüstung auf blendfreie LED-Technik.</p>
           <div class="facts"><span>Prüfprotokoll VDE</span><span>−61 % Stromkosten</span><span>Nachts montiert</span></div>
         </div>
       </article>
-
     </div>
   </div>
 </section>
 
 <!-- ======= Bewertungen ======= -->
-<section class="alt">
+<section class="sec white" id="stimmen">
   <div class="wrap">
-    <p class="eyebrow">Kundenstimmen</p>
-    <h2>4,8 von 5 Sternen bei Google</h2>
-    <p class="sub">Was Kundinnen und Kunden aus Musterstadt über die Zusammenarbeit schreiben.</p>
-    <div class="quotes">
-      <article class="quote">
+    <div class="sec-head">
+      <div data-r>
+        <p class="eyebrow">Kundenstimmen</p>
+        <h2 class="h2">4,8 von 5 Sternen bei Google</h2>
+        <p class="sub">Was Kundinnen und Kunden aus Musterstadt über die Zusammenarbeit schreiben.</p>
+      </div>
+      <div class="rating" data-r style="--i:2"><b>4,8</b><div><span class="stars" aria-label="4,8 von 5 Sternen">★★★★★</span><small>Google-Bewertungen</small></div></div>
+    </div>
+    <div class="q-grid">
+      <article class="q" data-r>
         <div class="stars" aria-label="5 von 5 Sternen">★★★★★</div>
-        <p>„Wallbox war innerhalb von zwei Wochen dran – inklusive Anmeldung beim Netzbetreiber, um die ich mich gar nicht kümmern musste. Preis war exakt wie im Angebot."</p>
-        <div class="who"><span class="av">M&nbsp;K</span><div><b>Martin K.</b><span>Wallbox, Musterstadt-Süd</span></div></div>
+        <p>Wallbox war innerhalb von zwei Wochen dran – inklusive Anmeldung beim Netzbetreiber, um die ich mich gar nicht kümmern musste. Preis war exakt wie im Angebot.</p>
+        <div class="who"><span class="av">MK</span><div><b>Martin K.</b><span>Wallbox, Musterstadt-Süd</span></div></div>
       </article>
-      <article class="quote">
+      <article class="q" data-r style="--i:1">
         <div class="stars" aria-label="5 von 5 Sternen">★★★★★</div>
-        <p>„Beim E-Check kam raus, dass unser Altbau seit 40 Jahren ohne FI läuft. Wurde direkt mit erledigt, sauber erklärt und alles schriftlich dokumentiert."</p>
-        <div class="who"><span class="av">S&nbsp;B</span><div><b>Sabine B.</b><span>E-Check &amp; Modernisierung</span></div></div>
+        <p>Beim E-Check kam raus, dass unser Altbau seit 40 Jahren ohne FI läuft. Wurde direkt mit erledigt, sauber erklärt und alles schriftlich dokumentiert.</p>
+        <div class="who"><span class="av">SB</span><div><b>Sabine B.</b><span>E-Check &amp; Modernisierung</span></div></div>
       </article>
-      <article class="quote">
+      <article class="q" data-r style="--i:2">
         <div class="stars" aria-label="5 von 5 Sternen">★★★★★</div>
-        <p>„Smart Home klang für uns erst kompliziert. Nach der Einweisung bedient es sogar meine Mutter. Genau so soll Technik sein."</p>
-        <div class="who"><span class="av">T&nbsp;R</span><div><b>Thomas R.</b><span>KNX-Installation, Neubau</span></div></div>
+        <p>Smart Home klang für uns erst kompliziert. Nach der Einweisung bedient es sogar meine Mutter. Genau so soll Technik sein.</p>
+        <div class="who"><span class="av">TR</span><div><b>Thomas R.</b><span>KNX-Installation, Neubau</span></div></div>
       </article>
     </div>
   </div>
 </section>
 
 <!-- ======= FAQ ======= -->
-<section id="faq">
-  <div class="wrap">
-    <p class="eyebrow">Häufige Fragen</p>
-    <h2>Das werden wir am häufigsten gefragt</h2>
-    <p class="sub">Ist Ihre Frage nicht dabei? Rufen Sie einfach an – wir beraten auch am Telefon ehrlich.</p>
-    <div class="faq">
+<section class="sec light" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-side" data-r>
+      <p class="eyebrow">Häufige Fragen</p>
+      <h2 class="h2">Das werden wir am häufigsten gefragt</h2>
+      <p class="sub">Ist Ihre Frage nicht dabei? Rufen Sie einfach an – wir beraten auch am Telefon ehrlich.</p>
+      <a class="btn btn-ink" href="tel:+490000000000"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>0000 / 000 00 00</a>
+    </div>
+    <div class="acc" data-r style="--i:1">
       <details open>
-        <summary>Was kostet eine Wallbox mit Installation?</summary>
-        <div class="answer">Das hängt vor allem von der Leitungslänge und Ihrem Hausanschluss ab. Für ein Einfamilienhaus mit kurzer Zuleitung liegt die Installation typischerweise im vierstelligen Bereich, bei Tiefgaragen mit Lastmanagement entsprechend höher. Beim kostenlosen Ortstermin messen wir nach und Sie bekommen innerhalb von 48 Stunden einen verbindlichen Festpreis.</div>
+        <summary>Was kostet eine Wallbox mit Installation?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Das hängt vor allem von der Leitungslänge und Ihrem Hausanschluss ab. Für ein Einfamilienhaus mit kurzer Zuleitung liegt die Installation typischerweise im vierstelligen Bereich, bei Tiefgaragen mit Lastmanagement entsprechend höher. Beim kostenlosen Ortstermin messen wir nach und Sie bekommen innerhalb von 48 Stunden einen verbindlichen Festpreis.</p></div>
       </details>
       <details>
-        <summary>Muss ich die Wallbox beim Netzbetreiber anmelden?</summary>
-        <div class="answer">Ja – Ladeeinrichtungen sind anmeldepflichtig, ab 12 kW sogar genehmigungspflichtig. Diesen Papierkram übernehmen wir komplett für Sie, inklusive der Abstimmung mit dem Netzbetreiber.</div>
+        <summary>Muss ich die Wallbox beim Netzbetreiber anmelden?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Ja – Ladeeinrichtungen sind anmeldepflichtig, ab 12 kW sogar genehmigungspflichtig. Diesen Papierkram übernehmen wir komplett für Sie, inklusive der Abstimmung mit dem Netzbetreiber.</p></div>
       </details>
       <details>
-        <summary>Wie lange dauert ein E-Check?</summary>
-        <div class="answer">Für eine durchschnittliche Wohnung rechnen wir mit rund zwei Stunden, für ein Einfamilienhaus mit einem halben Tag. Sie erhalten anschließend ein Prüfprotokoll, das viele Versicherungen im Schadensfall sehen wollen, sowie eine nach Dringlichkeit sortierte Mängelliste.</div>
+        <summary>Wie lange dauert ein E-Check?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Für eine durchschnittliche Wohnung rechnen wir mit rund zwei Stunden, für ein Einfamilienhaus mit einem halben Tag. Sie erhalten anschließend ein Prüfprotokoll, das viele Versicherungen im Schadensfall sehen wollen, sowie eine nach Dringlichkeit sortierte Mängelliste.</p></div>
       </details>
       <details>
-        <summary>Arbeiten Sie auch im Altbau mit alter Leitung?</summary>
-        <div class="answer">Gerade dort. Wir prüfen zuerst, was erhalten werden kann, und modernisieren dann gezielt: FI-Schutzschalter, Zählerschrank und die Stromkreise, die wirklich überlastet sind. So wird es kein Komplettabriss der Elektrik, sondern eine sinnvolle Stufenlösung.</div>
+        <summary>Arbeiten Sie auch im Altbau mit alter Leitung?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Gerade dort. Wir prüfen zuerst, was erhalten werden kann, und modernisieren dann gezielt: FI-Schutzschalter, Zählerschrank und die Stromkreise, die wirklich überlastet sind. So wird es kein Komplettabriss der Elektrik, sondern eine sinnvolle Stufenlösung.</p></div>
       </details>
       <details>
-        <summary>Wie schnell sind Sie bei einer Störung da?</summary>
-        <div class="answer">Bei Stromausfall oder Kurzschluss versuchen wir, noch am selben Tag vorbeizukommen. Rufen Sie an – am Telefon klären wir zuerst, ob Sie mit einem Handgriff selbst weiterkommen. Wenn ja, sagen wir Ihnen das auch.</div>
+        <summary>Wie schnell sind Sie bei einer Störung da?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Bei Stromausfall oder Kurzschluss versuchen wir, noch am selben Tag vorbeizukommen. Rufen Sie an – am Telefon klären wir zuerst, ob Sie mit einem Handgriff selbst weiterkommen. Wenn ja, sagen wir Ihnen das auch.</p></div>
       </details>
       <details>
-        <summary>Gibt es eine Garantie auf Ihre Arbeit?</summary>
-        <div class="answer">Auf unsere Montageleistung gibt es die gesetzliche Gewährleistung, auf verbaute Geräte zusätzlich die Herstellergarantie. Sollte doch etwas sein: ein Anruf genügt, wir kommen zurück.</div>
+        <summary>Gibt es eine Garantie auf Ihre Arbeit?<span class="pm" aria-hidden="true"></span></summary>
+        <div class="ans"><p>Auf unsere Montageleistung gibt es die gesetzliche Gewährleistung, auf verbaute Geräte zusätzlich die Herstellergarantie. Sollte doch etwas sein: ein Anruf genügt, wir kommen zurück.</p></div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ======= CTA ======= -->
-<section class="cta">
-  <div class="wrap">
-    <h2>Projekt besprechen?</h2>
-    <p>Schicken Sie uns ein Foto Ihres Sicherungskastens – wir kalkulieren vorab. Antwort noch am selben Werktag.</p>
-    <div class="cta-actions">
-      <a class="btn btn-outline" href="tel:+490000000000">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        0000 / 000 00 00
-      </a>
-      <a class="btn btn-green" href="#kontakt">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2.05 22l4.94-1.55A9.94 9.94 0 1 0 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.4-.7-2.88-1.14-4.7-4.07-4.85-4.26-.14-.19-1.15-1.53-1.15-2.92s.73-2.07 1-2.36c.24-.28.55-.35.73-.35h.53c.17 0 .4-.06.62.48.24.56.78 1.93.85 2.07.07.14.12.3.02.49-.09.19-.14.3-.28.47l-.43.5c-.14.14-.28.3-.12.58.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.24.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.68-.17 1.35z"/></svg>
-        WhatsApp mit Foto
-      </a>
+<section class="cta" id="cta">
+  <svg class="cta-bolt" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg>
+  <div class="wrap cta-in">
+    <div data-r>
+      <p class="eyebrow">Kostenlos &amp; unverbindlich</p>
+      <h2>Projekt<br>besprechen?</h2>
+      <p>Schicken Sie uns ein Foto Ihres Sicherungskastens – wir kalkulieren vorab. Antwort noch am selben Werktag.</p>
     </div>
-    <div class="note">✓ Kostenlos &amp; unverbindlich &nbsp;·&nbsp; ✓ Antwort am selben Werktag &nbsp;·&nbsp; ✓ Festpreis vor Baubeginn</div>
+    <div class="cta-actions" data-r style="--i:2">
+      <a class="btn btn-ink" href="tel:+490000000000"><span><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>0000 / 000 00 00</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-white" href="#kontakt"><span><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp mit Foto</span><svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="cta-note" data-r style="--i:3">
+      <span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Kostenlos &amp; unverbindlich</span>
+      <span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Antwort am selben Werktag</span>
+      <span><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg>Festpreis vor Baubeginn</span>
+    </div>
   </div>
 </section>
 
 <!-- ======= Kontakt ======= -->
-<section id="kontakt">
+<section class="sec light" id="kontakt">
   <div class="wrap">
-    <p class="eyebrow">Kontakt</p>
-    <h2>So erreichen Sie uns</h2>
-    <p class="sub">Am schnellsten geht es telefonisch. Für Angebote reicht oft schon ein Foto des Zählerschranks per WhatsApp.</p>
-    <div class="contact-grid">
-
-      <div class="card">
-        <div class="avail"><span class="dot"></span>Heute erreichbar – Rückruf am selben Werktag</div>
-        <div class="c-row">
-          <div class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-          <div><b>Telefon</b><a href="tel:+490000000000">0000 / 000 00 00</a><span class="hint">Mo–Fr 7–17 Uhr · Störungen auch außerhalb</span></div>
-        </div>
-        <div class="c-row">
-          <div class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2.05 22l4.94-1.55A9.94 9.94 0 1 0 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.4-.7-2.88-1.14-4.7-4.07-4.85-4.26-.14-.19-1.15-1.53-1.15-2.92s.73-2.07 1-2.36c.24-.28.55-.35.73-.35h.53c.17 0 .4-.06.62.48.24.56.78 1.93.85 2.07.07.14.12.3.02.49-.09.19-.14.3-.28.47l-.43.5c-.14.14-.28.3-.12.58.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.24.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.68-.17 1.35z"/></svg></div>
-          <div><b>WhatsApp</b><a href="#">Nachricht mit Foto senden</a><span class="hint">Foto vom Sicherungskasten genügt für eine erste Einschätzung</span></div>
-        </div>
-        <div class="c-row">
-          <div class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H4z"/><path d="m4 5 8 6 8-6"/></svg></div>
-          <div><b>E-Mail</b><a href="mailto:info@example.de">info@example.de</a><span class="hint">Antwort in der Regel innerhalb eines Werktages</span></div>
-        </div>
-        <div class="c-row">
-          <div class="ci"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><b>Werkstatt</b><span class="val">Beispielweg 8, 00000 Musterstadt</span><span class="hint">Materialabholung nach Absprache</span></div>
+    <div class="sec-head">
+      <div data-r>
+        <p class="eyebrow">Kontakt</p>
+        <h2 class="h2">So erreichen Sie uns</h2>
+        <p class="sub">Am schnellsten geht es telefonisch. Für Angebote reicht oft schon ein Foto des Zählerschranks per WhatsApp.</p>
+      </div>
+    </div>
+    <div class="k-grid">
+      <div class="form-card" id="formCard" data-r>
+        <form id="form" novalidate>
+          <h3>Angebot anfragen</h3>
+          <span class="lbl" id="topicLbl">Worum geht es?</span>
+          <div class="chips" role="radiogroup" aria-labelledby="topicLbl">
+            <label class="chip"><input type="radio" name="topic" value="Wallbox" checked><span>Wallbox</span></label>
+            <label class="chip"><input type="radio" name="topic" value="Photovoltaik"><span>Photovoltaik</span></label>
+            <label class="chip"><input type="radio" name="topic" value="Smart Home"><span>Smart Home</span></label>
+            <label class="chip"><input type="radio" name="topic" value="E-Check"><span>E-Check</span></label>
+            <label class="chip"><input type="radio" name="topic" value="Installation"><span>Installation</span></label>
+            <label class="chip"><input type="radio" name="topic" value="Störung"><span>Störung</span></label>
+          </div>
+          <div class="fields">
+            <div class="f"><label for="fName">Name *</label><input id="fName" name="name" autocomplete="name" required></div>
+            <div class="f"><label for="fTel">Telefon *</label><input id="fTel" name="tel" type="tel" autocomplete="tel" required></div>
+            <div class="f full"><label for="fMail">E-Mail</label><input id="fMail" name="email" type="email" autocomplete="email"></div>
+            <div class="f full"><label for="fMsg">Kurz beschrieben</label><textarea id="fMsg" name="msg" placeholder="z. B. Wallbox für die Garage, Hausanschluss von 1998"></textarea></div>
+          </div>
+          <label class="consent"><input type="checkbox" required>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage verwendet werden. Hinweise in der Datenschutzerklärung.</label>
+          <div class="form-foot">
+            <button class="btn btn-ink" type="submit">Anfrage senden<svg class="ico arr" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <span class="demo-note">Demo-Formular: Es werden keine Daten übertragen.</span>
+          </div>
+        </form>
+        <div class="done" role="status" aria-live="polite">
+          <div class="done-ico"><svg class="ico" aria-hidden="true"><use href="#i-check"/></svg></div>
+          <h3>Danke, Ihre Anfrage ist da.</h3>
+          <p>Wir melden uns am selben Werktag. Wenn Sie mögen, schicken Sie uns schon mal ein Foto Ihres Sicherungskastens per WhatsApp.</p>
+          <p class="demo-note">Demo-Formular: Es wurden keine Daten übertragen.</p>
         </div>
       </div>
 
-      <div class="card">
-        <h3>Öffnungszeiten</h3>
-        <ul class="hours">
-          <li><span>Montag – Donnerstag</span><b>7:00 – 17:00</b></li>
-          <li><span>Freitag</span><b>7:00 – 14:00</b></li>
-          <li><span>Samstag &amp; Sonntag</span><b>geschlossen</b></li>
+      <aside class="info" data-r style="--i:1">
+        <span class="avail" id="avail"><i></i>Heute erreichbar – Rückruf am selben Werktag</span>
+        <div class="c-row"><span class="c-ico"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></span><div><small>Telefon</small><a href="tel:+490000000000">0000 / 000 00 00</a><span class="h">Mo–Fr 7–17 Uhr · Störungen auch außerhalb</span></div></div>
+        <div class="c-row"><span class="c-ico"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg></span><div><small>WhatsApp</small><a href="#kontakt">Nachricht mit Foto senden</a><span class="h">Foto vom Sicherungskasten genügt für eine erste Einschätzung</span></div></div>
+        <div class="c-row"><span class="c-ico"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg></span><div><small>E-Mail</small><a href="mailto:info@example.de">info@example.de</a><span class="h">Antwort in der Regel innerhalb eines Werktages</span></div></div>
+        <div class="c-row"><span class="c-ico"><svg class="ico" aria-hidden="true"><use href="#i-pin"/></svg></span><div><small>Werkstatt</small><span class="v">Beispielweg 8, 00000 Musterstadt</span><span class="h">Materialabholung nach Absprache</span></div></div>
+        <h4>Öffnungszeiten</h4>
+        <ul class="hours" id="hours">
+          <li data-days="1,2,3,4"><span>Montag – Donnerstag</span><b>7:00 – 17:00</b></li>
+          <li data-days="5"><span>Freitag</span><b>7:00 – 14:00</b></li>
+          <li data-days="6,0"><span>Samstag &amp; Sonntag</span><b>geschlossen</b></li>
           <li class="em"><span>Störungsdienst</span><b>nach Vereinbarung</b></li>
         </ul>
-        <h3 style="margin-top:26px;">Einsatzgebiet</h3>
-        <p style="color:var(--ink-2);font-size:.92rem;">Wir arbeiten im Umkreis von rund 40 km um Musterstadt – ohne Anfahrtspauschale innerhalb des Stadtgebiets.</p>
-        <div class="areas">
-          <span>Musterstadt</span><span>Musterdorf</span><span>Beispielheim</span>
-          <span>Neustadt-Süd</span><span>Obermustern</span><span>Kreis Musterland</span>
-        </div>
-      </div>
-
+        <h4>Einsatzgebiet</h4>
+        <p class="area-txt">Wir arbeiten im Umkreis von rund 40 km um Musterstadt – ohne Anfahrtspauschale innerhalb des Stadtgebiets.</p>
+        <div class="areas"><span>Musterstadt</span><span>Musterdorf</span><span>Beispielheim</span><span>Neustadt-Süd</span><span>Obermustern</span><span>Kreis Musterland</span></div>
+      </aside>
     </div>
   </div>
 </section>
+</main>
 
-<!-- ======= Footer ======= -->
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -874,10 +1019,10 @@
       </div>
       <div class="foot-col">
         <b>Leistungen</b>
-        <a href="#leistungen">Wallbox &amp; E-Mobilität</a>
-        <a href="#leistungen">Photovoltaik &amp; Speicher</a>
-        <a href="#leistungen">Smart Home &amp; KNX</a>
-        <a href="#leistungen">E-Check</a>
+        <a href="#leistungen" data-tab="0">Wallbox &amp; E-Mobilität</a>
+        <a href="#leistungen" data-tab="1">Photovoltaik &amp; Speicher</a>
+        <a href="#leistungen" data-tab="2">Smart Home &amp; KNX</a>
+        <a href="#leistungen" data-tab="3">E-Check</a>
       </div>
       <div class="foot-col">
         <b>Unternehmen</b>
@@ -889,307 +1034,351 @@
     </div>
     <div class="foot-legal">
       <div><a href="#">Impressum</a> · <a href="#">Datenschutz</a></div>
-      <div>Demo-Website von <a href="https://lokalsuite.de">LokalSuite</a> – Websites für Handwerksbetriebe</div>
+      <div>Demo-Website von <a href="https://lokalsuite.de">LokalSuite</a> – Websites für lokale Betriebe</div>
     </div>
   </div>
 </footer>
 
-<!-- ======= Mobile Sticky Bar ======= -->
-<div class="mobile-bar">
-  <a class="btn btn-primary" href="tel:+490000000000">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-    Anrufen
-  </a>
-  <a class="btn btn-green" href="#kontakt">
-    <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.4 15.18L2.05 22l4.94-1.55A9.94 9.94 0 1 0 12.04 2zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.35-.52.05-1 .24-3.4-.7-2.88-1.14-4.7-4.07-4.85-4.26-.14-.19-1.15-1.53-1.15-2.92s.73-2.07 1-2.36c.24-.28.55-.35.73-.35h.53c.17 0 .4-.06.62.48.24.56.78 1.93.85 2.07.07.14.12.3.02.49-.09.19-.14.3-.28.47l-.43.5c-.14.14-.28.3-.12.58.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.24.63-.14.26.09 1.64.77 1.92.91.28.14.47.21.54.33.07.12.07.68-.17 1.35z"/></svg>
-    WhatsApp
-  </a>
+<div class="mbar" id="mbar">
+  <a class="btn btn-volt" href="tel:+490000000000"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Anrufen</a>
+  <a class="btn btn-ghost" href="#kontakt"><svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
 </div>
 
 <script>
+(function () {
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var ease = function (t) { return 1 - Math.pow(1 - t, 3); };
+  var fmt = function (v, d) { return v.toFixed(d || 0).replace('.', ','); };
+
+  function countUp(el, to, dec, dur, from) {
+    from = from || 0;
+    if (reduce) { el.textContent = fmt(to, dec); return; }
+    var t0 = performance.now();
+    (function step(now) {
+      var t = Math.min(1, (now - t0) / dur);
+      el.textContent = fmt(from + (to - from) * ease(t), dec);
+      if (t < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+
+  /* ---------- Intro ---------- */
+  var hero = $('.hero');
+  function intro() {
+    document.body.classList.add('is-on');
+    var soc = $('#soc'), bar = $('#socBar');
+    setTimeout(function () {
+      if (bar) bar.style.setProperty('--soc', '72%');
+      if (soc) countUp(soc, 72, 0, 3000, 38);
+    }, reduce ? 0 : 1300);
+    setTimeout(function () { var pv = $('#pv'); if (pv) countUp(pv, 24.6, 1, 2200); }, reduce ? 0 : 1500);
+  }
+  if (document.fonts && document.fonts.ready) {
+    var done = false;
+    var go = function () { if (!done) { done = true; requestAnimationFrame(intro); } };
+    document.fonts.ready.then(go);
+    setTimeout(go, 700);
+  } else { intro(); }
+
+  /* ---------- Header, Fortschritt, Mobile-Leiste ---------- */
+  var hdr = $('#hdr'), prog = $('#progress'), mbar = $('#mbar');
+  var ticking = false;
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.setProperty('--sp', max > 0 ? (y / max).toFixed(4) : 0);
+    hdr.classList.toggle('scrolled', y > 8);
+    if (mbar) mbar.classList.toggle('show', y > 420);
+    flowUpdate();
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', function () { requestAnimationFrame(onScroll); });
+
+  /* ---------- Reveal & Zähler ---------- */
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      el.classList.add('in');
+      $$('[data-count]', el).forEach(function (c) {
+        countUp(c, parseFloat(c.getAttribute('data-count')), parseInt(c.getAttribute('data-dec') || '0', 10), 1700);
+      });
+      if (el.id === 'dev') $$('[data-pct]', el).forEach(function (c) {
+        var to = parseInt(c.getAttribute('data-pct'), 10), t0 = performance.now();
+        if (reduce) return;
+        (function step(now) {
+          var t = Math.min(1, (now - t0) / 1800);
+          c.textContent = Math.round(to * ease(t)) + ' %';
+          if (t < 1) requestAnimationFrame(step);
+        })(t0);
+      });
+      if (el.id === 'board') powerUp();
+      if (el.hasAttribute('data-r')) setTimeout(function () { el.classList.add('rv-done'); }, 1400);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' }) : null;
+  $$('[data-r], #cta').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
+
+  /* ---------- Verteiler / Leistungen ---------- */
+  var tabs = $$('.mcb'), panels = $$('.svc'), board = $('#board');
+  var current = 0, powered = false;
+  function select(i, opts) {
+    opts = opts || {};
+    if (i === current && !opts.force) return;
+    current = i;
+    tabs.forEach(function (t, j) {
+      var on = j === i;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach(function (p, j) {
+      if (j === i) {
+        p.hidden = false;
+        if (!reduce) { p.classList.remove('enter'); void p.offsetWidth; p.classList.add('enter'); }
+      } else { p.hidden = true; p.classList.remove('enter'); }
+    });
+    if (!reduce) { tabs[i].classList.remove('zap'); void tabs[i].offsetWidth; tabs[i].classList.add('zap'); }
+    if (opts.focus) tabs[i].focus();
+    if (opts.reveal) {
+      var r = panels[i].getBoundingClientRect();
+      if (r.top > window.innerHeight - 160) window.scrollBy({ top: r.top - window.innerHeight * 0.35, behavior: reduce ? 'auto' : 'smooth' });
+    }
+  }
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(i, { reveal: window.innerWidth < 860 }); });
+    t.addEventListener('keydown', function (e) {
+      var k = e.key, n = tabs.length, to = null;
+      if (k === 'ArrowRight' || k === 'ArrowDown') to = (i + 1) % n;
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') to = (i - 1 + n) % n;
+      else if (k === 'Home') to = 0;
+      else if (k === 'End') to = n - 1;
+      if (to !== null) { e.preventDefault(); select(to, { focus: true }); }
+    });
+  });
+  function powerUp() {
+    if (powered) return; powered = true;
+    panels.forEach(function (p) { var im = p.querySelector('img'); if (im) { var pre = new Image(); pre.src = im.currentSrc || im.src; } });
+    if (reduce) { board.classList.add('powered'); return; }
+    tabs.forEach(function (t, i) {
+      setTimeout(function () { t.classList.add('up'); }, 250 + i * 95);
+      setTimeout(function () { t.classList.remove('up'); }, 900 + i * 75);
+    });
+    setTimeout(function () { board.classList.add('powered'); }, 250);
+  }
+  if (!io) powerUp();
+  $$('[data-tab]').forEach(function (a) {
+    a.addEventListener('click', function () { select(parseInt(a.getAttribute('data-tab'), 10)); });
+  });
+
+  /* ---------- Ablauf: Stromfluss ---------- */
+  var flow = $('#flow'), steps = $$('.flow-step');
+  function flowUpdate() {
+    if (!flow) return;
+    var r = flow.getBoundingClientRect(), vh = window.innerHeight;
+    var range = Math.max(r.height, 280);
+    var p = reduce ? 1 : Math.max(0, Math.min(1, (vh * 0.78 - r.top) / range));
+    flow.style.setProperty('--p', p.toFixed(4));
+    flow.style.setProperty('--so', p > 0.01 && p < 0.99 ? 1 : 0);
+    steps.forEach(function (s, i) { s.classList.toggle('lit', p >= i / (steps.length - 1) - 0.001 && p > 0.01); });
+  }
+  onScroll();
+
+  /* ---------- Hero: Neigung ---------- */
+  var tilt = $('#tilt');
+  if (tilt && fine && !reduce) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
+    var loop = function () {
+      cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+      tilt.style.setProperty('--rx', cy.toFixed(3) + 'deg');
+      tilt.style.setProperty('--ry', cx.toFixed(3) + 'deg');
+      raf = (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01) ? requestAnimationFrame(loop) : 0;
+    };
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 7;
+      ty = -((e.clientY - r.top) / r.height - 0.5) * 6;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    hero.addEventListener('mouseleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(loop); });
+  }
+
+  /* ---------- FAQ ---------- */
+  $$('.acc details').forEach(function (d) {
+    var s = d.querySelector('summary'), a = d.querySelector('.ans');
+    s.addEventListener('click', function (e) {
+      if (reduce || !a.animate) return;
+      e.preventDefault();
+      var E = 'cubic-bezier(.2,.7,.2,1)';
+      if (d.open) {
+        d.classList.add('closing');
+        var an = a.animate([{ height: a.offsetHeight + 'px' }, { height: '0px' }], { duration: 340, easing: E, fill: 'forwards' });
+        an.onfinish = function () { d.open = false; d.classList.remove('closing'); an.cancel(); };
+      } else {
+        d.open = true;
+        a.animate([{ height: '0px' }, { height: a.offsetHeight + 'px' }], { duration: 420, easing: E });
+      }
+    });
+  });
+
+  /* ---------- Formular ---------- */
+  var form = $('#form'), card = $('#formCard');
+  $$('[data-topic]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var v = a.getAttribute('data-topic');
+      $$('input[name="topic"]').forEach(function (r) { r.checked = r.value === v; });
+    });
+  });
+  if (form) form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    card.classList.add('sent');
+    var r = card.getBoundingClientRect();
+    if (r.top < 80) window.scrollBy({ top: r.top - 100, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  /* ---------- Erreichbarkeit (deutsche Uhrzeit) ---------- */
+  (function () {
+    var el = $('#avail'); if (!el) return;
+    var now = new Date(), wd, h, m;
+    try {
+      var parts = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Berlin', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(now);
+      var get = function (t) { for (var i = 0; i < parts.length; i++) if (parts[i].type === t) return parts[i].value; };
+      wd = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(get('weekday'));
+      h = parseInt(get('hour'), 10); m = parseInt(get('minute'), 10);
+    } catch (err) { wd = now.getDay(); h = now.getHours(); m = now.getMinutes(); }
+    var close = function (d) { return d >= 1 && d <= 4 ? 17 : d === 5 ? 14 : 0; };
+    var mins = h * 60 + m;
+    var open = close(wd) && mins >= 420 && mins < close(wd) * 60;
+    $$('#hours li[data-days]').forEach(function (li) {
+      if (li.getAttribute('data-days').split(',').indexOf(String(wd)) > -1) li.classList.add('today');
+    });
+    if (open) { el.innerHTML = '<i></i>Jetzt erreichbar – Rückruf am selben Werktag'; return; }
+    var names = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+    var when;
+    if (close(wd) && mins < 420) when = 'heute';
+    else {
+      var d = (wd + 1) % 7, k = 1;
+      while (!close(d)) { d = (d + 1) % 7; k++; }
+      when = k === 1 ? 'morgen' : names[d];
+    }
+    el.classList.add('off');
+    el.innerHTML = '<i></i>Gerade geschlossen – Rückruf ' + when + ' ab 7 Uhr';
+  })();
+})();
+
 /* ===========================================================================
    Stromlaufplan – Hero-Hintergrund
-   Vanilla-Port von components/ui/kinetic-grid.tsx, umgesetzt als technische
-   Zeichnung auf Papier: dunkle Rasterlinien auf hellem Grund, die sich zum
-   Mauszeiger ziehen. Jeder Klick schickt einen Impuls durch das Netz und
-   färbt die Leitungen kobaltblau ein. Ohne Zeiger (Touch) laufen in Ruhe
-   automatisch Impulse durch.
+   Rasterlinien, die sich zum Mauszeiger ziehen und dort aufleuchten.
+   Ein Klick schickt einen Impuls durch das Netz; ohne Zeiger laufen
+   in Ruhe automatisch Impulse durch.
    =========================================================================== */
 (function () {
-  var canvas = document.getElementById('gridCanvas');
-  var hero   = document.querySelector('.hero');
+  var canvas = document.getElementById('grid');
+  var hero = document.querySelector('.hero');
   if (!canvas || !hero || !canvas.getContext) return;
-
   var ctx = canvas.getContext('2d');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Konstanten ────────────────────────────────────────────────────────────
-  var CELL_SIZE        = window.innerWidth < 720 ? 42 : 56;
-  var INFLUENCE_RADIUS = 250;
-  var MAX_WARP         = 24;
-  var DOT_SPACING      = 28;
-  var LERP_SPEED       = 0.085;
-  var NODE_BASE_R      = 1.5;
-  var NODE_ACTIVE_R    = 3.2;
+  var CELL = 64, RADIUS = 260, MAX_WARP = 22, LERP = 0.085;
+  var LINE_BASE = { r: 255, g: 255, b: 255, a: 0.045 };
+  var LINE_ACT = { r: 255, g: 210, b: 63, a: 0.85 };
+  var NODE_BASE = { r: 255, g: 255, b: 255, a: 0.10 };
+  var NODE_ACT = { r: 255, g: 222, b: 110, a: 1 };
+  var GLOW = '255,210,63';
 
-  // Helles Theme: Graphit als Ruhezustand, Kobalt als aktive Leitung
-  var LINE_BASE   = { r:  26, g:  31, b:  38, a: 0.11 };
-  var LINE_ACTIVE = { r:  29, g:  78, b: 216, a: 0.95 };
-  var NODE_BASE   = { r:  26, g:  31, b:  38, a: 0.20 };
-  var NODE_ACTIVE = { r:  29, g:  78, b: 216, a: 1.00 };
-  var GLOW_RGB    = '29,78,216';
-  var RIPPLE_RGB  = '29,78,216';
-  var DOT_FILL    = 'rgba(26,31,38,0.10)';
+  var mouse = { x: -9999, y: -9999 }, target = { x: -9999, y: -9999 };
+  var ripples = [], W = 0, H = 0, dpr = 1, raf = 0, running = false, lastPointer = 0;
 
-  // ── State ─────────────────────────────────────────────────────────────────
-  var mouse   = { x: -9999, y: -9999 };
-  var target  = { x: -9999, y: -9999 };
-  var ripples = [];
-  var W = 0, H = 0, dpr = 1;
-  var raf = 0, running = false;
-  var lastPointer = 0;
-
-  function lerpN(a, b, t) { return a + (b - a) * t; }
-
-  function lerpColor(base, active, t) {
-    var r = Math.round(lerpN(base.r, active.r, t));
-    var g = Math.round(lerpN(base.g, active.g, t));
-    var b = Math.round(lerpN(base.b, active.b, t));
-    var a = lerpN(base.a, active.a, t);
-    return 'rgba(' + r + ',' + g + ',' + b + ',' + a.toFixed(3) + ')';
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function col(a, b, t) {
+    return 'rgba(' + Math.round(lerp(a.r, b.r, t)) + ',' + Math.round(lerp(a.g, b.g, t)) + ',' + Math.round(lerp(a.b, b.b, t)) + ',' + lerp(a.a, b.a, t).toFixed(3) + ')';
   }
-
-  // ── Größe ─────────────────────────────────────────────────────────────────
   function setSize() {
-    var rect = hero.getBoundingClientRect();
+    var r = hero.getBoundingClientRect();
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = Math.max(1, Math.round(rect.width));
-    H = Math.max(1, Math.round(rect.height));
-    canvas.width  = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
+    W = Math.max(1, Math.round(r.width)); H = Math.max(1, Math.round(r.height));
+    canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    CELL_SIZE = W < 720 ? 42 : 56;
+    CELL = W < 720 ? 46 : 64;
   }
-
-  // ── Verzerrung eines Gitterpunkts ─────────────────────────────────────────
-  function getWarpedPoint(gx, gy, col, row, cols, rows) {
-    // Randfixierung: äußere Reihen/Spalten bleiben ruhig stehen
-    var edgeMargin = 1.5;
-    var colPin = Math.min(col / edgeMargin, (cols - 1 - col) / edgeMargin, 1);
-    var rowPin = Math.min(row / edgeMargin, (rows - 1 - row) / edgeMargin, 1);
-    var pin = colPin * colPin * rowPin * rowPin;
-
-    var dx = gx - mouse.x;
-    var dy = gy - mouse.y;
-    var dist = Math.sqrt(dx * dx + dy * dy);
-    var proximity = Math.max(0, 1 - dist / INFLUENCE_RADIUS) * pin;
-
-    // Impuls-Verschiebung
+  function warp(gx, gy, c, r, cols, rows) {
+    var m = 1.5;
+    var cp = Math.min(c / m, (cols - 1 - c) / m, 1), rp = Math.min(r / m, (rows - 1 - r) / m, 1);
+    var pin = cp * cp * rp * rp;
+    var dx = gx - mouse.x, dy = gy - mouse.y, dist = Math.sqrt(dx * dx + dy * dy);
+    var prox = Math.max(0, 1 - dist / RADIUS) * pin;
     var rx = 0, ry = 0;
     for (var i = 0; i < ripples.length; i++) {
-      var rp = ripples[i];
-      var rdx = gx - rp.x, rdy = gy - rp.y;
-      var rdist = Math.sqrt(rdx * rdx + rdy * rdy);
-      var waveWidth = 55;
-      var diff = rdist - rp.radius;
-      if (Math.abs(diff) < waveWidth) {
-        var strength = (1 - Math.abs(diff) / waveWidth) * rp.opacity * 18 * pin;
-        var ang = Math.atan2(rdy, rdx);
-        var sign = diff < 0 ? -1 : 1;
-        rx += Math.cos(ang) * strength * sign * -1;
-        ry += Math.sin(ang) * strength * sign * -1;
+      var rp2 = ripples[i], rdx = gx - rp2.x, rdy = gy - rp2.y, rd = Math.sqrt(rdx * rdx + rdy * rdy), diff = rd - rp2.radius;
+      if (Math.abs(diff) < 60) {
+        var st = (1 - Math.abs(diff) / 60) * rp2.opacity * 16 * pin, ang = Math.atan2(rdy, rdx), sg = diff < 0 ? -1 : 1;
+        rx -= Math.cos(ang) * st * sg; ry -= Math.sin(ang) * st * sg;
+        prox = Math.max(prox, (1 - Math.abs(diff) / 60) * rp2.opacity * 0.75 * pin);
       }
     }
-
-    // Sog zum Cursor mit weicher Glockenkurve
-    if (dist < INFLUENCE_RADIUS && dist > 0 && pin > 0) {
-      var t = dist / INFLUENCE_RADIUS;
-      var eased = t < 0.01 ? 0 : (1 - t) * (1 - t) * Math.min(1, dist / 60);
-      var warp = eased * MAX_WARP * pin;
-      var a = Math.atan2(dy, dx);
-      return {
-        x: gx - Math.cos(a) * warp + rx,
-        y: gy - Math.sin(a) * warp + ry,
-        p: proximity
-      };
+    if (dist < RADIUS && dist > 0 && pin > 0) {
+      var t = dist / RADIUS, e = t < 0.01 ? 0 : (1 - t) * (1 - t) * Math.min(1, dist / 60), w = e * MAX_WARP * pin, a = Math.atan2(dy, dx);
+      return { x: gx - Math.cos(a) * w + rx, y: gy - Math.sin(a) * w + ry, p: prox };
     }
-    return { x: gx + rx, y: gy + ry, p: proximity };
+    return { x: gx + rx, y: gy + ry, p: prox };
   }
-
-  // ── Zeichnen ──────────────────────────────────────────────────────────────
   function draw(now) {
     ctx.clearRect(0, 0, W, H);
-
-    // Punkt-Textur im Hintergrund (Lochrasterplatine)
-    ctx.fillStyle = DOT_FILL;
-    for (var dx = DOT_SPACING / 2; dx < W; dx += DOT_SPACING) {
-      for (var dy = DOT_SPACING / 2; dy < H; dy += DOT_SPACING) {
-        ctx.beginPath();
-        ctx.arc(dx, dy, 0.7, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    // Impulse altern lassen
     for (var i = ripples.length - 1; i >= 0; i--) {
       var age = (now - ripples[i].born) / 1000;
-      ripples[i].radius  = Math.max(0, age * 380);
-      ripples[i].opacity = Math.max(0, 1 - age * 1.2);
+      ripples[i].radius = Math.max(0, age * 420);
+      ripples[i].opacity = Math.max(0, 1 - age * 0.9);
       if (ripples[i].opacity <= 0) ripples.splice(i, 1);
     }
-
-    // Gitter aufbauen
-    var cols  = Math.max(2, Math.ceil(W / CELL_SIZE)) + 1;
-    var rows  = Math.max(2, Math.ceil(H / CELL_SIZE)) + 1;
-    var cellW = W / (cols - 1);
-    var cellH = H / (rows - 1);
-
-    var pts = [];
-    for (var row = 0; row < rows; row++) {
-      pts[row] = [];
-      for (var col = 0; col < cols; col++) {
-        pts[row][col] = getWarpedPoint(col * cellW, row * cellH, col, row, cols, rows);
-      }
-    }
-
-    // Leitungen
-    ctx.lineCap = 'butt';
+    var cols = Math.max(2, Math.ceil(W / CELL)) + 1, rows = Math.max(2, Math.ceil(H / CELL)) + 1;
+    var cw = W / (cols - 1), ch = H / (rows - 1), pts = [];
+    for (var r = 0; r < rows; r++) { pts[r] = []; for (var c = 0; c < cols; c++) pts[r][c] = warp(c * cw, r * ch, c, r, cols, rows); }
     function seg(p1, p2) {
-      var avg = (p1.p + p2.p) / 2;
-      var t = avg * avg * (3 - 2 * avg); // smoothstep
-      ctx.beginPath();
-      ctx.moveTo(p1.x, p1.y);
-      ctx.lineTo(p2.x, p2.y);
-      ctx.strokeStyle = lerpColor(LINE_BASE, LINE_ACTIVE, t);
-      ctx.lineWidth = lerpN(0.75, 1.5, t);
-      ctx.stroke();
+      var avg = (p1.p + p2.p) / 2, t = avg * avg * (3 - 2 * avg);
+      ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y);
+      ctx.strokeStyle = col(LINE_BASE, LINE_ACT, t); ctx.lineWidth = lerp(0.8, 1.6, t); ctx.stroke();
     }
-    for (var r1 = 0; r1 < rows; r1++)
-      for (var c1 = 0; c1 < cols - 1; c1++) seg(pts[r1][c1], pts[r1][c1 + 1]);
-    for (var c2 = 0; c2 < cols; c2++)
-      for (var r2 = 0; r2 < rows - 1; r2++) seg(pts[r2][c2], pts[r2 + 1][c2]);
-
-    // Knotenpunkte (Klemmstellen)
-    for (var r3 = 0; r3 < rows; r3++) {
-      for (var c3 = 0; c3 < cols; c3++) {
-        var p = pts[r3][c3];
-        var t2 = p.p * p.p * (3 - 2 * p.p);
-        var rad = lerpN(NODE_BASE_R, NODE_ACTIVE_R, t2);
-
-        if (t2 > 0.3) {
-          var glowR = rad + lerpN(0, 8, (t2 - 0.3) / 0.7);
-          var grd = ctx.createRadialGradient(p.x, p.y, rad * 0.5, p.x, p.y, glowR);
-          grd.addColorStop(0, 'rgba(' + GLOW_RGB + ',' + (t2 * 0.28).toFixed(3) + ')');
-          grd.addColorStop(1, 'rgba(' + GLOW_RGB + ',0)');
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, glowR, 0, Math.PI * 2);
-          ctx.fillStyle = grd;
-          ctx.fill();
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, rad, 0, Math.PI * 2);
-        ctx.fillStyle = lerpColor(NODE_BASE, NODE_ACTIVE, t2);
-        ctx.fill();
+    for (var r1 = 0; r1 < rows; r1++) for (var c1 = 0; c1 < cols - 1; c1++) seg(pts[r1][c1], pts[r1][c1 + 1]);
+    for (var c2 = 0; c2 < cols; c2++) for (var r2 = 0; r2 < rows - 1; r2++) seg(pts[r2][c2], pts[r2 + 1][c2]);
+    for (var r3 = 0; r3 < rows; r3++) for (var c3 = 0; c3 < cols; c3++) {
+      var p = pts[r3][c3], t2 = p.p * p.p * (3 - 2 * p.p), rad = lerp(1.3, 3.2, t2);
+      if (t2 > 0.3) {
+        var gr = rad + lerp(0, 10, (t2 - 0.3) / 0.7), g = ctx.createRadialGradient(p.x, p.y, rad * 0.5, p.x, p.y, gr);
+        g.addColorStop(0, 'rgba(' + GLOW + ',' + (t2 * 0.35).toFixed(3) + ')'); g.addColorStop(1, 'rgba(' + GLOW + ',0)');
+        ctx.beginPath(); ctx.arc(p.x, p.y, gr, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
       }
-    }
-
-    // Impuls-Ringe
-    for (var k = 0; k < ripples.length; k++) {
-      ctx.beginPath();
-      ctx.arc(ripples[k].x, ripples[k].y, Math.max(0, ripples[k].radius), 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(' + RIPPLE_RGB + ',' + (ripples[k].opacity * 0.26).toFixed(3) + ')';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      ctx.beginPath(); ctx.arc(p.x, p.y, rad, 0, Math.PI * 2); ctx.fillStyle = col(NODE_BASE, NODE_ACT, t2); ctx.fill();
     }
   }
-
-  // ── Loop ──────────────────────────────────────────────────────────────────
   function animate(now) {
-    mouse.x = lerpN(mouse.x, target.x, LERP_SPEED);
-    mouse.y = lerpN(mouse.y, target.y, LERP_SPEED);
-
-    // Ohne Zeigerbewegung: von selbst Impulse schicken
+    mouse.x = lerp(mouse.x, target.x, LERP); mouse.y = lerp(mouse.y, target.y, LERP);
     if (now - lastPointer > 2600 && ripples.length === 0) {
-      addRipple(W * (0.15 + Math.random() * 0.7), H * (0.2 + Math.random() * 0.6));
-      lastPointer = now - 1200;
+      addRipple(W * (0.1 + Math.random() * 0.5), H * (0.2 + Math.random() * 0.6));
+      lastPointer = now - 1000;
     }
-
-    draw(now);
-    raf = requestAnimationFrame(animate);
+    draw(now); raf = requestAnimationFrame(animate);
   }
-
-  function start() {
-    if (running) return;
-    running = true;
-    raf = requestAnimationFrame(animate);
-  }
-  function stop() {
-    if (!running) return;
-    running = false;
-    cancelAnimationFrame(raf);
-  }
-
-  function addRipple(x, y) {
-    if (ripples.length > 6) return;
-    ripples.push({ x: x, y: y, radius: 0, opacity: 1, born: performance.now() });
-  }
-
-  // ── Events ────────────────────────────────────────────────────────────────
-  function toLocal(e) {
-    var rect = hero.getBoundingClientRect();
-    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  }
-
-  hero.addEventListener('mousemove', function (e) {
-    var p = toLocal(e);
-    target.x = p.x; target.y = p.y;
-    lastPointer = performance.now();
-  });
-  hero.addEventListener('mouseleave', function () {
-    target.x = -9999; target.y = -9999;
-  });
-  hero.addEventListener('click', function (e) {
-    var p = toLocal(e);
-    addRipple(p.x, p.y);
-    lastPointer = performance.now();
-  });
-  hero.addEventListener('touchstart', function (e) {
-    if (!e.touches || !e.touches.length) return;
-    var rect = hero.getBoundingClientRect();
-    addRipple(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
-  }, { passive: true });
-
-  var resizeTimer;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      setSize();
-      draw(performance.now());
-    }, 150);
-  });
-
-  // Nur rendern, solange der Hero sichtbar ist
+  function start() { if (!running) { running = true; raf = requestAnimationFrame(animate); } }
+  function stop() { if (running) { running = false; cancelAnimationFrame(raf); } }
+  function addRipple(x, y) { if (ripples.length < 5) ripples.push({ x: x, y: y, radius: 0, opacity: 1, born: performance.now() }); }
+  function local(e) { var r = hero.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  hero.addEventListener('mousemove', function (e) { var p = local(e); target.x = p.x; target.y = p.y; lastPointer = performance.now(); });
+  hero.addEventListener('mouseleave', function () { target.x = -9999; target.y = -9999; });
+  hero.addEventListener('click', function (e) { if (e.target.closest('a,button')) return; var p = local(e); addRipple(p.x, p.y); lastPointer = performance.now(); });
+  hero.addEventListener('touchstart', function (e) { if (!e.touches || !e.touches.length) return; var p = local(e.touches[0]); addRipple(p.x, p.y); }, { passive: true });
+  var rt;
+  window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { setSize(); draw(performance.now()); }, 150); });
   if ('IntersectionObserver' in window && !reduceMotion) {
-    new IntersectionObserver(function (entries) {
-      entries[0].isIntersecting ? start() : stop();
-    }, { threshold: 0 }).observe(hero);
+    new IntersectionObserver(function (en) { en[0].isIntersecting ? start() : stop(); }, { threshold: 0 }).observe(hero);
   }
-
-  // ── Init ──────────────────────────────────────────────────────────────────
-  setSize();
-  draw(performance.now());        // erster Frame sofort, ohne auf rAF zu warten
-  canvas.classList.add('ready');
-
-  if (!reduceMotion) start();     // sonst bleibt das Netz statisch stehen
-
-  // Schriftarten/Bilder können die Hero-Höhe noch verändern
-  window.addEventListener('load', function () {
-    setSize();
-    draw(performance.now());
-  });
+  setSize(); draw(performance.now()); canvas.classList.add('ready');
+  if (!reduceMotion) start();
+  window.addEventListener('load', function () { setSize(); draw(performance.now()); });
 })();
 </script>
-
 </body>
 </html>
